@@ -4,6 +4,9 @@ A backup script for our Minecraft server, sponsored by sheep
 <sub>It's sponsored by sheep because it's called **baa**ckup :wink:</sub>
 
 
+<img src="http://orig10.deviantart.net/8887/f/2013/346/f/1/disco_sheep_by_lockrikard-d6xo4oa.gif" alt="Disco Sheep" />
+
+
 ##How 2 use lè baackup script
 
 1. Either clone the repo to your client, download the zip, or donwload the latest release if stability is your thing
