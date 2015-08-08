@@ -28,9 +28,9 @@ namespace Baackup
         {
             while (true)
             {
-                char key = Console.ReadKey(true).ToString()[0];
+                char key = Console.ReadKey(true).KeyChar;
                 if (yn)
-                    if (key == 'y' || key == 'n')
+                    if (key == 'y' | key == 'n')
                         return key;
                     else
                     { }
@@ -45,6 +45,11 @@ namespace Baackup
                 return true;
             else
                 return false;
+        }
+
+        public static void test()
+        {
+            ConsoleTools.Print(new Program().usercon.ToString());
         }
 
     }
