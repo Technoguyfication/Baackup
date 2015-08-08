@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Baackup
 {
-    internal class Input
+    class Input
     {
+
         public static string GetInput(string none = "")
         {
             while (true)
@@ -41,5 +46,6 @@ namespace Baackup
             else
                 return false;
         }
+
     }
 }

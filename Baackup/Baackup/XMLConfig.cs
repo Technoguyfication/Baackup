@@ -1,17 +1,67 @@
 ﻿using System;
-using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
+using System.IO;
 
 namespace Baackup
 {
-    internal class XMLConfig
+    class XMLConfig
     {
-        public static bool ConfigExists()
+
+        public static void LoadConfig()
         {
-            if (File.Exists(new Program().configfile))
-                return true;
-            else
-                return false;
+            try // If anything goes wrong, this should keep it from braeking the whole program
+            {
+                using (XmlReader reader = XmlReader.Create(new Program().configfile))
+                {
+                    reader.ReadToFollowing("Config"); // Here we specify the config.. not that there's anything else right now
+                    reader.MoveToFirstAttribute();
+                    new Program().usercon = Boolean.Parse(reader.Value); // Use rcon?
+                    reader.MoveToNextAttribute();
+                    new Program().rconpass = reader.Value; // Rcon password
+                    reader.MoveToNextAttribute();
+                    new Program().rconhostname = reader.Value; // Rcon hostname
+                    reader.MoveToNextAttribute();
+                    new Program().rconport = int.Parse(reader.Value); // Rcon port
+                    reader.MoveToNextAttribute();
+                    new Program().worldscontaineractive = Boolean.Parse(reader.Value); // Use worlds container?
+                    reader.MoveToNextAttribute();
+                    new Program().worldscontainerpath = reader.Value; // Path to worlds container
+                    reader.MoveToNextAttribute();
+                    new Program().backupmsgactive = Boolean.Parse(reader.Value); // Use backup server broadcast?
+                    reader.MoveToNextAttribute();
+                    new Program().backupmsg = reader.Value; // Backup server broadcast message?
+                    reader.MoveToNextAttribute();
+                    new Program().backupplugins = Boolean.Parse(reader.Value);  // Backup plugins? (Spigot and Bukkit only)
+                    reader.MoveToNextAttribute();
+                    new Program().backuplogs = Boolean.Parse(reader.Value); // Backup server logs?
+                    reader.MoveToNextAttribute();
+                    new Program().backupcontainer = reader.Value; // Where to save the backups?
+                    reader.MoveToNextAttribute();
+                    new Program().usecustomtmpdir = Boolean.Parse(reader.Value); // Do we use a custom tmp dir? (Default is {Backups save path}\tmp
+                    reader.MoveToNextAttribute();
+                    new Program().customtmpdir = reader.Value; // If the above is enabled, where is this dir you want?
+                    reader.MoveToNextAttribute();
+                    new Program().backupscustomidprefix = reader.Value; // Do you want to prefix your backups?
+                    reader.MoveToNextAttribute();
+                    new Program().compressbackups = Boolean.Parse(reader.Value); // Do you want to compress your backups?
+                    reader.MoveToNextAttribute();
+                    new Program().platform = reader.Value; // Platform? (Spigot/CraftBukkit/Vanilla)
+                }
+            }
+            catch (Exception e)
+            {
+                // If something goes wrong, maybe this will help.
+                ConsoleTools.Print("Error:\n" + e.Message + Environment.NewLine + new Program().configfile);
+                ConsoleTools.Pause("Press any key to terminate");
+                if (e.Message.ToLower().StartsWith("could not find file"))
+                    ConsoleTools.Exit(2);
+                else
+                    ConsoleTools.Exit(1);
+            }
         }
 
         public static void CreateConfig() // This is the part where we write the config values to a file. I don't want to comment this shit.
@@ -76,57 +126,12 @@ namespace Baackup
             }
         }
 
-        public static void LoadConfig()
+        public static bool ConfigExists()
         {
-            try // If anything goes wrong, this should keep it from braeking the whole program
-            {
-                using (XmlReader reader = XmlReader.Create(new Program().configfile))
-                {
-                    reader.ReadToFollowing("Config"); // Here we specify the config.. not that there's anything else right now
-                    reader.MoveToFirstAttribute();
-                    new Program().usercon = Boolean.Parse(reader.Value); // Use rcon?
-                    reader.MoveToNextAttribute();
-                    new Program().rconpass = reader.Value; // Rcon password
-                    reader.MoveToNextAttribute();
-                    new Program().rconhostname = reader.Value; // Rcon hostname
-                    reader.MoveToNextAttribute();
-                    new Program().rconport = int.Parse(reader.Value); // Rcon port
-                    reader.MoveToNextAttribute();
-                    new Program().worldscontaineractive = Boolean.Parse(reader.Value); // Use worlds container?
-                    reader.MoveToNextAttribute();
-                    new Program().worldscontainerpath = reader.Value; // Path to worlds container
-                    reader.MoveToNextAttribute();
-                    new Program().backupmsgactive = Boolean.Parse(reader.Value); // Use backup server broadcast?
-                    reader.MoveToNextAttribute();
-                    new Program().backupmsg = reader.Value; // Backup server broadcast message?
-                    reader.MoveToNextAttribute();
-                    new Program().backupplugins = Boolean.Parse(reader.Value);  // Backup plugins? (Spigot and Bukkit only)
-                    reader.MoveToNextAttribute();
-                    new Program().backuplogs = Boolean.Parse(reader.Value); // Backup server logs?
-                    reader.MoveToNextAttribute();
-                    new Program().backupcontainer = reader.Value; // Where to save the backups?
-                    reader.MoveToNextAttribute();
-                    new Program().usecustomtmpdir = Boolean.Parse(reader.Value); // Do we use a custom tmp dir? (Default is {Backups save path}\tmp
-                    reader.MoveToNextAttribute();
-                    new Program().customtmpdir = reader.Value; // If the above is enabled, where is this dir you want?
-                    reader.MoveToNextAttribute();
-                    new Program().backupscustomidprefix = reader.Value; // Do you want to prefix your backups?
-                    reader.MoveToNextAttribute();
-                    new Program().compressbackups = Boolean.Parse(reader.Value); // Do you want to compress your backups?
-                    reader.MoveToNextAttribute();
-                    new Program().platform = reader.Value; // Platform? (Spigot/CraftBukkit/Vanilla)
-                }
-            }
-            catch (Exception e)
-            {
-                // If something goes wrong, maybe this will help.
-                ConsoleTools.Print("Error:\n" + e.Message + Environment.NewLine + new Program().configfile);
-                ConsoleTools.Pause("Press any key to terminate");
-                if (e.Message.ToLower().StartsWith("could not find file"))
-                    ConsoleTools.Exit(2);
-                else
-                    ConsoleTools.Exit(1);
-            }
+            if (File.Exists(new Program().configfile))
+                return true;
+            else
+                return false;
         }
     }
 }
