@@ -12,51 +12,50 @@ namespace Baackup
     {
         public static void LoadConfig()
         {
-            Program Base = new Program();
 
-            try // If anything goes wrong, this should keep it from braeking the whole program
+            try // If anything goes wrong, this should keep it from breaking the whole program
             {
-                using (XmlReader reader = XmlReader.Create(Base.configfile))
+                using (XmlReader reader = XmlReader.Create(Program.configfile))
                 {
                     reader.ReadToFollowing("Config"); // Here we specify the config.. not that there's anything else right now
                     reader.MoveToFirstAttribute();
-                    Base.usercon = Boolean.Parse(reader.Value); // Use rcon?
+                    Program.usercon = Boolean.Parse(reader.Value.ToLower()); // Use rcon?
                     reader.MoveToNextAttribute();
-                    Base.rconpass = reader.Value; // Rcon password
+                    Program.rconpass = reader.Value; // Rcon password
                     reader.MoveToNextAttribute();
-                    Base.rconhostname = reader.Value; // Rcon hostname
+                    Program.rconhostname = reader.Value; // Rcon hostname
                     reader.MoveToNextAttribute();
-                    Base.rconport = int.Parse(reader.Value); // Rcon port
+                    Program.rconport = int.Parse(reader.Value); // Rcon port
                     reader.MoveToNextAttribute();
-                    Base.worldscontaineractive = Boolean.Parse(reader.Value); // Use worlds container?
+                    Program.worldscontaineractive = Boolean.Parse(reader.Value.ToLower()); // Use worlds container?
                     reader.MoveToNextAttribute();
-                    Base.worldscontainerpath = reader.Value; // Path to worlds container
+                    Program.worldscontainerpath = reader.Value; // Path to worlds container
                     reader.MoveToNextAttribute();
-                    Base.backupmsgactive = Boolean.Parse(reader.Value); // Use backup server broadcast?
+                    Program.backupmsgactive = Boolean.Parse(reader.Value.ToLower()); // Use backup server broadcast?
                     reader.MoveToNextAttribute();
-                    Base.backupmsg = reader.Value; // Backup server broadcast message?
+                    Program.backupmsg = reader.Value; // Backup server broadcast message?
                     reader.MoveToNextAttribute();
-                    Base.backupplugins = Boolean.Parse(reader.Value);  // Backup plugins? (Spigot and Bukkit only)
+                    Program.backupplugins = Boolean.Parse(reader.Value.ToLower());  // Backup plugins? (Spigot and Bukkit only)
                     reader.MoveToNextAttribute();
-                    Base.backuplogs = Boolean.Parse(reader.Value); // Backup server logs?
+                    Program.backuplogs = Boolean.Parse(reader.Value.ToLower()); // Backup server logs?
                     reader.MoveToNextAttribute();
-                    Base.backupcontainer = reader.Value; // Where to save the backups?
+                    Program.backupcontainer = reader.Value; // Where to save the backups?
                     reader.MoveToNextAttribute();
-                    Base.usecustomtmpdir = Boolean.Parse(reader.Value); // Do we use a custom tmp dir? (Default is {Backups save path}\tmp
+                    Program.usecustomtmpdir = Boolean.Parse(reader.Value.ToLower()); // Do we use a custom tmp dir? (Default is {Backups save path}\tmp
                     reader.MoveToNextAttribute();
-                    Base.customtmpdir = reader.Value; // If the above is enabled, where is this dir you want?
+                    Program.customtmpdir = reader.Value; // If the above is enabled, where is this dir you want?
                     reader.MoveToNextAttribute();
-                    Base.backupscustomidprefix = reader.Value; // Do you want to prefix your backups?
+                    Program.backupscustomidprefix = reader.Value; // Do you want to prefix your backups?
                     reader.MoveToNextAttribute();
-                    Base.compressbackups = Boolean.Parse(reader.Value); // Do you want to compress your backups?
+                    Program.compressbackups = Boolean.Parse(reader.Value.ToLower()); // Do you want to compress your backups?
                     reader.MoveToNextAttribute();
-                    Base.platform = reader.Value; // Platform? (Spigot/CraftBukkit/Vanilla)
+                    Program.platform = reader.Value; // Platform? (Spigot/CraftBukkit/Vanilla)
                 }
             }
             catch (Exception e)
             {
                 // If something goes wrong, maybe this will help.
-                ConsoleTools.Print("Error:\n" + e.Message + Environment.NewLine + Base.configfile);
+                ConsoleTools.Print("Error:\n" + e.Message + Environment.NewLine + Program.configfile);
                 ConsoleTools.Pause("Press any key to terminate");
                 if (e.Message.ToLower().StartsWith("could not find file"))
                     ConsoleTools.Exit(2);
@@ -67,31 +66,36 @@ namespace Baackup
 
         public static void CreateConfig() // This is the part where we write the config values to a file. I don't want to comment this shit.
         {
-            Program Base = new Program();
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
 
             try
             {
-                XmlWriter writer = XmlWriter.Create(Base.configfile, settings);
+                XmlWriter writer = XmlWriter.Create(Program.configfile, settings);
                 writer.WriteStartDocument();
                 writer.WriteComment("This is the config file for Baackup, NEVER share or upload this file anywhere on the internet as it could contain your server's RCON password and info in it. However, feel free to edit this file to your liking.");
                 writer.WriteStartElement("Config");
-                writer.WriteAttributeString("usercon", Base.usercon.ToString());
-                writer.WriteAttributeString("rconpass", Base.rconpass);
-                writer.WriteAttributeString("rconhostname", Base.rconhostname);
-                writer.WriteAttributeString("rconport", Base.rconport.ToString());
-                writer.WriteAttributeString("worldscontaineractive", Base.worldscontaineractive.ToString());
-                writer.WriteAttributeString("worldscontainerpath", Base.worldscontainerpath);
-                writer.WriteAttributeString("backupmsgactive", Base.backupmsgactive.ToString());
-                writer.WriteAttributeString("backupmsg", Base.backupmsg);
-                writer.WriteAttributeString("backupplugins", Base.backupplugins.ToString());
-                writer.WriteAttributeString("backuplogs", Base.backuplogs.ToString());
-                writer.WriteAttributeString("backupcontainer", Base.backupcontainer);
-                writer.WriteAttributeString("usecustomtmpdir", Base.usecustomtmpdir.ToString());
-                writer.WriteAttributeString("backupscustomidprefix", Base.backupscustomidprefix);
-                writer.WriteAttributeString("compressbackups", Base.compressbackups.ToString());
-                writer.WriteAttributeString("platform", Base.platform);
+                writer.WriteAttributeString("usercon", Program.usercon.ToString());
+                writer.WriteAttributeString("rconpass", Program.rconpass);
+                writer.WriteAttributeString("rconhostname", Program.rconhostname);
+                writer.WriteAttributeString("rconport", Program.rconport.ToString());
+                writer.WriteAttributeString("worldscontaineractive", Program.worldscontaineractive.ToString());
+                writer.WriteAttributeString("worldscontainerpath", Program.worldscontainerpath);
+                writer.WriteAttributeString("backupmsgactive", Program.backupmsgactive.ToString());
+                writer.WriteAttributeString("backupmsg", Program.backupmsg);
+                writer.WriteAttributeString("backupplugins", Program.backupplugins.ToString());
+                writer.WriteAttributeString("backuplogs", Program.backuplogs.ToString());
+                writer.WriteAttributeString("backupcontainer", Program.backupcontainer);
+                writer.WriteAttributeString("usecustomtmpdir", Program.usecustomtmpdir.ToString());
+                writer.WriteAttributeString("customtmpdir", Program.customtmpdir);
+                writer.WriteAttributeString("backupscustomidprefix", Program.backupscustomidprefix);
+                writer.WriteAttributeString("compressbackups", Program.compressbackups.ToString());
+                writer.WriteAttributeString("platform", Program.platform);
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
+
+                writer.Flush();
+                writer.Close();
             }
             catch (Exception e)
             {
@@ -103,36 +107,137 @@ namespace Baackup
 
         public static void GenerateConfig()
         {
-            Program Base = new Program();
             ConsoleTools.Clear();
-            ConsoleTools.Print("Would you like to use RCON integration with your server?");
-            Base.usercon = Input.GetKeyTF();
+            ConsoleTools.Print("Would you like to use RCON integration with your server? (Y/N)");
+            Program.usercon = Input.GetKeyTF();
             ConsoleTools.Clear();
-            if (!(Base.usercon))
+            if (!(Program.usercon))
             {
-                Base.rconpass = null;
-                Base.rconhostname = null;
-                Base.rconport = 0;
+                Program.rconpass = null;
+                Program.rconhostname = null;
+                Program.rconport = 0;
             }
             else
             {
+                // Rcon settings
                 ConsoleTools.Print("Please enter your server's RCON Password.");
-                Base.rconpass = Input.GetInput();
+                Program.rconpass = Input.GetInput();
                 ConsoleTools.Clear();
 
                 ConsoleTools.Print("Please enter your server's hostname. (127.0.0.1 for local).");
-                Base.rconhostname = Input.GetInput("127.0.0.1");
+                Program.rconhostname = Input.GetInput("127.0.0.1");
                 ConsoleTools.Clear();
 
                 ConsoleTools.Print("Please enter your server's RCON port. (Default: 25565)");
-                Base.rconport = int.Parse(Input.GetInput("25565"));
+                Program.rconport = Input.GetNum(25565);
+                ConsoleTools.Clear();
             }
+            ConsoleTools.Print("Do you use a Worlds Container on your server? (Y/N)");
+            Program.worldscontaineractive = Input.GetKeyTF();
+            ConsoleTools.Clear();
+
+            if (Program.worldscontaineractive)
+            {
+                ConsoleTools.Print("From the root of your server, what is the path to your worlds container?");
+                Program.worldscontainerpath = Input.GetInput();
+                ConsoleTools.Clear();
+            }
+            else
+            {
+                Program.worldscontainerpath = "";
+            }
+
+            if (Program.usercon)
+            {
+                ConsoleTools.Print("Do you want to broadcast a message when your server starts a backup? (Y/N)");
+                Program.backupmsgactive = Input.GetKeyTF();
+                ConsoleTools.Clear();
+
+                if (Program.backupmsgactive)
+                {
+                    ConsoleTools.Print("What message / command do you want to run when a backup is started?\nDefault: \"say The server is beginning a backup! There may be some slight lag...\"");
+                    Program.backupmsg = Input.GetInput("say The server is beginning a backup! There may be some slight lag...");
+                    ConsoleTools.Clear();
+                }
+                else
+                {
+                    Program.backupmsg = null;
+                }
+            }
+            else
+            {
+                Program.backupmsgactive = false;
+                Program.backupmsg = null;
+            }
+
+            ConsoleTools.Print("Would you like to backup server logs? (Y/N)");
+            Program.backuplogs = Input.GetKeyTF();
+            ConsoleTools.Clear();
+
+            ConsoleTools.Print("What is the platform of your server?\n(C for CraftBukkit, S for Spigot, V for Vanilla)");
+            while (true)
+            {
+                char platform;
+
+                platform = Input.GetKey();
+
+                if (platform == 'c')
+                    Program.platform = "craftbukkit";
+                else if (platform == 's')
+                    Program.platform = "spigot";
+                else if (platform == 'v')
+                    Program.platform = "vanilla";
+
+                if (!(Program.platform == null))
+                    break;
+            }
+            ConsoleTools.Clear();
+
+            if (Program.platform == "spigot" || Program.platform == "craftbukkit")
+            {
+                ConsoleTools.Print("Would you like to back up your plugins folder? (Y/N)");
+                Program.backupplugins = Input.GetKeyTF();
+                ConsoleTools.Clear();
+            }
+            else
+            {
+                Program.backupplugins = false;
+            }
+
+            ConsoleTools.Print("Where do you want to save your backups?\n(C:\\Backups)");
+            Program.backupcontainer = Input.GetInput();
+            ConsoleTools.Clear();
+
+            ConsoleTools.Print("Would you like to use a custom tmp directory? (Y/N)\nDefault: {Backup Save Path}\\Tmp");
+            Program.usecustomtmpdir = Input.GetKeyTF();
+            ConsoleTools.Clear();
+
+            if (Program.usecustomtmpdir)
+            {
+                ConsoleTools.Print("What folder would you like to use as a temporary directory?");
+                Program.customtmpdir = Input.GetInput();
+                ConsoleTools.Clear();
+            }
+            else
+            {
+                Program.customtmpdir = Program.backupcontainer + "\\tmp";
+            }
+
+            ConsoleTools.Print("What would you like to prefix your backup archives with?\nDefault: mcserverbackup");
+            Program.backupscustomidprefix = Input.GetInput("mcserverbackup");
+            ConsoleTools.Clear();
+
+            ConsoleTools.Print("Would you like to compress all your backups with 7-Zip compression? (Y/N)");
+            Program.compressbackups = Input.GetKeyTF();
+            ConsoleTools.Clear();
+
+            // Done with setup, save now
+            CreateConfig();
         }
 
         public static bool ConfigExists()
         {
-            Program Base = new Program();
-            if (File.Exists(Base.configfile))
+            if (File.Exists(Program.configfile))
                 return true;
             else
                 return false;

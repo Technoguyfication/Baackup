@@ -7,3 +7,6 @@ E:\GitHub\Baackup\Baackup\Baackup\obj\Debug\Baackup.pdb
 C:\Users\Hayden\Documents\GitHub\Baackup\Baackup\Baackup\bin\Debug\Baackup.exe.config
 C:\Users\Hayden\Documents\GitHub\Baackup\Baackup\Baackup\obj\Debug\Baackup.exe
 C:\Users\Hayden\Documents\GitHub\Baackup\Baackup\Baackup\obj\Debug\Baackup.pdb
+C:\Users\Hayden\Documents\GitHub\Baackup\Baackup\Baackup\bin\Debug\Baackup.exe
+C:\Users\Hayden\Documents\GitHub\Baackup\Baackup\Baackup\bin\Debug\Baackup.pdb
+C:\Users\Hayden\Documents\GitHub\Baackup\Baackup\Baackup\obj\Debug\Baackup.csprojResolveAssemblyReference.cache

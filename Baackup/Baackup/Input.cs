@@ -11,6 +11,7 @@ namespace Baackup
 
         public static string GetInput(string none = "")
         {
+            ConsoleTools.Print(Environment.NewLine, false);
             while (true)
             {
                 string text = Console.ReadLine();
@@ -26,6 +27,7 @@ namespace Baackup
 
         public static char GetKey(bool yn = false)
         {
+            ConsoleTools.Print(Environment.NewLine, false);
             while (true)
             {
                 char key = Console.ReadKey(true).KeyChar;
@@ -47,10 +49,30 @@ namespace Baackup
                 return false;
         }
 
-        public static void test()
+        public static int GetNum(int fallback = 0)
         {
-            ConsoleTools.Print(new Program().usercon.ToString());
-        }
+            string result;
+            bool valid;
+            char[] alphabet = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
 
+            while (true)
+            {
+                valid = true;
+                if (!(fallback == 0))
+                    result = GetInput(fallback.ToString());
+                else
+                    result = GetInput();
+                foreach (char letter in alphabet)
+                {
+                    if (result.Contains(letter))
+                    {
+                        valid = false;
+                    }
+                }
+                if (valid)
+                    break;
+            }
+            return int.Parse(result);
+        }
     }
 }

@@ -13,24 +13,24 @@ namespace Baackup
         // Class variables
 
         // Config options
-        public bool usercon;
-        public string rconpass;
-        public string rconhostname;
-        public int rconport;
-        public bool worldscontaineractive;
-        public string worldscontainerpath;
-        public bool backupmsgactive;
-        public string backupmsg;
-        public bool backupplugins;
-        public bool backuplogs;
-        public string backupcontainer;
-        public bool usecustomtmpdir;
-        public string customtmpdir;
-        public string backupscustomidprefix;
-        public bool compressbackups;
-        public string platform;
+        public static bool usercon;
+        public static string rconpass;
+        public static string rconhostname;
+        public static int rconport;
+        public static bool worldscontaineractive;
+        public static string worldscontainerpath;
+        public static bool backupmsgactive;
+        public static string backupmsg;
+        public static bool backupplugins;
+        public static bool backuplogs;
+        public static string backupcontainer;
+        public static bool usecustomtmpdir;
+        public static string customtmpdir;
+        public static string backupscustomidprefix;
+        public static bool compressbackups;
+        public static string platform;
         // Config path
-        public string configfile = (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\baackupconfig.xml");
+        public static string configfile = (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\baackupconfig.xml");
 
         #endregion
 
