@@ -1,44 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Baackup
 {
-    class Program
+    internal class Program
     {
-        #region Class Variables
-
         // Class variables
 
-        // Config options
-        public bool usercon;
-        public string rconpass;
-        public string rconhostname;
-        public int rconport;
-        public bool worldscontaineractive;
-        public string worldscontainerpath;
-        public bool backupmsgactive;
-        public string backupmsg;
-        public bool backupplugins;
-        public bool backuplogs;
         public string backupcontainer;
-        public bool usecustomtmpdir;
-        public string customtmpdir;
+
+        public bool backuplogs;
+
+        public string backupmsg;
+
+        public bool backupmsgactive;
+
+        public bool backupplugins;
+
         public string backupscustomidprefix;
+
         public bool compressbackups;
-        public string platform;
+
         // Config path
         public string configfile = (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\baackupconfig.xml");
 
-        #endregion
+        public string customtmpdir;
 
-        static void Main(string[] args)
-        {
-            new Program().Start();
-            ConsoleTools.Pause("Press any key to exit");
-        }
+        public string platform;
+
+        public string rconhostname;
+
+        public string rconpass;
+
+        public int rconport;
+
+        public bool usecustomtmpdir;
+
+        // Config options
+        public bool usercon;
+
+        public bool worldscontaineractive;
+        public string worldscontainerpath;
 
         public void Start()
         {
@@ -50,6 +51,12 @@ namespace Baackup
                 XMLConfig.LoadConfig();
             else
                 XMLConfig.GenerateConfig();
+        }
+
+        private static void Main(string[] args)
+        {
+            new Program().Start();
+            ConsoleTools.Pause("Press any key to exit");
         }
     }
 }
