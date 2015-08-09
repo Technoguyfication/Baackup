@@ -107,6 +107,9 @@ namespace Baackup
 
         public static void GenerateConfig()
         {
+            Tools.Title("Temporary config generator");
+            Tools.Print("This is a temporary config generator.\nEventually we will have a GUI interface for config editing.");
+            Tools.Pause("Press any key to  begin setup.");
             Tools.Clear();
             Tools.Print("Would you like to use RCON integration with your server? (Y/N)");
             Program.usercon = Input.GetKeyTF();
@@ -149,11 +152,27 @@ namespace Baackup
                 {
                     Program.backupmsg = null;
                 }
+                Tools.Print("Do you want to broadcast a message when your server finishes a backup?");
+                Program.backupfinishmsgactive = Input.GetKeyTF();
+                Tools.Clear();
+
+                if (Program.backupfinishmsgactive)
+                {
+                    Tools.Print("What message / command do you want to run when a backup is finished?\nDefault: \"say Server backup complete!\"");
+                    Program.backupfinishmsg = Input.GetInput("say Server backup complete!");
+                    Tools.Clear();
+                }
+                else
+                {
+                    Program.backupfinishmsg = null;
+                }
             }
             else
             {
                 Program.backupmsgactive = false;
                 Program.backupmsg = null;
+                Program.backupfinishmsgactive = false;
+                Program.backupfinishmsg = null;
             }
 
             Tools.Print("Would you like to backup server logs? (Y/N)");
@@ -203,6 +222,8 @@ namespace Baackup
             else
             {
                 Program.backupplugins = false;
+                Program.worldscontaineractive = false;
+                Program.worldscontainerpath = null;
             }
 
             Tools.Print("Where do you want to save your backups?\n(C:\\Backups)");

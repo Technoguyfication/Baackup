@@ -30,6 +30,9 @@ namespace Baackup
         public static string backupscustomidprefix;
         public static bool compressbackups;
         public static string platform;
+        public static bool backupfinishmsgactive;
+        public static string backupfinishmsg;
+
         // Config path
         public static string configfile = (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\baackupconfig.xml");
         
