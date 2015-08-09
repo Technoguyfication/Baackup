@@ -52,7 +52,7 @@ namespace Baackup
             // Backup worlds
             if (!Program.worldscontaineractive)
             {
-                string[] serverfolders = { "crash-reports", "plugins", "logs", "mods", "Baackup" };
+                string[] serverfolders = { "crash-reports", "plugins", "logs", "mods" };
                 string[] worlds = Directory.GetDirectories(Program.exepath);
 
                 foreach (string world in worlds)
