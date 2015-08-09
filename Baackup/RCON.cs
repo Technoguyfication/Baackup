@@ -15,9 +15,22 @@ namespace Baackup
         {
             if (Program.usercon)
             {
-                // okay screw this, we're using mcrcon by Tiffi
-                System.Diagnostics.Process.Start(Program.exepath + "Baackup\\mcrcon.exe", "-s -p " + Program.rconpass + " -H " + Program.rconhostname + " -P " + Program.rconport + " \"" + command + '"');
-                Tools.Log("Passed RCON Command to Server: " + command);
+                // We're using MCRCON by Tiffi
+                if (!File.Exists(Program.tmpsave + "\\mcrcon.exe"))
+                {
+
+                    string exename = Path.Combine(Program.tmpsave, "mcrcon.exe");
+
+                    using (FileStream fsDst = new FileStream(exename, FileMode.Create, FileAccess.Write))
+                    {
+                        byte[] bytes = Properties.Resources.GetMcrcon();
+
+                        fsDst.Write(bytes, 0, bytes.Length);
+                    }
+                }
+
+                // run code
+                System.Diagnostics.Process.Start(Program.tmpsave + "mcrcon.exe", "-s -p " + Program.rconpass + " -H " + Program.rconhostname + " -P " + Program.rconport + " \"" + command + '"');
             }
             else
             {

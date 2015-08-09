@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Baackup
 {
@@ -85,6 +86,11 @@ namespace Baackup
                 else
                 {
                     Tools.Log("Found server.properties!");
+
+                    // Create tmp dir
+                    if (!IOStatus.FolderExists(Program.tmpsave, false))
+                        Directory.CreateDirectory(Program.tmpsave);
+
                     Backup.StartBackup();
                 }
             }

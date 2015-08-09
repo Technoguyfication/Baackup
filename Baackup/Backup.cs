@@ -22,9 +22,6 @@ namespace Baackup
             if (Program.backupmsgactive)
                 RCON.Send(Program.backupmsg);
 
-            // Create tmp dir
-            Directory.CreateDirectory(Program.tmpsave);
-
             // Copy Server properties and other config files
             CopyFile("server.properties");
             CopyFile("ops.json");
