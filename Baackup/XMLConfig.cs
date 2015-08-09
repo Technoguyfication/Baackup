@@ -55,12 +55,12 @@ namespace Baackup
             catch (Exception e)
             {
                 // If something goes wrong, maybe this will help.
-                ConsoleTools.Print("Error:\n" + e.Message + Environment.NewLine + Program.configfile);
-                ConsoleTools.Pause("Press any key to terminate");
+                Tools.Print("Error:\n" + e.Message + Environment.NewLine + Program.configfile);
+                Tools.Pause("Press any key to terminate");
                 if (e.Message.ToLower().StartsWith("could not find file"))
-                    ConsoleTools.Exit(2);
+                    Tools.Exit(2);
                 else
-                    ConsoleTools.Exit(1);
+                    Tools.Exit(1);
             }
         }
 
@@ -99,18 +99,18 @@ namespace Baackup
             }
             catch (Exception e)
             {
-                ConsoleTools.Print("Error:\n" + e.Message);
-                ConsoleTools.Pause("Press any key to terminate.");
-                ConsoleTools.Exit(1);
+                Tools.Print("Error:\n" + e.Message);
+                Tools.Pause("Press any key to terminate.");
+                Tools.Exit(1);
             }
         }
 
         public static void GenerateConfig()
         {
-            ConsoleTools.Clear();
-            ConsoleTools.Print("Would you like to use RCON integration with your server? (Y/N)");
+            Tools.Clear();
+            Tools.Print("Would you like to use RCON integration with your server? (Y/N)");
             Program.usercon = Input.GetKeyTF();
-            ConsoleTools.Clear();
+            Tools.Clear();
             if (!(Program.usercon))
             {
                 Program.rconpass = null;
@@ -120,30 +120,30 @@ namespace Baackup
             else
             {
                 // Rcon settings
-                ConsoleTools.Print("Please enter your server's RCON Password.");
+                Tools.Print("Please enter your server's RCON Password.");
                 Program.rconpass = Input.GetInput();
-                ConsoleTools.Clear();
+                Tools.Clear();
 
-                ConsoleTools.Print("Please enter your server's hostname. (127.0.0.1 for local).");
+                Tools.Print("Please enter your server's hostname. (127.0.0.1 for local).");
                 Program.rconhostname = Input.GetInput("127.0.0.1");
-                ConsoleTools.Clear();
+                Tools.Clear();
 
-                ConsoleTools.Print("Please enter your server's RCON port. (Default: 25565)");
-                Program.rconport = Input.GetNum(25565);
-                ConsoleTools.Clear();
+                Tools.Print("Please enter your server's RCON port. (Default: 25575)");
+                Program.rconport = Input.GetNum(2555);
+                Tools.Clear();
             }
 
             if (Program.usercon)
             {
-                ConsoleTools.Print("Do you want to broadcast a message when your server starts a backup? (Y/N)");
+                Tools.Print("Do you want to broadcast a message when your server starts a backup? (Y/N)");
                 Program.backupmsgactive = Input.GetKeyTF();
-                ConsoleTools.Clear();
+                Tools.Clear();
 
                 if (Program.backupmsgactive)
                 {
-                    ConsoleTools.Print("What message / command do you want to run when a backup is started?\nDefault: \"say The server is beginning a backup! There may be some slight lag...\"");
+                    Tools.Print("What message / command do you want to run when a backup is started?\nDefault: \"say The server is beginning a backup! There may be some slight lag...\"");
                     Program.backupmsg = Input.GetInput("say The server is beginning a backup! There may be some slight lag...");
-                    ConsoleTools.Clear();
+                    Tools.Clear();
                 }
                 else
                 {
@@ -156,11 +156,11 @@ namespace Baackup
                 Program.backupmsg = null;
             }
 
-            ConsoleTools.Print("Would you like to backup server logs? (Y/N)");
+            Tools.Print("Would you like to backup server logs? (Y/N)");
             Program.backuplogs = Input.GetKeyTF();
-            ConsoleTools.Clear();
+            Tools.Clear();
 
-            ConsoleTools.Print("What is the platform of your server?\n(C for CraftBukkit, S for Spigot, V for Vanilla)");
+            Tools.Print("What is the platform of your server?\n(C for CraftBukkit, S for Spigot, V for Vanilla)");
             while (true)
             {
                 char platform;
@@ -177,23 +177,23 @@ namespace Baackup
                 if (!(Program.platform == null))
                     break;
             }
-            ConsoleTools.Clear();
+            Tools.Clear();
 
             if (Program.platform == "spigot" || Program.platform == "craftbukkit")
             {
-                ConsoleTools.Print("Would you like to back up your plugins folder? (Y/N)");
+                Tools.Print("Would you like to back up your plugins folder? (Y/N)");
                 Program.backupplugins = Input.GetKeyTF();
-                ConsoleTools.Clear();
+                Tools.Clear();
 
-                ConsoleTools.Print("Do you use a Worlds Container on your server? (Y/N)");
+                Tools.Print("Do you use a Worlds Container on your server? (Y/N)");
                 Program.worldscontaineractive = Input.GetKeyTF();
-                ConsoleTools.Clear();
+                Tools.Clear();
 
                 if (Program.worldscontaineractive)
                 {
-                    ConsoleTools.Print("From the root of your server, what is the path to your worlds container?");
+                    Tools.Print("From the root of your server, what is the path to your worlds container?");
                     Program.worldscontainerpath = Input.GetInput();
-                    ConsoleTools.Clear();
+                    Tools.Clear();
                 }
                 else
                 {
@@ -205,32 +205,32 @@ namespace Baackup
                 Program.backupplugins = false;
             }
 
-            ConsoleTools.Print("Where do you want to save your backups?\n(C:\\Backups)");
+            Tools.Print("Where do you want to save your backups?\n(C:\\Backups)");
             Program.backupcontainer = Input.GetInput();
-            ConsoleTools.Clear();
+            Tools.Clear();
 
-            ConsoleTools.Print("Would you like to use a custom tmp directory? (Y/N)\nDefault: {Backup Save Path}\\Tmp");
+            Tools.Print("Would you like to use a custom tmp directory? (Y/N)\nDefault: {Backup Save Path}\\Tmp");
             Program.usecustomtmpdir = Input.GetKeyTF();
-            ConsoleTools.Clear();
+            Tools.Clear();
 
             if (Program.usecustomtmpdir)
             {
-                ConsoleTools.Print("What folder would you like to use as a temporary directory?");
+                Tools.Print("What folder would you like to use as a temporary directory?");
                 Program.customtmpdir = Input.GetInput();
-                ConsoleTools.Clear();
+                Tools.Clear();
             }
             else
             {
                 Program.customtmpdir = Program.backupcontainer + "\\tmp";
             }
 
-            ConsoleTools.Print("What would you like to prefix your backup archives with?\nDefault: mcserverbackup");
+            Tools.Print("What would you like to prefix your backup archives with?\nDefault: mcserverbackup");
             Program.backupscustomidprefix = Input.GetInput("mcserverbackup");
-            ConsoleTools.Clear();
+            Tools.Clear();
 
-            ConsoleTools.Print("Would you like to compress all your backups with 7-Zip compression? (Y/N)");
+            Tools.Print("Would you like to compress all your backups with 7-Zip compression? (Y/N)");
             Program.compressbackups = Input.GetKeyTF();
-            ConsoleTools.Clear();
+            Tools.Clear();
 
             // Done with setup, save now
             CreateConfig();

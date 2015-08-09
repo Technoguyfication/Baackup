@@ -11,7 +11,7 @@ namespace Baackup
 
         public static string GetInput(string none = "")
         {
-            ConsoleTools.Print(Environment.NewLine, false);
+            Tools.Print(Environment.NewLine, false);
             while (true)
             {
                 string text = Console.ReadLine();
@@ -27,7 +27,7 @@ namespace Baackup
 
         public static char GetKey(bool yn = false)
         {
-            ConsoleTools.Print(Environment.NewLine, false);
+            Tools.Print(Environment.NewLine, false);
             while (true)
             {
                 char key = Console.ReadKey(true).KeyChar;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Baackup
 {
-    public class ConsoleTools
+    public class Tools
     {
         public static void Print(string message, bool line = true)
         {
@@ -41,6 +41,16 @@ namespace Baackup
         public static void Clear()
         {
             Console.Clear();
+        }
+
+        public static void Wait(int seconds)
+        {
+            System.Threading.Thread.Sleep(seconds * 1000);
+        }
+
+        public static void NewBackupID()
+        {
+            Program.backupid = Program.backupscustomidprefix + '_' + DateTime.Now.ToString("yyyy-mmm-dd.hh-mm-ss-ffff--backup");
         }
     }
 }

@@ -35,48 +35,57 @@ namespace Baackup
         // Execution path
         public static string exepath;
 
+        // TMP Backup path
+        public static string tmpsave;
+        public static string backupid;
+
         #endregion
 
         static void Main(string[] args)
         {
-            ConsoleTools.Title("Baackup for Minecraft Server - Technoguyfication " + DateTime.Now.Year.ToString());
+            Tools.Title("Baackup for Minecraft Server - Technoguyfication " + DateTime.Now.Year.ToString());
             try
             {
                 exepath = args[0] + '\\';
             }
             catch (Exception e)
             {
-                ConsoleTools.Print("There was an issue starting the program!\nAre you sure you started it with the Batch script?\n\nError details: " + e.Message);
-                ConsoleTools.Pause();
-                ConsoleTools.Exit(1);
+                Tools.Print("There was an issue starting the program!\nAre you sure you started it with the Batch script?\n\nError details: " + e.Message);
+                Tools.Pause();
+                Tools.Exit(1);
             }
 
             new Program().Start();
-            ConsoleTools.Pause();
-            ConsoleTools.Exit(0);
+            Tools.Exit(1);
         }
 
         public void Start()
         {
             // Display title and intro text
-            ConsoleTools.Print("Baackup for Minecraft Server - Technoguyfication " + DateTime.Now.Year.ToString());
-            ConsoleTools.Print("Running on path: " + exepath);
+            Tools.Print("Baackup for Minecraft Server - Technoguyfication " + DateTime.Now.Year.ToString());
+            Tools.Print("Running on path: " + exepath);
 
             if (XMLConfig.ConfigExists())
             {
                 // Load program configuration from file
                 XMLConfig.LoadConfig();
+                Tools.NewBackupID();
+                if (usecustomtmpdir)
+                    tmpsave = customtmpdir + backupid;
+                else
+                    tmpsave = backupcontainer + "\\tmp\\" + backupid + "\\";
 
                 // Check that we are running in a server directory.
                 if (!IOStatus.FileExists("server.properties", true))
                 {
-                    ConsoleTools.Print("We did not detect you are running in a server directory!\nPlease but the batch file in your root directory\nwith the jar/exe file and server.properties!");
-                    ConsoleTools.Pause();
-                    ConsoleTools.Exit(2);
+                    Tools.Print("We did not detect you are running in a server directory!\nPlease but the batch file in your root directory\nwith the jar/exe file and server.properties!");
+                    Tools.Pause();
+                    Tools.Exit(2);
                 }
                 else
                 {
-                    ConsoleTools.Log("Found server.properties!");
+                    Tools.Log("Found server.properties!");
+                    Backup.StartBackup();
                 }
             }
             else
