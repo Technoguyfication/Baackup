@@ -132,20 +132,6 @@ namespace Baackup
                 Program.rconport = Input.GetNum(25565);
                 ConsoleTools.Clear();
             }
-            ConsoleTools.Print("Do you use a Worlds Container on your server? (Y/N)");
-            Program.worldscontaineractive = Input.GetKeyTF();
-            ConsoleTools.Clear();
-
-            if (Program.worldscontaineractive)
-            {
-                ConsoleTools.Print("From the root of your server, what is the path to your worlds container?");
-                Program.worldscontainerpath = Input.GetInput();
-                ConsoleTools.Clear();
-            }
-            else
-            {
-                Program.worldscontainerpath = "";
-            }
 
             if (Program.usercon)
             {
@@ -198,6 +184,21 @@ namespace Baackup
                 ConsoleTools.Print("Would you like to back up your plugins folder? (Y/N)");
                 Program.backupplugins = Input.GetKeyTF();
                 ConsoleTools.Clear();
+
+                ConsoleTools.Print("Do you use a Worlds Container on your server? (Y/N)");
+                Program.worldscontaineractive = Input.GetKeyTF();
+                ConsoleTools.Clear();
+
+                if (Program.worldscontaineractive)
+                {
+                    ConsoleTools.Print("From the root of your server, what is the path to your worlds container?");
+                    Program.worldscontainerpath = Input.GetInput();
+                    ConsoleTools.Clear();
+                }
+                else
+                {
+                    Program.worldscontainerpath = "";
+                }
             }
             else
             {

@@ -11,9 +11,14 @@ namespace Baackup
         public static void Print(string message, bool line = true)
         {
             if (line)
-                Console.WriteLine(message);
+                Console.WriteLine(message + Environment.NewLine);
             else
                 Console.Write(message);
+        }
+
+        public static void Log(string text)
+        {
+            Print('[' + DateTime.Now.ToString("hh:mm:ss") + "] " + text);
         }
 
         public static void Pause(string message = "")
