@@ -15,7 +15,7 @@ namespace Baackup
         {
             if (Program.usercon)
             {
-                // We're using MCRCON by Tiffi
+                // We're using MCRCON by Tiiffi
                 if (!File.Exists(Program.tmpsave + "\\mcrcon.exe"))
                 {
 
