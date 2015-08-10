@@ -1,5 +1,5 @@
 # Baackup
-A backup script for our Minecraft server, sponsored by sheep
+A backup program for Minecraft servers, sponsored by sheep.
 
 <sub>It's sponsored by sheep because it's called **baa**ckup :wink:</sub>
 
@@ -7,11 +7,11 @@ A backup script for our Minecraft server, sponsored by sheep
 <img src="http://orig10.deviantart.net/8887/f/2013/346/f/1/disco_sheep_by_lockrikard-d6xo4oa.gif" alt="Disco Sheep" />
 
 
-##How 2 use lè baackup script
+## How does I use?
 
-1. Either clone the repo to your client, download the zip, or download the latest release if stability is your thing
-2. Add the script to the root folder of your server (the one with your JAR file and such)
-3. If you use Essentials, just set the ```command``` value of the ```backup``` section in your ```config.yml``` to 'baackup.bat', otherwise, just set it up to run automatically using Task Scheduler or something.
-5. The first time it runs it will ask your to input your configuration settings. You can safely run this by simply right clicking it the first time you install it.
-6. Please note: If you have RCON disabled, this script will not automatically ```save-all``` and toggle ```save-off```, ```save-on``` for you. Essentials will automatically do this but you should check either with your plugin details or edit the batch file to do it for you.
-7. Now just run the script on a timer or whatnot, please note that server sizes can be very big and it is up to you how often you want it to back up. Depending on your server size and hardware, it may take a long time to do the backup, especially if you have compression enabled.
+1. Download one of the releases or you can build the software with Visual Studio and .NET 4.5
+2. Put the "Baackup.exe" and "Baackup.bat" into your server's root directory. (With the server.properties, etc.)
+3. Run the "Baackup Config.exe" that was included with the program. (This does not need to be in the server directory.)
+4. Using the configuration tool, customize your settings as much as you like. We support Spigot, CraftBukkit, and Vanilla. If you are using a modded server such as Forge we DO NOT backup the "Mods" folder but, depending on your server and the mods on it, we may back up the mod config.
+5. Set it to run whenever you want. The plugin *Essentials* has an auto-backup feature. You can find info about that [here](http://wiki.ess3.net/wiki/Backup). (Please note: unless you have the RCON feature set up, we do not automatically ```save-all``` and toggle autosave on your server. **FIND SOMETHING TO DO THIS FOR YOU IF YOU DO NOT USE RCON OR ESSENTIALS, having autosave turned on while backing up can corrupt the backups!**
+6. Now just let the program do the work. If you ever need to restore from a backup just open or decompress the files, then pop them back in your server. The backups are stored as (prefix)_yyyy-mm-dd.hh-mm-ss--backup.
