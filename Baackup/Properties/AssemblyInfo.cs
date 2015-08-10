@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Baackup")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A backup program for your Minecraft server.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Technoguyfication and Fesarius Gaming")]
 [assembly: AssemblyProduct("Baackup")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
