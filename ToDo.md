@@ -1,4 +1,4 @@
-# Stuff that needds to be done and stuff that has been done
+# Stuff that needs to be done and stuff that has been done
 
 - [x] Program Basics
 - [x] Config Read / Write / Generate
