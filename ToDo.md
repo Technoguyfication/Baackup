@@ -6,3 +6,4 @@
 - [x] Backup file transfer
 - [ ] Compression
 - [ ] Clean up dat code
+- [ ] Fix the crappy names of those variables in the Program() class.
