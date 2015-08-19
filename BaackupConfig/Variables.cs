@@ -6,28 +6,49 @@ using System.Threading.Tasks;
 
 namespace BaackupConfig
 {
-    public class Variables
+    public static class Variables
     {
+        #region Config Options
 
-        // Config options
-        public static bool usercon;
-        public static string rconpass;
-        public static string rconhostname;
-        public static int rconport;
-        public static bool worldscontaineractive;
-        public static string worldscontainerpath;
-        public static bool backupmsgactive;
-        public static string backupmsg;
-        public static bool backupplugins;
-        public static bool backuplogs;
-        public static string backupcontainer;
-        public static bool usecustomtmpdir;
-        public static string customtmpdir;
-        public static string backupscustomidprefix;
-        public static bool compressbackups;
-        public static string platform;
-        public static bool backupfinishmsgactive;
-        public static string backupfinishmsg;
+        #region Server Settings
 
+        // RCON
+        public static bool UseRCON;
+        public static string RCONPass;
+        public static string RCONHostname;
+        public static int RCONPort;
+
+        // Server Platform
+        public static string Platform;
+
+        #endregion
+
+        // Worlds Container
+        public static bool WorldsContainerActive;
+        public static string WorldsContainerPath;
+
+        // Backup Messages
+        public static bool BackupMessageActive;
+        public static string BackupMessage;
+        public static bool BackupFinishedMessageActive;
+        public static string BackupFinishedMessage;
+
+        // General Backup Items
+        public static bool BackupPlugins;
+        public static bool BackupLogs;
+
+        // Folder Settings
+        public static string BackupContainer;
+        public static bool UseCustomTMPDir;
+        public static string CustomTMPDir;
+
+        // Backup Saving Settings
+        public static string BackupPrefix;
+        public static bool CompressBackups;
+
+        #endregion
+
+        // Configuration File Path
+        public static string ConfigFilePath = (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\baackupconfig.xml");
     }
 }

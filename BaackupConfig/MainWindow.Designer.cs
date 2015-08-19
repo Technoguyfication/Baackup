@@ -36,8 +36,8 @@
             this.SaveConfig = new System.Windows.Forms.Button();
             this.ReloadConfig = new System.Windows.Forms.Button();
             this.ModdedOptions = new System.Windows.Forms.Panel();
-            this.BackupPlugins = new System.Windows.Forms.CheckBox();
             this.ModdedServerOptions = new System.Windows.Forms.Label();
+            this.BackupPlugins = new System.Windows.Forms.CheckBox();
             this.PlatformPanel.SuspendLayout();
             this.ModdedOptions.SuspendLayout();
             this.SuspendLayout();
@@ -105,6 +105,7 @@
             this.SaveConfig.TabIndex = 3;
             this.SaveConfig.Text = "Save Config";
             this.SaveConfig.UseVisualStyleBackColor = true;
+            this.SaveConfig.Click += new System.EventHandler(this.SaveConfig_Click);
             // 
             // ReloadConfig
             // 
@@ -114,6 +115,7 @@
             this.ReloadConfig.TabIndex = 4;
             this.ReloadConfig.Text = "Reload config";
             this.ReloadConfig.UseVisualStyleBackColor = true;
+            this.ReloadConfig.Click += new System.EventHandler(this.ReloadConfig_Click);
             // 
             // ModdedOptions
             // 
@@ -124,6 +126,15 @@
             this.ModdedOptions.Size = new System.Drawing.Size(200, 100);
             this.ModdedOptions.TabIndex = 5;
             // 
+            // ModdedServerOptions
+            // 
+            this.ModdedServerOptions.AutoSize = true;
+            this.ModdedServerOptions.Location = new System.Drawing.Point(-1, 1);
+            this.ModdedServerOptions.Name = "ModdedServerOptions";
+            this.ModdedServerOptions.Size = new System.Drawing.Size(119, 13);
+            this.ModdedServerOptions.TabIndex = 1;
+            this.ModdedServerOptions.Text = "Modded Server Options";
+            // 
             // BackupPlugins
             // 
             this.BackupPlugins.AutoSize = true;
@@ -133,15 +144,6 @@
             this.BackupPlugins.TabIndex = 0;
             this.BackupPlugins.Text = "Backup Plugins";
             this.BackupPlugins.UseVisualStyleBackColor = true;
-            // 
-            // ModdedServerOptions
-            // 
-            this.ModdedServerOptions.AutoSize = true;
-            this.ModdedServerOptions.Location = new System.Drawing.Point(-1, 1);
-            this.ModdedServerOptions.Name = "ModdedServerOptions";
-            this.ModdedServerOptions.Size = new System.Drawing.Size(119, 13);
-            this.ModdedServerOptions.TabIndex = 1;
-            this.ModdedServerOptions.Text = "Modded Server Options";
             // 
             // MainWindow
             // 

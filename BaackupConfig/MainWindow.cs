@@ -62,5 +62,15 @@ namespace BaackupConfig
         {
             GUIUpdate();
         }
+
+        private void ReloadConfig_Click(object sender, EventArgs e)
+        {
+            XMLConfig.LoadConfig();
+        }
+
+        private void SaveConfig_Click(object sender, EventArgs e)
+        {
+            XMLConfig.SaveConfig();
+        }
     }
 }
