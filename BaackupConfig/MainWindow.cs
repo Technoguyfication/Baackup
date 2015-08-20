@@ -144,27 +144,8 @@ namespace BaackupConfig
             CheckModded(Platform_Vanilla);
         }
 
-        private void RCONHostnameTextBox_GotFocus(object sender, EventArgs e)
-        {
-            HideTemplateText(RCONHostnameTextBox_Label);
-        }
-
-        private void RCONHostnameTextBox_LostFocus(object sender, EventArgs e)
-        {
-            if (RCONHostnameTextBox.Text == "")
-                ShowTemplateText(RCONHostnameTextBox_Label);
-        }
-
-        private void RCONPortTextBox_GotFocus(object sender, EventArgs e)
-        {
-            HideTemplateText(RCONPortTextBox_Label);
-        }
-
         private void RCONPortTextBox_LostFocus(object sender, EventArgs e)
         {
-            if (RCONPortTextBox.Text == "")
-                ShowTemplateText(RCONPortTextBox_Label);
-
             // Validate
             bool valid = true;
 
@@ -247,16 +228,6 @@ namespace BaackupConfig
                 if (control.GetType() == typeof(Panel))
                     GetAllControl(control, list);
             }
-        }
-
-        private void HideTemplateText(Label item)
-        {
-            item.Visible = false;
-        }
-
-        private void ShowTemplateText(Label item)
-        {
-            item.Visible = true;
         }
 
         #endregion
