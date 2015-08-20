@@ -17,6 +17,9 @@ namespace BaackupConfig
             Variables.RCONHostname = "127.0.0.1";
             Variables.RCONPass = null;
             Variables.RCONPort = 25575;
+
+            // Server Platform
+            Variables.Platform = "vanilla";
             
             // Worlds container
             Variables.WorldsContainerActive = false;
@@ -29,13 +32,18 @@ namespace BaackupConfig
             Variables.BackupFinishedMessageActive = false;
             Variables.BackupFinishedMessage = "say Server Backup Completed!";
 
-            // Backup container and Tmp
+            // Backup items
+            Variables.BackupPlugins = false;
+            Variables.BackupLogs = true;
+
+            // Folders
             Variables.BackupContainer = null;
             Variables.UseCustomTMPDir = false;
             Variables.CustomTMPDir = null;
 
-            // Backup ID
+            // Backup Saving
             Variables.BackupPrefix = null;
+            Variables.CompressBackups = true;
         }
 
         public static bool ConfigExists()
@@ -53,8 +61,10 @@ namespace BaackupConfig
 
         public static void SaveConfig()
         {
-            // Create a new XMLWriter
+            // Get latest settings from the GUI
+            Variables.UpdateConfigSettings();
 
+            // Create a new XMLWriter
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
 

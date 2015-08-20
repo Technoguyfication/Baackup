@@ -38,6 +38,9 @@
             this.ModdedOptions = new System.Windows.Forms.Panel();
             this.ModdedServerOptions = new System.Windows.Forms.Label();
             this.BackupPlugins = new System.Windows.Forms.CheckBox();
+            this.WorldsContainerButton = new System.Windows.Forms.CheckBox();
+            this.WorldsContainerPathTextBox = new System.Windows.Forms.TextBox();
+            this.WorldsContainerPathBrowseButton = new System.Windows.Forms.Button();
             this.PlatformPanel.SuspendLayout();
             this.ModdedOptions.SuspendLayout();
             this.SuspendLayout();
@@ -119,6 +122,9 @@
             // 
             // ModdedOptions
             // 
+            this.ModdedOptions.Controls.Add(this.WorldsContainerPathBrowseButton);
+            this.ModdedOptions.Controls.Add(this.WorldsContainerPathTextBox);
+            this.ModdedOptions.Controls.Add(this.WorldsContainerButton);
             this.ModdedOptions.Controls.Add(this.ModdedServerOptions);
             this.ModdedOptions.Controls.Add(this.BackupPlugins);
             this.ModdedOptions.Location = new System.Drawing.Point(159, 12);
@@ -144,6 +150,34 @@
             this.BackupPlugins.TabIndex = 0;
             this.BackupPlugins.Text = "Backup Plugins";
             this.BackupPlugins.UseVisualStyleBackColor = true;
+            // 
+            // WorldsContainerButton
+            // 
+            this.WorldsContainerButton.AutoSize = true;
+            this.WorldsContainerButton.Location = new System.Drawing.Point(3, 44);
+            this.WorldsContainerButton.Name = "WorldsContainerButton";
+            this.WorldsContainerButton.Size = new System.Drawing.Size(129, 17);
+            this.WorldsContainerButton.TabIndex = 2;
+            this.WorldsContainerButton.Text = "Use Worlds Container";
+            this.WorldsContainerButton.UseVisualStyleBackColor = true;
+            this.WorldsContainerButton.CheckedChanged += new System.EventHandler(this.WorldsContainerButton_CheckedChanged);
+            // 
+            // WorldsContainerPathTextBox
+            // 
+            this.WorldsContainerPathTextBox.Location = new System.Drawing.Point(3, 66);
+            this.WorldsContainerPathTextBox.Name = "WorldsContainerPathTextBox";
+            this.WorldsContainerPathTextBox.Size = new System.Drawing.Size(150, 20);
+            this.WorldsContainerPathTextBox.TabIndex = 3;
+            // 
+            // WorldsContainerPathBrowseButton
+            // 
+            this.WorldsContainerPathBrowseButton.Location = new System.Drawing.Point(159, 67);
+            this.WorldsContainerPathBrowseButton.Name = "WorldsContainerPathBrowseButton";
+            this.WorldsContainerPathBrowseButton.Size = new System.Drawing.Size(27, 19);
+            this.WorldsContainerPathBrowseButton.TabIndex = 4;
+            this.WorldsContainerPathBrowseButton.Text = "...";
+            this.WorldsContainerPathBrowseButton.UseVisualStyleBackColor = true;
+            this.WorldsContainerPathBrowseButton.Click += new System.EventHandler(this.WorldsContainerPathBrowseButton_Click);
             // 
             // MainWindow
             // 
@@ -177,7 +211,9 @@
         private System.Windows.Forms.Panel ModdedOptions;
         private System.Windows.Forms.CheckBox BackupPlugins;
         private System.Windows.Forms.Label ModdedServerOptions;
-
+        private System.Windows.Forms.Button WorldsContainerPathBrowseButton;
+        public System.Windows.Forms.TextBox WorldsContainerPathTextBox;
+        public System.Windows.Forms.CheckBox WorldsContainerButton;
     }
 }
 

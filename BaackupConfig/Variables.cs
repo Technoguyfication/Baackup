@@ -50,5 +50,43 @@ namespace BaackupConfig
 
         // Configuration File Path
         public static string ConfigFilePath = (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\baackupconfig.xml");
+
+        public static void UpdateConfigSettings()
+        {
+            MainWindow Main = new MainWindow();
+
+            // RCON
+            Variables.UseRCON = false;
+            Variables.RCONHostname = "127.0.0.1";
+            Variables.RCONPass = null;
+            Variables.RCONPort = 25575;
+
+            // Server Platform
+            Variables.Platform = "vanilla";
+
+            // Worlds container
+            Variables.WorldsContainerActive = Main.WorldsContainerButton.Checked;
+            Variables.WorldsContainerPath = Main.WorldsContainerPathTextBox.Text;
+
+            // Backup Messages
+            Variables.BackupMessageActive = false;
+            Variables.BackupMessage = "say The server is backing up! Prepare for some slight lag!";
+
+            Variables.BackupFinishedMessageActive = false;
+            Variables.BackupFinishedMessage = "say Server Backup Completed!";
+
+            // Backup items
+            Variables.BackupPlugins = false;
+            Variables.BackupLogs = true;
+
+            // Folders
+            Variables.BackupContainer = null;
+            Variables.UseCustomTMPDir = false;
+            Variables.CustomTMPDir = null;
+
+            // Backup Saving
+            Variables.BackupPrefix = null;
+            Variables.CompressBackups = true;
+        }
     }
 }
