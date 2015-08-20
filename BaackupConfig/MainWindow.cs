@@ -7,13 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace BaackupConfig
 {
     public partial class MainWindow : Form
     {
-        // Class vars
-        private bool ModdedPlatform;
 
         public MainWindow()
         {
@@ -24,7 +23,7 @@ namespace BaackupConfig
         {
             #region Modded Server Options
 
-            if (ModdedPlatform)
+            if (Variables.Platform == "spigot" || Variables.Platform == "craftbukkit")
             {
                 // Get all the controls in the box.
                 List<Control> list = new List<Control>();
@@ -88,11 +87,13 @@ namespace BaackupConfig
             {
                 RCONHostnameTextBox.Enabled = true;
                 RCONPortTextBox.Enabled = true;
+                RCONPasswordTextBox.Enabled = true;
             }
             else
             {
                 RCONHostnameTextBox.Enabled = false;
                 RCONPortTextBox.Enabled = false;
+                RCONPasswordTextBox.Enabled = false;
             }
 
             #endregion
@@ -102,16 +103,32 @@ namespace BaackupConfig
 
         private void Platform_Spigot_CheckedChanged(object sender, EventArgs e)
         {
-            CheckModded(Platform_Spigot);
+            if (Platform_Spigot.Checked)
+                Variables.Platform = "spigot";
+
+            GUIUpdate();
         }
 
         private void Platform_CraftBukkit_CheckedChanged(object sender, EventArgs e)
         {
-            CheckModded(Platform_CraftBukkit);
+            if (Platform_CraftBukkit.Checked)
+                Variables.Platform = "craftbukkit";
+
+            GUIUpdate();
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            // Check if config file exists
+            if (File.Exists(Variables.ConfigFilePath))
+            {
+                XMLConfig.LoadConfig();
+            }
+            else
+            {
+                XMLConfig.GenerateDefaultConfig();
+            }
+            
             GUIUpdate();
         }
 
@@ -141,7 +158,10 @@ namespace BaackupConfig
 
         private void Platform_Vanilla_CheckedChanged(object sender, EventArgs e)
         {
-            CheckModded(Platform_Vanilla);
+            if (Platform_Vanilla.Checked)
+                Variables.Platform = "vanilla";
+
+            GUIUpdate();
         }
 
         private void RCONPortTextBox_LostFocus(object sender, EventArgs e)
@@ -182,25 +202,6 @@ namespace BaackupConfig
 
         #region Checks
 
-        void CheckModded(RadioButton button)
-        {
-            if ((button.Name == "Platform_Spigot" || button.Name == "Platform_CraftBukkit") && button.Checked)
-                ModdedPlatform = true;
-            else
-                ModdedPlatform = false;
-
-            // Set config option
-
-            if (button.Name == "Platform_Spigot")
-                Variables.Platform = "spigot";
-            else if (button.Name == "Platform_CraftBukkit")
-                Variables.Platform = "craftbukkit";
-            else
-                Variables.Platform = "vanilla";
-
-            GUIUpdate();
-        }
-
         void CheckUseWorldsContainer()
         {
             if (WorldsContainerButton.Checked == true)
@@ -234,5 +235,13 @@ namespace BaackupConfig
 
         #endregion
 
+        private void BackupContainerButton_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog FolderBrowser = new FolderBrowserDialog();
+            FolderBrowser.Description = "Please select where to store your backups.";
+
+            if (FolderBrowser.ShowDialog() == DialogResult.OK)
+                BackupContainerTextBox.Text = FolderBrowser.SelectedPath;
+        }
     }
 }

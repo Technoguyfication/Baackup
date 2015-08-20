@@ -54,15 +54,20 @@ namespace BaackupConfig
         public static void UpdateConfigSettings()
         {
             MainWindow Main = new MainWindow();
-
+            
             // RCON
-            Variables.UseRCON = false;
-            Variables.RCONHostname = "127.0.0.1";
-            Variables.RCONPass = null;
-            Variables.RCONPort = 25575;
+            Variables.UseRCON = Main.UseRCONBox.Checked;
+            Variables.RCONHostname = Main.RCONHostnameTextBox.Text;
+            Variables.RCONPass = Main.RCONPasswordTextBox.Text;
+            Variables.RCONPort = int.Parse(Main.RCONPortTextBox.Text);
 
             // Server Platform
-            Variables.Platform = "vanilla";
+            if (Main.Platform_Vanilla.Checked)
+                Variables.Platform = "vanilla";
+            else if (Main.Platform_Spigot.Checked)
+                Variables.Platform = "spigot";
+            else
+                Variables.Platform = "craftbukkit";
 
             // Worlds container
             Variables.WorldsContainerActive = Main.WorldsContainerButton.Checked;
@@ -76,7 +81,7 @@ namespace BaackupConfig
             Variables.BackupFinishedMessage = "say Server Backup Completed!";
 
             // Backup items
-            Variables.BackupPlugins = false;
+            Variables.BackupPlugins = Main.BackupPluginsBox.Checked;
             Variables.BackupLogs = true;
 
             // Folders
@@ -87,6 +92,12 @@ namespace BaackupConfig
             // Backup Saving
             Variables.BackupPrefix = null;
             Variables.CompressBackups = true;
+            
+        }
+
+        public static void SendConfigSettings()
+        {
+
         }
     }
 }

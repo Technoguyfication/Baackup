@@ -19,7 +19,7 @@ namespace BaackupConfig
             Variables.RCONPort = 25575;
 
             // Server Platform
-            Variables.Platform = "vanilla";
+            Variables.Platform = "spigot";
             
             // Worlds container
             Variables.WorldsContainerActive = false;
