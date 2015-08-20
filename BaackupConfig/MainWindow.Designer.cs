@@ -51,14 +51,29 @@
             this.UseRCONBox = new System.Windows.Forms.CheckBox();
             this.RCONLabel = new System.Windows.Forms.Label();
             this.BackupSettingsPanel = new System.Windows.Forms.Panel();
-            this.BackupSettingsLabel = new System.Windows.Forms.Label();
-            this.BackupContainerTextBox = new System.Windows.Forms.TextBox();
-            this.BackupContainerButton = new System.Windows.Forms.Button();
+            this.BackupPrefixTextBox = new System.Windows.Forms.TextBox();
+            this.BackupPrefixLabel = new System.Windows.Forms.Label();
             this.BackupSavePathLabel = new System.Windows.Forms.Label();
+            this.BackupContainerButton = new System.Windows.Forms.Button();
+            this.BackupContainerTextBox = new System.Windows.Forms.TextBox();
+            this.BackupSettingsLabel = new System.Windows.Forms.Label();
+            this.MessagesPanel = new System.Windows.Forms.Panel();
+            this.BackupStartedMessageEnabledBox = new System.Windows.Forms.CheckBox();
+            this.BackupStartedMessageLabel = new System.Windows.Forms.Label();
+            this.BackupStartedMessageTextBox = new System.Windows.Forms.TextBox();
+            this.BackupFinishedMessageEnabledBox = new System.Windows.Forms.CheckBox();
+            this.BackupFinishedMessageLabel = new System.Windows.Forms.Label();
+            this.BackupFinishedMessageTextBox = new System.Windows.Forms.TextBox();
+            this.MessagesBoxLabel = new System.Windows.Forms.Label();
+            this.BackupLogsBox = new System.Windows.Forms.CheckBox();
+            this.TmpSaveLocationTextBox = new System.Windows.Forms.TextBox();
+            this.TmpSaveLocationEnabledBox = new System.Windows.Forms.CheckBox();
+            this.TmpSaveLocationBrowse = new System.Windows.Forms.Button();
             this.PlatformPanel.SuspendLayout();
             this.ModdedOptions.SuspendLayout();
             this.RCONSettingsPanel.SuspendLayout();
             this.BackupSettingsPanel.SuspendLayout();
+            this.MessagesPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // Platform_Vanilla
@@ -121,7 +136,7 @@
             // 
             // SaveConfig
             // 
-            this.SaveConfig.Location = new System.Drawing.Point(495, 13);
+            this.SaveConfig.Location = new System.Drawing.Point(436, 41);
             this.SaveConfig.Name = "SaveConfig";
             this.SaveConfig.Size = new System.Drawing.Size(75, 23);
             this.SaveConfig.TabIndex = 3;
@@ -131,7 +146,7 @@
             // 
             // ReloadConfig
             // 
-            this.ReloadConfig.Location = new System.Drawing.Point(395, 13);
+            this.ReloadConfig.Location = new System.Drawing.Point(417, 12);
             this.ReloadConfig.Name = "ReloadConfig";
             this.ReloadConfig.Size = new System.Drawing.Size(94, 23);
             this.ReloadConfig.TabIndex = 4;
@@ -167,6 +182,7 @@
             // 
             this.WorldsContainerPathTextBox.Location = new System.Drawing.Point(3, 66);
             this.WorldsContainerPathTextBox.Name = "WorldsContainerPathTextBox";
+            this.WorldsContainerPathTextBox.ReadOnly = true;
             this.WorldsContainerPathTextBox.Size = new System.Drawing.Size(161, 20);
             this.WorldsContainerPathTextBox.TabIndex = 3;
             // 
@@ -295,14 +311,65 @@
             // 
             this.BackupSettingsPanel.BackColor = System.Drawing.SystemColors.Control;
             this.BackupSettingsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BackupSettingsPanel.Controls.Add(this.TmpSaveLocationBrowse);
+            this.BackupSettingsPanel.Controls.Add(this.TmpSaveLocationEnabledBox);
+            this.BackupSettingsPanel.Controls.Add(this.TmpSaveLocationTextBox);
+            this.BackupSettingsPanel.Controls.Add(this.BackupLogsBox);
+            this.BackupSettingsPanel.Controls.Add(this.BackupPrefixTextBox);
+            this.BackupSettingsPanel.Controls.Add(this.BackupPrefixLabel);
             this.BackupSettingsPanel.Controls.Add(this.BackupSavePathLabel);
             this.BackupSettingsPanel.Controls.Add(this.BackupContainerButton);
             this.BackupSettingsPanel.Controls.Add(this.BackupContainerTextBox);
             this.BackupSettingsPanel.Controls.Add(this.BackupSettingsLabel);
             this.BackupSettingsPanel.Location = new System.Drawing.Point(219, 119);
             this.BackupSettingsPanel.Name = "BackupSettingsPanel";
-            this.BackupSettingsPanel.Size = new System.Drawing.Size(200, 141);
+            this.BackupSettingsPanel.Size = new System.Drawing.Size(361, 141);
             this.BackupSettingsPanel.TabIndex = 7;
+            // 
+            // BackupPrefixTextBox
+            // 
+            this.BackupPrefixTextBox.Location = new System.Drawing.Point(3, 106);
+            this.BackupPrefixTextBox.MaxLength = 25;
+            this.BackupPrefixTextBox.Name = "BackupPrefixTextBox";
+            this.BackupPrefixTextBox.Size = new System.Drawing.Size(192, 20);
+            this.BackupPrefixTextBox.TabIndex = 8;
+            this.BackupPrefixTextBox.LostFocus += new System.EventHandler(this.BackupPrefixTextBox_LostFocus);
+            // 
+            // BackupPrefixLabel
+            // 
+            this.BackupPrefixLabel.AutoSize = true;
+            this.BackupPrefixLabel.Location = new System.Drawing.Point(9, 88);
+            this.BackupPrefixLabel.Name = "BackupPrefixLabel";
+            this.BackupPrefixLabel.Size = new System.Drawing.Size(73, 13);
+            this.BackupPrefixLabel.TabIndex = 7;
+            this.BackupPrefixLabel.Text = "Backup Prefix";
+            // 
+            // BackupSavePathLabel
+            // 
+            this.BackupSavePathLabel.AutoSize = true;
+            this.BackupSavePathLabel.Location = new System.Drawing.Point(6, 42);
+            this.BackupSavePathLabel.Name = "BackupSavePathLabel";
+            this.BackupSavePathLabel.Size = new System.Drawing.Size(97, 13);
+            this.BackupSavePathLabel.TabIndex = 6;
+            this.BackupSavePathLabel.Text = "Backup Save Path";
+            // 
+            // BackupContainerButton
+            // 
+            this.BackupContainerButton.Location = new System.Drawing.Point(168, 61);
+            this.BackupContainerButton.Name = "BackupContainerButton";
+            this.BackupContainerButton.Size = new System.Drawing.Size(27, 19);
+            this.BackupContainerButton.TabIndex = 5;
+            this.BackupContainerButton.Text = "...";
+            this.BackupContainerButton.UseVisualStyleBackColor = true;
+            this.BackupContainerButton.Click += new System.EventHandler(this.BackupContainerButton_Click);
+            // 
+            // BackupContainerTextBox
+            // 
+            this.BackupContainerTextBox.Location = new System.Drawing.Point(3, 61);
+            this.BackupContainerTextBox.Name = "BackupContainerTextBox";
+            this.BackupContainerTextBox.ReadOnly = true;
+            this.BackupContainerTextBox.Size = new System.Drawing.Size(162, 20);
+            this.BackupContainerTextBox.TabIndex = 1;
             // 
             // BackupSettingsLabel
             // 
@@ -314,43 +381,139 @@
             this.BackupSettingsLabel.TabIndex = 0;
             this.BackupSettingsLabel.Text = "Backup Settings";
             // 
-            // BackupContainerTextBox
+            // MessagesPanel
             // 
-            this.BackupContainerTextBox.Location = new System.Drawing.Point(3, 45);
-            this.BackupContainerTextBox.Name = "BackupContainerTextBox";
-            this.BackupContainerTextBox.Size = new System.Drawing.Size(162, 20);
-            this.BackupContainerTextBox.TabIndex = 1;
+            this.MessagesPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.MessagesPanel.Controls.Add(this.BackupStartedMessageEnabledBox);
+            this.MessagesPanel.Controls.Add(this.BackupStartedMessageLabel);
+            this.MessagesPanel.Controls.Add(this.BackupStartedMessageTextBox);
+            this.MessagesPanel.Controls.Add(this.BackupFinishedMessageEnabledBox);
+            this.MessagesPanel.Controls.Add(this.BackupFinishedMessageLabel);
+            this.MessagesPanel.Controls.Add(this.BackupFinishedMessageTextBox);
+            this.MessagesPanel.Controls.Add(this.MessagesBoxLabel);
+            this.MessagesPanel.Location = new System.Drawing.Point(13, 267);
+            this.MessagesPanel.Name = "MessagesPanel";
+            this.MessagesPanel.Size = new System.Drawing.Size(406, 94);
+            this.MessagesPanel.TabIndex = 8;
             // 
-            // BackupContainerButton
+            // BackupStartedMessageEnabledBox
             // 
-            this.BackupContainerButton.Location = new System.Drawing.Point(170, 45);
-            this.BackupContainerButton.Name = "BackupContainerButton";
-            this.BackupContainerButton.Size = new System.Drawing.Size(27, 19);
-            this.BackupContainerButton.TabIndex = 5;
-            this.BackupContainerButton.Text = "...";
-            this.BackupContainerButton.UseVisualStyleBackColor = true;
-            this.BackupContainerButton.Click += new System.EventHandler(this.BackupContainerButton_Click);
+            this.BackupStartedMessageEnabledBox.AutoSize = true;
+            this.BackupStartedMessageEnabledBox.Location = new System.Drawing.Point(5, 38);
+            this.BackupStartedMessageEnabledBox.Name = "BackupStartedMessageEnabledBox";
+            this.BackupStartedMessageEnabledBox.Size = new System.Drawing.Size(65, 17);
+            this.BackupStartedMessageEnabledBox.TabIndex = 6;
+            this.BackupStartedMessageEnabledBox.Text = "Enabled";
+            this.BackupStartedMessageEnabledBox.UseVisualStyleBackColor = true;
+            this.BackupStartedMessageEnabledBox.CheckedChanged += new System.EventHandler(this.BackupStartedMessageEnabledBox_CheckedChanged);
             // 
-            // BackupSavePathLabel
+            // BackupStartedMessageLabel
             // 
-            this.BackupSavePathLabel.AutoSize = true;
-            this.BackupSavePathLabel.Location = new System.Drawing.Point(6, 26);
-            this.BackupSavePathLabel.Name = "BackupSavePathLabel";
-            this.BackupSavePathLabel.Size = new System.Drawing.Size(97, 13);
-            this.BackupSavePathLabel.TabIndex = 6;
-            this.BackupSavePathLabel.Text = "Backup Save Path";
+            this.BackupStartedMessageLabel.AutoSize = true;
+            this.BackupStartedMessageLabel.Location = new System.Drawing.Point(2, 22);
+            this.BackupStartedMessageLabel.Name = "BackupStartedMessageLabel";
+            this.BackupStartedMessageLabel.Size = new System.Drawing.Size(127, 13);
+            this.BackupStartedMessageLabel.TabIndex = 5;
+            this.BackupStartedMessageLabel.Text = "Backup Started Message";
+            // 
+            // BackupStartedMessageTextBox
+            // 
+            this.BackupStartedMessageTextBox.Location = new System.Drawing.Point(5, 61);
+            this.BackupStartedMessageTextBox.Name = "BackupStartedMessageTextBox";
+            this.BackupStartedMessageTextBox.Size = new System.Drawing.Size(196, 20);
+            this.BackupStartedMessageTextBox.TabIndex = 4;
+            // 
+            // BackupFinishedMessageEnabledBox
+            // 
+            this.BackupFinishedMessageEnabledBox.AutoSize = true;
+            this.BackupFinishedMessageEnabledBox.Location = new System.Drawing.Point(204, 38);
+            this.BackupFinishedMessageEnabledBox.Name = "BackupFinishedMessageEnabledBox";
+            this.BackupFinishedMessageEnabledBox.Size = new System.Drawing.Size(65, 17);
+            this.BackupFinishedMessageEnabledBox.TabIndex = 3;
+            this.BackupFinishedMessageEnabledBox.Text = "Enabled";
+            this.BackupFinishedMessageEnabledBox.UseVisualStyleBackColor = true;
+            this.BackupFinishedMessageEnabledBox.CheckedChanged += new System.EventHandler(this.BackupFinishedMessageEnabledBox_CheckedChanged);
+            // 
+            // BackupFinishedMessageLabel
+            // 
+            this.BackupFinishedMessageLabel.AutoSize = true;
+            this.BackupFinishedMessageLabel.Location = new System.Drawing.Point(201, 22);
+            this.BackupFinishedMessageLabel.Name = "BackupFinishedMessageLabel";
+            this.BackupFinishedMessageLabel.Size = new System.Drawing.Size(132, 13);
+            this.BackupFinishedMessageLabel.TabIndex = 2;
+            this.BackupFinishedMessageLabel.Text = "Backup Finished Message";
+            // 
+            // BackupFinishedMessageTextBox
+            // 
+            this.BackupFinishedMessageTextBox.Location = new System.Drawing.Point(204, 61);
+            this.BackupFinishedMessageTextBox.Name = "BackupFinishedMessageTextBox";
+            this.BackupFinishedMessageTextBox.Size = new System.Drawing.Size(196, 20);
+            this.BackupFinishedMessageTextBox.TabIndex = 1;
+            // 
+            // MessagesBoxLabel
+            // 
+            this.MessagesBoxLabel.AutoSize = true;
+            this.MessagesBoxLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MessagesBoxLabel.Location = new System.Drawing.Point(0, 0);
+            this.MessagesBoxLabel.Name = "MessagesBoxLabel";
+            this.MessagesBoxLabel.Size = new System.Drawing.Size(165, 13);
+            this.MessagesBoxLabel.TabIndex = 0;
+            this.MessagesBoxLabel.Text = "Server Broadcast Messages";
+            // 
+            // BackupLogsBox
+            // 
+            this.BackupLogsBox.AutoSize = true;
+            this.BackupLogsBox.Location = new System.Drawing.Point(9, 22);
+            this.BackupLogsBox.Name = "BackupLogsBox";
+            this.BackupLogsBox.Size = new System.Drawing.Size(123, 17);
+            this.BackupLogsBox.TabIndex = 9;
+            this.BackupLogsBox.Text = "Backup Server Logs";
+            this.BackupLogsBox.UseVisualStyleBackColor = true;
+            this.BackupLogsBox.CheckedChanged += new System.EventHandler(this.BackupLogsBox_CheckedChanged);
+            // 
+            // TmpSaveLocationTextBox
+            // 
+            this.TmpSaveLocationTextBox.Location = new System.Drawing.Point(202, 105);
+            this.TmpSaveLocationTextBox.Name = "TmpSaveLocationTextBox";
+            this.TmpSaveLocationTextBox.ReadOnly = true;
+            this.TmpSaveLocationTextBox.Size = new System.Drawing.Size(121, 20);
+            this.TmpSaveLocationTextBox.TabIndex = 10;
+            // 
+            // TmpSaveLocationEnabledBox
+            // 
+            this.TmpSaveLocationEnabledBox.AutoSize = true;
+            this.TmpSaveLocationEnabledBox.Location = new System.Drawing.Point(202, 82);
+            this.TmpSaveLocationEnabledBox.Name = "TmpSaveLocationEnabledBox";
+            this.TmpSaveLocationEnabledBox.Size = new System.Drawing.Size(159, 17);
+            this.TmpSaveLocationEnabledBox.TabIndex = 11;
+            this.TmpSaveLocationEnabledBox.Text = "Enable Custom Temp Folder";
+            this.TmpSaveLocationEnabledBox.UseVisualStyleBackColor = true;
+            this.TmpSaveLocationEnabledBox.CheckedChanged += new System.EventHandler(this.TmpSaveLocationEnabledBox_CheckedChanged);
+            // 
+            // TmpSaveLocationBrowse
+            // 
+            this.TmpSaveLocationBrowse.Location = new System.Drawing.Point(329, 105);
+            this.TmpSaveLocationBrowse.Name = "TmpSaveLocationBrowse";
+            this.TmpSaveLocationBrowse.Size = new System.Drawing.Size(27, 19);
+            this.TmpSaveLocationBrowse.TabIndex = 12;
+            this.TmpSaveLocationBrowse.Text = "...";
+            this.TmpSaveLocationBrowse.UseVisualStyleBackColor = true;
+            this.TmpSaveLocationBrowse.Click += new System.EventHandler(this.TmpSaveLocationBrowse_Click);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(582, 329);
+            this.ClientSize = new System.Drawing.Size(592, 373);
+            this.Controls.Add(this.MessagesPanel);
             this.Controls.Add(this.BackupSettingsPanel);
             this.Controls.Add(this.RCONSettingsPanel);
             this.Controls.Add(this.ModdedOptions);
             this.Controls.Add(this.ReloadConfig);
             this.Controls.Add(this.SaveConfig);
             this.Controls.Add(this.PlatformPanel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.Text = "Baackup Configuration Customizer";
             this.Load += new System.EventHandler(this.MainWindow_Load);
@@ -362,25 +525,15 @@
             this.RCONSettingsPanel.PerformLayout();
             this.BackupSettingsPanel.ResumeLayout(false);
             this.BackupSettingsPanel.PerformLayout();
+            this.MessagesPanel.ResumeLayout(false);
+            this.MessagesPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.Label PlatformLabel;
-        private System.Windows.Forms.Panel PlatformPanel;
-        private System.Windows.Forms.Button SaveConfig;
-        private System.Windows.Forms.Button ReloadConfig;
-        private System.Windows.Forms.Panel ModdedOptions;
-        private System.Windows.Forms.Label ModdedServerOptions;
-        private System.Windows.Forms.Button WorldsContainerPathBrowseButton;
         public System.Windows.Forms.TextBox WorldsContainerPathTextBox;
         public System.Windows.Forms.CheckBox WorldsContainerButton;
-        private System.Windows.Forms.Panel RCONSettingsPanel;
-        private System.Windows.Forms.Label RCONLabel;
-        private System.Windows.Forms.Label RCONPasswordLabel;
-        private System.Windows.Forms.Label RCONPortLabel;
-        private System.Windows.Forms.Label RCONHostnameLabel;
         public System.Windows.Forms.RadioButton Platform_Vanilla;
         public System.Windows.Forms.RadioButton Platform_CraftBukkit;
         public System.Windows.Forms.RadioButton Platform_Spigot;
@@ -389,11 +542,37 @@
         public System.Windows.Forms.TextBox RCONHostnameTextBox;
         public System.Windows.Forms.TextBox RCONPortTextBox;
         public System.Windows.Forms.TextBox RCONPasswordTextBox;
-        private System.Windows.Forms.Panel BackupSettingsPanel;
-        private System.Windows.Forms.Button BackupContainerButton;
-        private System.Windows.Forms.TextBox BackupContainerTextBox;
-        private System.Windows.Forms.Label BackupSettingsLabel;
-        private System.Windows.Forms.Label BackupSavePathLabel;
+        public System.Windows.Forms.Label PlatformLabel;
+        public System.Windows.Forms.Panel PlatformPanel;
+        public System.Windows.Forms.Button SaveConfig;
+        public System.Windows.Forms.Button ReloadConfig;
+        public System.Windows.Forms.Panel ModdedOptions;
+        public System.Windows.Forms.Label ModdedServerOptions;
+        public System.Windows.Forms.Button WorldsContainerPathBrowseButton;
+        public System.Windows.Forms.Panel RCONSettingsPanel;
+        public System.Windows.Forms.Label RCONLabel;
+        public System.Windows.Forms.Label RCONPasswordLabel;
+        public System.Windows.Forms.Label RCONPortLabel;
+        public System.Windows.Forms.Label RCONHostnameLabel;
+        public System.Windows.Forms.Panel BackupSettingsPanel;
+        public System.Windows.Forms.Button BackupContainerButton;
+        public System.Windows.Forms.TextBox BackupContainerTextBox;
+        public System.Windows.Forms.Label BackupSettingsLabel;
+        public System.Windows.Forms.Label BackupSavePathLabel;
+        public System.Windows.Forms.Label BackupPrefixLabel;
+        public System.Windows.Forms.TextBox BackupPrefixTextBox;
+        public System.Windows.Forms.Panel MessagesPanel;
+        public System.Windows.Forms.Label MessagesBoxLabel;
+        public System.Windows.Forms.CheckBox BackupStartedMessageEnabledBox;
+        public System.Windows.Forms.Label BackupStartedMessageLabel;
+        public System.Windows.Forms.TextBox BackupStartedMessageTextBox;
+        public System.Windows.Forms.CheckBox BackupFinishedMessageEnabledBox;
+        public System.Windows.Forms.Label BackupFinishedMessageLabel;
+        public System.Windows.Forms.TextBox BackupFinishedMessageTextBox;
+        public System.Windows.Forms.CheckBox BackupLogsBox;
+        private System.Windows.Forms.CheckBox TmpSaveLocationEnabledBox;
+        private System.Windows.Forms.TextBox TmpSaveLocationTextBox;
+        public System.Windows.Forms.Button TmpSaveLocationBrowse;
     }
 }
 

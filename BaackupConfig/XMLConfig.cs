@@ -56,7 +56,10 @@ namespace BaackupConfig
 
         public static void LoadConfig()
         {
-            // Do something
+            if (!ConfigExists())
+                return;
+
+            // load config
         }
 
         public static void SaveConfig()

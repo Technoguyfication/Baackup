@@ -74,18 +74,18 @@ namespace BaackupConfig
             Variables.WorldsContainerPath = Main.WorldsContainerPathTextBox.Text;
 
             // Backup Messages
-            Variables.BackupMessageActive = false;
-            Variables.BackupMessage = "say The server is backing up! Prepare for some slight lag!";
+            Variables.BackupMessageActive = Main.BackupStartedMessageEnabledBox.Checked;
+            Variables.BackupMessage = Main.BackupStartedMessageTextBox.Text;
 
-            Variables.BackupFinishedMessageActive = false;
-            Variables.BackupFinishedMessage = "say Server Backup Completed!";
+            Variables.BackupFinishedMessageActive = Main.BackupFinishedMessageEnabledBox.Checked;
+            Variables.BackupFinishedMessage = Main.BackupFinishedMessageTextBox.Text;
 
             // Backup items
             Variables.BackupPlugins = Main.BackupPluginsBox.Checked;
-            Variables.BackupLogs = true;
+            Variables.BackupLogs = Main.BackupLogsBox.Checked;
 
             // Folders
-            Variables.BackupContainer = null;
+            Variables.BackupContainer = Main.BackupContainerTextBox.Text;
             Variables.UseCustomTMPDir = false;
             Variables.CustomTMPDir = null;
 
