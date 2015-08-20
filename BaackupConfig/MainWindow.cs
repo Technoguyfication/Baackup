@@ -20,46 +20,31 @@ namespace BaackupConfig
             InitializeComponent();
         }
 
-        void CheckModded(RadioButton button)
-        {
-            if ((button.Name == "Platform_Spigot" || button.Name == "Platform_CraftBukkit") && button.Checked)
-                ModdedPlatform = true;
-            else
-                ModdedPlatform = false;
-
-            // Set config option
-
-            if (button.Name == "Platform_Spigot")
-                Variables.Platform = "spigot";
-            else if (button.Name == "Platform_CraftBukkit")
-                Variables.Platform = "craftbukkit";
-            else
-                Variables.Platform = "vanilla";
-
-            GUIUpdate();
-        }
-
-        void CheckUseWorldsContainer()
-        {
-            if (WorldsContainerButton.Checked == true)
-            {
-                Variables.WorldsContainerActive = true;
-            }
-            else
-            {
-                Variables.WorldsContainerActive = false;
-            }
-
-            GUIUpdate();
-        }
-
         public void GUIUpdate()
         {
-            // Update modded options
+            #region Modded Server Options
+
             if (ModdedPlatform)
             {
-                BackupPlugins.Enabled = true;
+                // Get all the controls in the box.
+                List<Control> list = new List<Control>();
+                GetAllControl(ModdedOptions, list);
 
+                // For every element in the box, enable it.
+                foreach (Control control in list)
+                {
+                    control.Enabled = true;
+                }
+
+                // Bukkit
+                if (Variables.Platform == "craftbukkit")
+                {
+                    WorldsContainerButton.Enabled = false;
+                    WorldsContainerPathTextBox.Enabled = false;
+                    WorldsContainerPathBrowseButton.Enabled = false;
+                }
+
+                // Spigot
                 if (Variables.Platform == "spigot")
                 {
                     WorldsContainerButton.Enabled = true;
@@ -69,14 +54,19 @@ namespace BaackupConfig
             }
             else
             {
-                BackupPlugins.Enabled = false;
+                // Get all the controls in the box.
+                List<Control> list = new List<Control>();
+                GetAllControl(ModdedOptions, list);
 
-                WorldsContainerButton.Enabled = false;
-                WorldsContainerPathTextBox.Enabled = false;
-                WorldsContainerPathBrowseButton.Enabled = false;
+                // For every element in the box, disable it
+                foreach (Control control in list)
+                {
+                    control.Enabled = false;
+                }
             }
 
-            // Update world container options
+            #region Worlds Container
+
             if (Variables.WorldsContainerActive)
             {
                 WorldsContainerPathTextBox.Enabled = true;
@@ -87,6 +77,24 @@ namespace BaackupConfig
                 WorldsContainerPathTextBox.Enabled = false;
                 WorldsContainerPathBrowseButton.Enabled = false;
             }
+
+            #endregion
+
+            #endregion
+
+            #region RCON
+
+            if (Variables.UseRCON)
+            {
+                // Do RCON options here.
+
+            }
+            else
+            {
+                // Do the opposite of RCON options here
+            }
+
+            #endregion
         }
 
         #region Actions
@@ -134,6 +142,62 @@ namespace BaackupConfig
         {
             CheckModded(Platform_Vanilla);
         }
+
+        #endregion
+
+        #region Other Stuff That Makes The Program Do Stuff
+
+        #region Checks
+
+        void CheckModded(RadioButton button)
+        {
+            if ((button.Name == "Platform_Spigot" || button.Name == "Platform_CraftBukkit") && button.Checked)
+                ModdedPlatform = true;
+            else
+                ModdedPlatform = false;
+
+            // Set config option
+
+            if (button.Name == "Platform_Spigot")
+                Variables.Platform = "spigot";
+            else if (button.Name == "Platform_CraftBukkit")
+                Variables.Platform = "craftbukkit";
+            else
+                Variables.Platform = "vanilla";
+
+            GUIUpdate();
+        }
+
+        void CheckUseWorldsContainer()
+        {
+            if (WorldsContainerButton.Checked == true)
+            {
+                Variables.WorldsContainerActive = true;
+            }
+            else
+            {
+                Variables.WorldsContainerActive = false;
+            }
+
+            GUIUpdate();
+        }
+
+        #endregion
+
+        #region Functional Things
+
+        private void GetAllControl(Control c, List<Control> list)
+        {
+            foreach (Control control in c.Controls)
+            {
+                list.Add(control);
+
+                if (control.GetType() == typeof(Panel))
+                    GetAllControl(control, list);
+            }
+        }
+
+        #endregion
 
         #endregion
     }

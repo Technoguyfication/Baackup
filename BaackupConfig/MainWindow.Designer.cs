@@ -36,13 +36,18 @@
             this.SaveConfig = new System.Windows.Forms.Button();
             this.ReloadConfig = new System.Windows.Forms.Button();
             this.ModdedOptions = new System.Windows.Forms.Panel();
+            this.WorldsContainerPathBrowseButton = new System.Windows.Forms.Button();
+            this.WorldsContainerPathTextBox = new System.Windows.Forms.TextBox();
+            this.WorldsContainerButton = new System.Windows.Forms.CheckBox();
             this.ModdedServerOptions = new System.Windows.Forms.Label();
             this.BackupPlugins = new System.Windows.Forms.CheckBox();
-            this.WorldsContainerButton = new System.Windows.Forms.CheckBox();
-            this.WorldsContainerPathTextBox = new System.Windows.Forms.TextBox();
-            this.WorldsContainerPathBrowseButton = new System.Windows.Forms.Button();
+            this.RCONSettingsPanel = new System.Windows.Forms.Panel();
+            this.RCONLabel = new System.Windows.Forms.Label();
+            this.UseRCONBox = new System.Windows.Forms.CheckBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.PlatformPanel.SuspendLayout();
             this.ModdedOptions.SuspendLayout();
+            this.RCONSettingsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // Platform_Vanilla
@@ -132,6 +137,34 @@
             this.ModdedOptions.Size = new System.Drawing.Size(200, 100);
             this.ModdedOptions.TabIndex = 5;
             // 
+            // WorldsContainerPathBrowseButton
+            // 
+            this.WorldsContainerPathBrowseButton.Location = new System.Drawing.Point(159, 67);
+            this.WorldsContainerPathBrowseButton.Name = "WorldsContainerPathBrowseButton";
+            this.WorldsContainerPathBrowseButton.Size = new System.Drawing.Size(27, 19);
+            this.WorldsContainerPathBrowseButton.TabIndex = 4;
+            this.WorldsContainerPathBrowseButton.Text = "...";
+            this.WorldsContainerPathBrowseButton.UseVisualStyleBackColor = true;
+            this.WorldsContainerPathBrowseButton.Click += new System.EventHandler(this.WorldsContainerPathBrowseButton_Click);
+            // 
+            // WorldsContainerPathTextBox
+            // 
+            this.WorldsContainerPathTextBox.Location = new System.Drawing.Point(3, 66);
+            this.WorldsContainerPathTextBox.Name = "WorldsContainerPathTextBox";
+            this.WorldsContainerPathTextBox.Size = new System.Drawing.Size(150, 20);
+            this.WorldsContainerPathTextBox.TabIndex = 3;
+            // 
+            // WorldsContainerButton
+            // 
+            this.WorldsContainerButton.AutoSize = true;
+            this.WorldsContainerButton.Location = new System.Drawing.Point(3, 44);
+            this.WorldsContainerButton.Name = "WorldsContainerButton";
+            this.WorldsContainerButton.Size = new System.Drawing.Size(129, 17);
+            this.WorldsContainerButton.TabIndex = 2;
+            this.WorldsContainerButton.Text = "Use Worlds Container";
+            this.WorldsContainerButton.UseVisualStyleBackColor = true;
+            this.WorldsContainerButton.CheckedChanged += new System.EventHandler(this.WorldsContainerButton_CheckedChanged);
+            // 
             // ModdedServerOptions
             // 
             this.ModdedServerOptions.AutoSize = true;
@@ -151,39 +184,48 @@
             this.BackupPlugins.Text = "Backup Plugins";
             this.BackupPlugins.UseVisualStyleBackColor = true;
             // 
-            // WorldsContainerButton
+            // RCONSettingsPanel
             // 
-            this.WorldsContainerButton.AutoSize = true;
-            this.WorldsContainerButton.Location = new System.Drawing.Point(3, 44);
-            this.WorldsContainerButton.Name = "WorldsContainerButton";
-            this.WorldsContainerButton.Size = new System.Drawing.Size(129, 17);
-            this.WorldsContainerButton.TabIndex = 2;
-            this.WorldsContainerButton.Text = "Use Worlds Container";
-            this.WorldsContainerButton.UseVisualStyleBackColor = true;
-            this.WorldsContainerButton.CheckedChanged += new System.EventHandler(this.WorldsContainerButton_CheckedChanged);
+            this.RCONSettingsPanel.Controls.Add(this.textBox1);
+            this.RCONSettingsPanel.Controls.Add(this.UseRCONBox);
+            this.RCONSettingsPanel.Controls.Add(this.RCONLabel);
+            this.RCONSettingsPanel.Location = new System.Drawing.Point(12, 119);
+            this.RCONSettingsPanel.Name = "RCONSettingsPanel";
+            this.RCONSettingsPanel.Size = new System.Drawing.Size(200, 100);
+            this.RCONSettingsPanel.TabIndex = 6;
             // 
-            // WorldsContainerPathTextBox
+            // RCONLabel
             // 
-            this.WorldsContainerPathTextBox.Location = new System.Drawing.Point(3, 66);
-            this.WorldsContainerPathTextBox.Name = "WorldsContainerPathTextBox";
-            this.WorldsContainerPathTextBox.Size = new System.Drawing.Size(150, 20);
-            this.WorldsContainerPathTextBox.TabIndex = 3;
+            this.RCONLabel.AutoSize = true;
+            this.RCONLabel.Location = new System.Drawing.Point(6, 4);
+            this.RCONLabel.Name = "RCONLabel";
+            this.RCONLabel.Size = new System.Drawing.Size(79, 13);
+            this.RCONLabel.TabIndex = 0;
+            this.RCONLabel.Text = "RCON Settings";
             // 
-            // WorldsContainerPathBrowseButton
+            // UseRCONBox
             // 
-            this.WorldsContainerPathBrowseButton.Location = new System.Drawing.Point(159, 67);
-            this.WorldsContainerPathBrowseButton.Name = "WorldsContainerPathBrowseButton";
-            this.WorldsContainerPathBrowseButton.Size = new System.Drawing.Size(27, 19);
-            this.WorldsContainerPathBrowseButton.TabIndex = 4;
-            this.WorldsContainerPathBrowseButton.Text = "...";
-            this.WorldsContainerPathBrowseButton.UseVisualStyleBackColor = true;
-            this.WorldsContainerPathBrowseButton.Click += new System.EventHandler(this.WorldsContainerPathBrowseButton_Click);
+            this.UseRCONBox.AutoSize = true;
+            this.UseRCONBox.Location = new System.Drawing.Point(4, 21);
+            this.UseRCONBox.Name = "UseRCONBox";
+            this.UseRCONBox.Size = new System.Drawing.Size(146, 17);
+            this.UseRCONBox.TabIndex = 1;
+            this.UseRCONBox.Text = "Enable RCON Integration";
+            this.UseRCONBox.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(4, 44);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(136, 20);
+            this.textBox1.TabIndex = 2;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(582, 329);
+            this.Controls.Add(this.RCONSettingsPanel);
             this.Controls.Add(this.ModdedOptions);
             this.Controls.Add(this.ReloadConfig);
             this.Controls.Add(this.SaveConfig);
@@ -195,6 +237,8 @@
             this.PlatformPanel.PerformLayout();
             this.ModdedOptions.ResumeLayout(false);
             this.ModdedOptions.PerformLayout();
+            this.RCONSettingsPanel.ResumeLayout(false);
+            this.RCONSettingsPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -214,6 +258,10 @@
         private System.Windows.Forms.Button WorldsContainerPathBrowseButton;
         public System.Windows.Forms.TextBox WorldsContainerPathTextBox;
         public System.Windows.Forms.CheckBox WorldsContainerButton;
+        private System.Windows.Forms.Panel RCONSettingsPanel;
+        private System.Windows.Forms.CheckBox UseRCONBox;
+        private System.Windows.Forms.Label RCONLabel;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
