@@ -86,12 +86,12 @@ namespace BaackupConfig
 
             if (Variables.UseRCON)
             {
-                RCONHostnameTextBox.Enabled = false;
+                RCONHostnameTextBox.Enabled = true;
                 RCONPortTextBox.Enabled = true;
             }
             else
             {
-                RCONHostnameTextBox.Enabled = true;
+                RCONHostnameTextBox.Enabled = false;
                 RCONPortTextBox.Enabled = false;
             }
 
