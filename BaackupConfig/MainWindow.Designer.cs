@@ -42,9 +42,12 @@
             this.ModdedServerOptions = new System.Windows.Forms.Label();
             this.BackupPlugins = new System.Windows.Forms.CheckBox();
             this.RCONSettingsPanel = new System.Windows.Forms.Panel();
-            this.RCONLabel = new System.Windows.Forms.Label();
+            this.RCONPortTextBox = new System.Windows.Forms.TextBox();
+            this.RCONHostnameTextBox_Label = new System.Windows.Forms.Label();
+            this.RCONHostnameTextBox = new System.Windows.Forms.TextBox();
             this.UseRCONBox = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.RCONLabel = new System.Windows.Forms.Label();
+            this.RCONPortTextBox_Label = new System.Windows.Forms.Label();
             this.PlatformPanel.SuspendLayout();
             this.ModdedOptions.SuspendLayout();
             this.RCONSettingsPanel.SuspendLayout();
@@ -186,7 +189,10 @@
             // 
             // RCONSettingsPanel
             // 
-            this.RCONSettingsPanel.Controls.Add(this.textBox1);
+            this.RCONSettingsPanel.Controls.Add(this.RCONPortTextBox_Label);
+            this.RCONSettingsPanel.Controls.Add(this.RCONPortTextBox);
+            this.RCONSettingsPanel.Controls.Add(this.RCONHostnameTextBox_Label);
+            this.RCONSettingsPanel.Controls.Add(this.RCONHostnameTextBox);
             this.RCONSettingsPanel.Controls.Add(this.UseRCONBox);
             this.RCONSettingsPanel.Controls.Add(this.RCONLabel);
             this.RCONSettingsPanel.Location = new System.Drawing.Point(12, 119);
@@ -194,14 +200,35 @@
             this.RCONSettingsPanel.Size = new System.Drawing.Size(200, 100);
             this.RCONSettingsPanel.TabIndex = 6;
             // 
-            // RCONLabel
+            // RCONPortTextBox
             // 
-            this.RCONLabel.AutoSize = true;
-            this.RCONLabel.Location = new System.Drawing.Point(6, 4);
-            this.RCONLabel.Name = "RCONLabel";
-            this.RCONLabel.Size = new System.Drawing.Size(79, 13);
-            this.RCONLabel.TabIndex = 0;
-            this.RCONLabel.Text = "RCON Settings";
+            this.RCONPortTextBox.Location = new System.Drawing.Point(146, 44);
+            this.RCONPortTextBox.Name = "RCONPortTextBox";
+            this.RCONPortTextBox.Size = new System.Drawing.Size(51, 20);
+            this.RCONPortTextBox.TabIndex = 4;
+            this.RCONPortTextBox.GotFocus += new System.EventHandler(this.RCONPortTextBox_GotFocus);
+            this.RCONPortTextBox.LostFocus += new System.EventHandler(this.RCONPortTextBox_LostFocus);
+            // 
+            // RCONHostnameTextBox_Label
+            // 
+            this.RCONHostnameTextBox_Label.AutoSize = true;
+            this.RCONHostnameTextBox_Label.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.RCONHostnameTextBox_Label.Enabled = false;
+            this.RCONHostnameTextBox_Label.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.RCONHostnameTextBox_Label.Location = new System.Drawing.Point(6, 47);
+            this.RCONHostnameTextBox_Label.Name = "RCONHostnameTextBox_Label";
+            this.RCONHostnameTextBox_Label.Size = new System.Drawing.Size(89, 13);
+            this.RCONHostnameTextBox_Label.TabIndex = 3;
+            this.RCONHostnameTextBox_Label.Text = "RCON Hostname";
+            // 
+            // RCONHostnameTextBox
+            // 
+            this.RCONHostnameTextBox.Location = new System.Drawing.Point(4, 44);
+            this.RCONHostnameTextBox.Name = "RCONHostnameTextBox";
+            this.RCONHostnameTextBox.Size = new System.Drawing.Size(136, 20);
+            this.RCONHostnameTextBox.TabIndex = 2;
+            this.RCONHostnameTextBox.GotFocus += new System.EventHandler(this.RCONHostnameTextBox_GotFocus);
+            this.RCONHostnameTextBox.LostFocus += new System.EventHandler(this.RCONHostnameTextBox_LostFocus);
             // 
             // UseRCONBox
             // 
@@ -212,13 +239,28 @@
             this.UseRCONBox.TabIndex = 1;
             this.UseRCONBox.Text = "Enable RCON Integration";
             this.UseRCONBox.UseVisualStyleBackColor = true;
+            this.UseRCONBox.CheckedChanged += new System.EventHandler(this.UseRCONBox_CheckedChanged);
             // 
-            // textBox1
+            // RCONLabel
             // 
-            this.textBox1.Location = new System.Drawing.Point(4, 44);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(136, 20);
-            this.textBox1.TabIndex = 2;
+            this.RCONLabel.AutoSize = true;
+            this.RCONLabel.Location = new System.Drawing.Point(0, 5);
+            this.RCONLabel.Name = "RCONLabel";
+            this.RCONLabel.Size = new System.Drawing.Size(79, 13);
+            this.RCONLabel.TabIndex = 0;
+            this.RCONLabel.Text = "RCON Settings";
+            // 
+            // RCONPortTextBox_Label
+            // 
+            this.RCONPortTextBox_Label.AutoSize = true;
+            this.RCONPortTextBox_Label.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.RCONPortTextBox_Label.Enabled = false;
+            this.RCONPortTextBox_Label.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.RCONPortTextBox_Label.Location = new System.Drawing.Point(147, 47);
+            this.RCONPortTextBox_Label.Name = "RCONPortTextBox_Label";
+            this.RCONPortTextBox_Label.Size = new System.Drawing.Size(26, 13);
+            this.RCONPortTextBox_Label.TabIndex = 5;
+            this.RCONPortTextBox_Label.Text = "Port";
             // 
             // MainWindow
             // 
@@ -261,7 +303,10 @@
         private System.Windows.Forms.Panel RCONSettingsPanel;
         private System.Windows.Forms.CheckBox UseRCONBox;
         private System.Windows.Forms.Label RCONLabel;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox RCONHostnameTextBox;
+        private System.Windows.Forms.Label RCONHostnameTextBox_Label;
+        private System.Windows.Forms.TextBox RCONPortTextBox;
+        private System.Windows.Forms.Label RCONPortTextBox_Label;
     }
 }
 

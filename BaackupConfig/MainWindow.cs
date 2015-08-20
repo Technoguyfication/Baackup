@@ -86,12 +86,13 @@ namespace BaackupConfig
 
             if (Variables.UseRCON)
             {
-                // Do RCON options here.
-
+                RCONHostnameTextBox.Enabled = false;
+                RCONPortTextBox.Enabled = true;
             }
             else
             {
-                // Do the opposite of RCON options here
+                RCONHostnameTextBox.Enabled = true;
+                RCONPortTextBox.Enabled = false;
             }
 
             #endregion
@@ -141,6 +142,57 @@ namespace BaackupConfig
         private void Platform_Vanilla_CheckedChanged(object sender, EventArgs e)
         {
             CheckModded(Platform_Vanilla);
+        }
+
+        private void RCONHostnameTextBox_GotFocus(object sender, EventArgs e)
+        {
+            HideTemplateText(RCONHostnameTextBox_Label);
+        }
+
+        private void RCONHostnameTextBox_LostFocus(object sender, EventArgs e)
+        {
+            if (RCONHostnameTextBox.Text == "")
+                ShowTemplateText(RCONHostnameTextBox_Label);
+        }
+
+        private void RCONPortTextBox_GotFocus(object sender, EventArgs e)
+        {
+            HideTemplateText(RCONPortTextBox_Label);
+        }
+
+        private void RCONPortTextBox_LostFocus(object sender, EventArgs e)
+        {
+            if (RCONPortTextBox.Text == "")
+                ShowTemplateText(RCONPortTextBox_Label);
+
+            // Validate
+            bool valid = true;
+
+            char[] numbers = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+
+            foreach (char character in RCONPortTextBox.Text.ToCharArray())
+            {
+                int pos = Array.IndexOf(numbers, character);
+
+                if (!(pos > -1))
+                    valid = false;
+            }
+
+            if (!valid)
+            {
+                RCONPortTextBox.Text = "";
+                MessageBox.Show("Port number cannot contain anything but numbers.", "Input Error");
+            }
+        }
+
+        private void UseRCONBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (UseRCONBox.Checked)
+                Variables.UseRCON = true;
+            else
+                Variables.UseRCON = false;
+
+            GUIUpdate();
         }
 
         #endregion
@@ -197,8 +249,19 @@ namespace BaackupConfig
             }
         }
 
+        private void HideTemplateText(Label item)
+        {
+            item.Visible = false;
+        }
+
+        private void ShowTemplateText(Label item)
+        {
+            item.Visible = true;
+        }
+
         #endregion
 
         #endregion
+
     }
 }
