@@ -57,9 +57,15 @@ namespace BaackupConfig
         public static void LoadConfig()
         {
             if (!ConfigExists())
+            {
+                GenerateDefaultConfig();
+                Variables.SendConfigSettings();
                 return;
+            }
 
             // load config
+
+            Variables.SendConfigSettings();
         }
 
         public static void SaveConfig()

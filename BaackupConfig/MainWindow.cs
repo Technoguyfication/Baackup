@@ -258,6 +258,11 @@ namespace BaackupConfig
                 TmpSaveLocationTextBox.Text = FolderBrowser.SelectedPath;
         }
 
+        private void CompressBackupsBox_CheckedChanged(object sender, EventArgs e)
+        {
+            GUIUpdate();
+        }
+
         #endregion
 
         #endregion

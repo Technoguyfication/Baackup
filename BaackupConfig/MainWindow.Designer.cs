@@ -51,6 +51,10 @@
             this.UseRCONBox = new System.Windows.Forms.CheckBox();
             this.RCONLabel = new System.Windows.Forms.Label();
             this.BackupSettingsPanel = new System.Windows.Forms.Panel();
+            this.TmpSaveLocationBrowse = new System.Windows.Forms.Button();
+            this.TmpSaveLocationEnabledBox = new System.Windows.Forms.CheckBox();
+            this.TmpSaveLocationTextBox = new System.Windows.Forms.TextBox();
+            this.BackupLogsBox = new System.Windows.Forms.CheckBox();
             this.BackupPrefixTextBox = new System.Windows.Forms.TextBox();
             this.BackupPrefixLabel = new System.Windows.Forms.Label();
             this.BackupSavePathLabel = new System.Windows.Forms.Label();
@@ -65,10 +69,7 @@
             this.BackupFinishedMessageLabel = new System.Windows.Forms.Label();
             this.BackupFinishedMessageTextBox = new System.Windows.Forms.TextBox();
             this.MessagesBoxLabel = new System.Windows.Forms.Label();
-            this.BackupLogsBox = new System.Windows.Forms.CheckBox();
-            this.TmpSaveLocationTextBox = new System.Windows.Forms.TextBox();
-            this.TmpSaveLocationEnabledBox = new System.Windows.Forms.CheckBox();
-            this.TmpSaveLocationBrowse = new System.Windows.Forms.Button();
+            this.CompressBackupsBox = new System.Windows.Forms.CheckBox();
             this.PlatformPanel.SuspendLayout();
             this.ModdedOptions.SuspendLayout();
             this.RCONSettingsPanel.SuspendLayout();
@@ -311,6 +312,7 @@
             // 
             this.BackupSettingsPanel.BackColor = System.Drawing.SystemColors.Control;
             this.BackupSettingsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BackupSettingsPanel.Controls.Add(this.CompressBackupsBox);
             this.BackupSettingsPanel.Controls.Add(this.TmpSaveLocationBrowse);
             this.BackupSettingsPanel.Controls.Add(this.TmpSaveLocationEnabledBox);
             this.BackupSettingsPanel.Controls.Add(this.TmpSaveLocationTextBox);
@@ -325,6 +327,46 @@
             this.BackupSettingsPanel.Name = "BackupSettingsPanel";
             this.BackupSettingsPanel.Size = new System.Drawing.Size(361, 141);
             this.BackupSettingsPanel.TabIndex = 7;
+            // 
+            // TmpSaveLocationBrowse
+            // 
+            this.TmpSaveLocationBrowse.Location = new System.Drawing.Point(329, 105);
+            this.TmpSaveLocationBrowse.Name = "TmpSaveLocationBrowse";
+            this.TmpSaveLocationBrowse.Size = new System.Drawing.Size(27, 19);
+            this.TmpSaveLocationBrowse.TabIndex = 12;
+            this.TmpSaveLocationBrowse.Text = "...";
+            this.TmpSaveLocationBrowse.UseVisualStyleBackColor = true;
+            this.TmpSaveLocationBrowse.Click += new System.EventHandler(this.TmpSaveLocationBrowse_Click);
+            // 
+            // TmpSaveLocationEnabledBox
+            // 
+            this.TmpSaveLocationEnabledBox.AutoSize = true;
+            this.TmpSaveLocationEnabledBox.Location = new System.Drawing.Point(202, 82);
+            this.TmpSaveLocationEnabledBox.Name = "TmpSaveLocationEnabledBox";
+            this.TmpSaveLocationEnabledBox.Size = new System.Drawing.Size(159, 17);
+            this.TmpSaveLocationEnabledBox.TabIndex = 11;
+            this.TmpSaveLocationEnabledBox.Text = "Enable Custom Temp Folder";
+            this.TmpSaveLocationEnabledBox.UseVisualStyleBackColor = true;
+            this.TmpSaveLocationEnabledBox.CheckedChanged += new System.EventHandler(this.TmpSaveLocationEnabledBox_CheckedChanged);
+            // 
+            // TmpSaveLocationTextBox
+            // 
+            this.TmpSaveLocationTextBox.Location = new System.Drawing.Point(202, 105);
+            this.TmpSaveLocationTextBox.Name = "TmpSaveLocationTextBox";
+            this.TmpSaveLocationTextBox.ReadOnly = true;
+            this.TmpSaveLocationTextBox.Size = new System.Drawing.Size(121, 20);
+            this.TmpSaveLocationTextBox.TabIndex = 10;
+            // 
+            // BackupLogsBox
+            // 
+            this.BackupLogsBox.AutoSize = true;
+            this.BackupLogsBox.Location = new System.Drawing.Point(9, 22);
+            this.BackupLogsBox.Name = "BackupLogsBox";
+            this.BackupLogsBox.Size = new System.Drawing.Size(123, 17);
+            this.BackupLogsBox.TabIndex = 9;
+            this.BackupLogsBox.Text = "Backup Server Logs";
+            this.BackupLogsBox.UseVisualStyleBackColor = true;
+            this.BackupLogsBox.CheckedChanged += new System.EventHandler(this.BackupLogsBox_CheckedChanged);
             // 
             // BackupPrefixTextBox
             // 
@@ -460,45 +502,16 @@
             this.MessagesBoxLabel.TabIndex = 0;
             this.MessagesBoxLabel.Text = "Server Broadcast Messages";
             // 
-            // BackupLogsBox
+            // CompressBackupsBox
             // 
-            this.BackupLogsBox.AutoSize = true;
-            this.BackupLogsBox.Location = new System.Drawing.Point(9, 22);
-            this.BackupLogsBox.Name = "BackupLogsBox";
-            this.BackupLogsBox.Size = new System.Drawing.Size(123, 17);
-            this.BackupLogsBox.TabIndex = 9;
-            this.BackupLogsBox.Text = "Backup Server Logs";
-            this.BackupLogsBox.UseVisualStyleBackColor = true;
-            this.BackupLogsBox.CheckedChanged += new System.EventHandler(this.BackupLogsBox_CheckedChanged);
-            // 
-            // TmpSaveLocationTextBox
-            // 
-            this.TmpSaveLocationTextBox.Location = new System.Drawing.Point(202, 105);
-            this.TmpSaveLocationTextBox.Name = "TmpSaveLocationTextBox";
-            this.TmpSaveLocationTextBox.ReadOnly = true;
-            this.TmpSaveLocationTextBox.Size = new System.Drawing.Size(121, 20);
-            this.TmpSaveLocationTextBox.TabIndex = 10;
-            // 
-            // TmpSaveLocationEnabledBox
-            // 
-            this.TmpSaveLocationEnabledBox.AutoSize = true;
-            this.TmpSaveLocationEnabledBox.Location = new System.Drawing.Point(202, 82);
-            this.TmpSaveLocationEnabledBox.Name = "TmpSaveLocationEnabledBox";
-            this.TmpSaveLocationEnabledBox.Size = new System.Drawing.Size(159, 17);
-            this.TmpSaveLocationEnabledBox.TabIndex = 11;
-            this.TmpSaveLocationEnabledBox.Text = "Enable Custom Temp Folder";
-            this.TmpSaveLocationEnabledBox.UseVisualStyleBackColor = true;
-            this.TmpSaveLocationEnabledBox.CheckedChanged += new System.EventHandler(this.TmpSaveLocationEnabledBox_CheckedChanged);
-            // 
-            // TmpSaveLocationBrowse
-            // 
-            this.TmpSaveLocationBrowse.Location = new System.Drawing.Point(329, 105);
-            this.TmpSaveLocationBrowse.Name = "TmpSaveLocationBrowse";
-            this.TmpSaveLocationBrowse.Size = new System.Drawing.Size(27, 19);
-            this.TmpSaveLocationBrowse.TabIndex = 12;
-            this.TmpSaveLocationBrowse.Text = "...";
-            this.TmpSaveLocationBrowse.UseVisualStyleBackColor = true;
-            this.TmpSaveLocationBrowse.Click += new System.EventHandler(this.TmpSaveLocationBrowse_Click);
+            this.CompressBackupsBox.AutoSize = true;
+            this.CompressBackupsBox.Location = new System.Drawing.Point(202, 22);
+            this.CompressBackupsBox.Name = "CompressBackupsBox";
+            this.CompressBackupsBox.Size = new System.Drawing.Size(117, 17);
+            this.CompressBackupsBox.TabIndex = 13;
+            this.CompressBackupsBox.Text = "Compress Backups";
+            this.CompressBackupsBox.UseVisualStyleBackColor = true;
+            this.CompressBackupsBox.CheckedChanged += new System.EventHandler(this.CompressBackupsBox_CheckedChanged);
             // 
             // MainWindow
             // 
@@ -532,47 +545,49 @@
         }
 
         #endregion
-        public System.Windows.Forms.TextBox WorldsContainerPathTextBox;
-        public System.Windows.Forms.CheckBox WorldsContainerButton;
+
         public System.Windows.Forms.RadioButton Platform_Vanilla;
-        public System.Windows.Forms.RadioButton Platform_CraftBukkit;
-        public System.Windows.Forms.RadioButton Platform_Spigot;
-        public System.Windows.Forms.CheckBox BackupPluginsBox;
-        public System.Windows.Forms.CheckBox UseRCONBox;
-        public System.Windows.Forms.TextBox RCONHostnameTextBox;
-        public System.Windows.Forms.TextBox RCONPortTextBox;
-        public System.Windows.Forms.TextBox RCONPasswordTextBox;
         public System.Windows.Forms.Label PlatformLabel;
         public System.Windows.Forms.Panel PlatformPanel;
+        public System.Windows.Forms.RadioButton Platform_CraftBukkit;
+        public System.Windows.Forms.RadioButton Platform_Spigot;
         public System.Windows.Forms.Button SaveConfig;
         public System.Windows.Forms.Button ReloadConfig;
         public System.Windows.Forms.Panel ModdedOptions;
-        public System.Windows.Forms.Label ModdedServerOptions;
         public System.Windows.Forms.Button WorldsContainerPathBrowseButton;
+        public System.Windows.Forms.TextBox WorldsContainerPathTextBox;
+        public System.Windows.Forms.CheckBox WorldsContainerButton;
+        public System.Windows.Forms.Label ModdedServerOptions;
+        public System.Windows.Forms.CheckBox BackupPluginsBox;
         public System.Windows.Forms.Panel RCONSettingsPanel;
-        public System.Windows.Forms.Label RCONLabel;
+        public System.Windows.Forms.TextBox RCONPasswordTextBox;
         public System.Windows.Forms.Label RCONPasswordLabel;
         public System.Windows.Forms.Label RCONPortLabel;
         public System.Windows.Forms.Label RCONHostnameLabel;
+        public System.Windows.Forms.TextBox RCONPortTextBox;
+        public System.Windows.Forms.TextBox RCONHostnameTextBox;
+        public System.Windows.Forms.CheckBox UseRCONBox;
+        public System.Windows.Forms.Label RCONLabel;
         public System.Windows.Forms.Panel BackupSettingsPanel;
+        public System.Windows.Forms.CheckBox CompressBackupsBox;
+        public System.Windows.Forms.Button TmpSaveLocationBrowse;
+        public System.Windows.Forms.CheckBox TmpSaveLocationEnabledBox;
+        public System.Windows.Forms.TextBox TmpSaveLocationTextBox;
+        public System.Windows.Forms.CheckBox BackupLogsBox;
+        public System.Windows.Forms.TextBox BackupPrefixTextBox;
+        public System.Windows.Forms.Label BackupPrefixLabel;
+        public System.Windows.Forms.Label BackupSavePathLabel;
         public System.Windows.Forms.Button BackupContainerButton;
         public System.Windows.Forms.TextBox BackupContainerTextBox;
         public System.Windows.Forms.Label BackupSettingsLabel;
-        public System.Windows.Forms.Label BackupSavePathLabel;
-        public System.Windows.Forms.Label BackupPrefixLabel;
-        public System.Windows.Forms.TextBox BackupPrefixTextBox;
         public System.Windows.Forms.Panel MessagesPanel;
-        public System.Windows.Forms.Label MessagesBoxLabel;
         public System.Windows.Forms.CheckBox BackupStartedMessageEnabledBox;
         public System.Windows.Forms.Label BackupStartedMessageLabel;
         public System.Windows.Forms.TextBox BackupStartedMessageTextBox;
         public System.Windows.Forms.CheckBox BackupFinishedMessageEnabledBox;
         public System.Windows.Forms.Label BackupFinishedMessageLabel;
         public System.Windows.Forms.TextBox BackupFinishedMessageTextBox;
-        public System.Windows.Forms.CheckBox BackupLogsBox;
-        private System.Windows.Forms.CheckBox TmpSaveLocationEnabledBox;
-        private System.Windows.Forms.TextBox TmpSaveLocationTextBox;
-        public System.Windows.Forms.Button TmpSaveLocationBrowse;
+        public System.Windows.Forms.Label MessagesBoxLabel;
     }
 }
 
