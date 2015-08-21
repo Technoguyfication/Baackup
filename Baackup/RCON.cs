@@ -19,7 +19,7 @@ namespace Baackup
                 if (!File.Exists(Program.tmpsave + "\\mcrcon.exe"))
                 {
 
-                    string exename = Path.Combine(Program.tmpsave, "mcrcon.exe");
+                    string exename = Path.Combine(Program.tmpsave, "\\mcrcon.exe");
 
                     using (FileStream fsDst = new FileStream(exename, FileMode.Create, FileAccess.Write))
                     {
