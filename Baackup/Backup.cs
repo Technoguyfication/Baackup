@@ -48,31 +48,17 @@ namespace Baackup
 
             #endregion
 
-            #region Logs backup
-
-            if (Program.backuplogs)
-                CopyFolder("logs");
-
-            #endregion
-
             #region World Backup
 
             if (!Program.worldscontaineractive)
             {
-                string[] serverfolders = { "crash-reports", "plugins", "logs", "mods", "plugins" };
                 string[] worlds = Directory.GetDirectories(Program.exepath);
 
                 foreach (string world in worlds)
                 {
-                    foreach (string serverfolder in serverfolders)
-                    {
-                        if (world == serverfolder)
-                            worlds = worlds.Where(val => val != world).ToArray();
-                    }
+                    if (File.Exists(world + "\\level.dat"))
+                        CopyFolder(world);
                 }
-
-                foreach (string world in worlds)
-                    CopyFolder(world);
             }
             else
             {
@@ -85,6 +71,13 @@ namespace Baackup
 
             if ((Program.platform == "spigot" || Program.platform == "craftbukkit") && Program.backupplugins)
                 CopyFolder("plugins");
+
+            #endregion
+
+            #region Logs backup
+
+            if (Program.backuplogs)
+                CopyFolder("logs");
 
             #endregion
 
