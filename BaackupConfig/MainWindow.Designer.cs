@@ -51,6 +51,7 @@
             this.UseRCONBox = new System.Windows.Forms.CheckBox();
             this.RCONLabel = new System.Windows.Forms.Label();
             this.BackupSettingsPanel = new System.Windows.Forms.Panel();
+            this.CompressBackupsBox = new System.Windows.Forms.CheckBox();
             this.TmpSaveLocationBrowse = new System.Windows.Forms.Button();
             this.TmpSaveLocationEnabledBox = new System.Windows.Forms.CheckBox();
             this.TmpSaveLocationTextBox = new System.Windows.Forms.TextBox();
@@ -69,7 +70,6 @@
             this.BackupFinishedMessageLabel = new System.Windows.Forms.Label();
             this.BackupFinishedMessageTextBox = new System.Windows.Forms.TextBox();
             this.MessagesBoxLabel = new System.Windows.Forms.Label();
-            this.CompressBackupsBox = new System.Windows.Forms.CheckBox();
             this.PlatformPanel.SuspendLayout();
             this.ModdedOptions.SuspendLayout();
             this.RCONSettingsPanel.SuspendLayout();
@@ -137,7 +137,7 @@
             // 
             // SaveConfig
             // 
-            this.SaveConfig.Location = new System.Drawing.Point(436, 41);
+            this.SaveConfig.Location = new System.Drawing.Point(506, 4);
             this.SaveConfig.Name = "SaveConfig";
             this.SaveConfig.Size = new System.Drawing.Size(75, 23);
             this.SaveConfig.TabIndex = 3;
@@ -147,7 +147,7 @@
             // 
             // ReloadConfig
             // 
-            this.ReloadConfig.Location = new System.Drawing.Point(417, 12);
+            this.ReloadConfig.Location = new System.Drawing.Point(487, 33);
             this.ReloadConfig.Name = "ReloadConfig";
             this.ReloadConfig.Size = new System.Drawing.Size(94, 23);
             this.ReloadConfig.TabIndex = 4;
@@ -328,6 +328,17 @@
             this.BackupSettingsPanel.Size = new System.Drawing.Size(361, 141);
             this.BackupSettingsPanel.TabIndex = 7;
             // 
+            // CompressBackupsBox
+            // 
+            this.CompressBackupsBox.AutoSize = true;
+            this.CompressBackupsBox.Location = new System.Drawing.Point(202, 22);
+            this.CompressBackupsBox.Name = "CompressBackupsBox";
+            this.CompressBackupsBox.Size = new System.Drawing.Size(117, 17);
+            this.CompressBackupsBox.TabIndex = 13;
+            this.CompressBackupsBox.Text = "Compress Backups";
+            this.CompressBackupsBox.UseVisualStyleBackColor = true;
+            this.CompressBackupsBox.CheckedChanged += new System.EventHandler(this.CompressBackupsBox_CheckedChanged);
+            // 
             // TmpSaveLocationBrowse
             // 
             this.TmpSaveLocationBrowse.Location = new System.Drawing.Point(329, 105);
@@ -435,7 +446,7 @@
             this.MessagesPanel.Controls.Add(this.MessagesBoxLabel);
             this.MessagesPanel.Location = new System.Drawing.Point(13, 267);
             this.MessagesPanel.Name = "MessagesPanel";
-            this.MessagesPanel.Size = new System.Drawing.Size(406, 94);
+            this.MessagesPanel.Size = new System.Drawing.Size(568, 94);
             this.MessagesPanel.TabIndex = 8;
             // 
             // BackupStartedMessageEnabledBox
@@ -462,13 +473,13 @@
             // 
             this.BackupStartedMessageTextBox.Location = new System.Drawing.Point(5, 61);
             this.BackupStartedMessageTextBox.Name = "BackupStartedMessageTextBox";
-            this.BackupStartedMessageTextBox.Size = new System.Drawing.Size(196, 20);
+            this.BackupStartedMessageTextBox.Size = new System.Drawing.Size(275, 20);
             this.BackupStartedMessageTextBox.TabIndex = 4;
             // 
             // BackupFinishedMessageEnabledBox
             // 
             this.BackupFinishedMessageEnabledBox.AutoSize = true;
-            this.BackupFinishedMessageEnabledBox.Location = new System.Drawing.Point(204, 38);
+            this.BackupFinishedMessageEnabledBox.Location = new System.Drawing.Point(288, 38);
             this.BackupFinishedMessageEnabledBox.Name = "BackupFinishedMessageEnabledBox";
             this.BackupFinishedMessageEnabledBox.Size = new System.Drawing.Size(65, 17);
             this.BackupFinishedMessageEnabledBox.TabIndex = 3;
@@ -479,7 +490,7 @@
             // BackupFinishedMessageLabel
             // 
             this.BackupFinishedMessageLabel.AutoSize = true;
-            this.BackupFinishedMessageLabel.Location = new System.Drawing.Point(201, 22);
+            this.BackupFinishedMessageLabel.Location = new System.Drawing.Point(285, 22);
             this.BackupFinishedMessageLabel.Name = "BackupFinishedMessageLabel";
             this.BackupFinishedMessageLabel.Size = new System.Drawing.Size(132, 13);
             this.BackupFinishedMessageLabel.TabIndex = 2;
@@ -487,9 +498,9 @@
             // 
             // BackupFinishedMessageTextBox
             // 
-            this.BackupFinishedMessageTextBox.Location = new System.Drawing.Point(204, 61);
+            this.BackupFinishedMessageTextBox.Location = new System.Drawing.Point(288, 61);
             this.BackupFinishedMessageTextBox.Name = "BackupFinishedMessageTextBox";
-            this.BackupFinishedMessageTextBox.Size = new System.Drawing.Size(196, 20);
+            this.BackupFinishedMessageTextBox.Size = new System.Drawing.Size(275, 20);
             this.BackupFinishedMessageTextBox.TabIndex = 1;
             // 
             // MessagesBoxLabel
@@ -501,17 +512,6 @@
             this.MessagesBoxLabel.Size = new System.Drawing.Size(165, 13);
             this.MessagesBoxLabel.TabIndex = 0;
             this.MessagesBoxLabel.Text = "Server Broadcast Messages";
-            // 
-            // CompressBackupsBox
-            // 
-            this.CompressBackupsBox.AutoSize = true;
-            this.CompressBackupsBox.Location = new System.Drawing.Point(202, 22);
-            this.CompressBackupsBox.Name = "CompressBackupsBox";
-            this.CompressBackupsBox.Size = new System.Drawing.Size(117, 17);
-            this.CompressBackupsBox.TabIndex = 13;
-            this.CompressBackupsBox.Text = "Compress Backups";
-            this.CompressBackupsBox.UseVisualStyleBackColor = true;
-            this.CompressBackupsBox.CheckedChanged += new System.EventHandler(this.CompressBackupsBox_CheckedChanged);
             // 
             // MainWindow
             // 

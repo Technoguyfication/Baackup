@@ -62,7 +62,50 @@ namespace BaackupConfig
                 return;
             }
 
-            // Load config
+            try // If anything goes wrong, this should keep it from breaking the whole program
+            {
+                using (XmlReader reader = XmlReader.Create(Variables.ConfigFilePath))
+                {
+                    reader.ReadToFollowing("Config"); // Here we specify the config.. not that there's anything else right now
+                    reader.MoveToFirstAttribute();
+                    Variables.UseRCON = Boolean.Parse(reader.Value.ToLower()); // Use rcon?
+                    reader.MoveToNextAttribute();
+                    Variables.RCONPass = reader.Value; // Rcon password
+                    reader.MoveToNextAttribute();
+                    Variables.RCONHostname = reader.Value; // Rcon hostname
+                    reader.MoveToNextAttribute();
+                    Variables.RCONPort = int.Parse(reader.Value); // Rcon port
+                    reader.MoveToNextAttribute();
+                    Variables.WorldsContainerActive = Boolean.Parse(reader.Value.ToLower()); // Use worlds container?
+                    reader.MoveToNextAttribute();
+                    Variables.WorldsContainerPath = reader.Value; // Path to worlds container
+                    reader.MoveToNextAttribute();
+                    Variables.BackupMessageActive = Boolean.Parse(reader.Value.ToLower()); // Use backup server broadcast?
+                    reader.MoveToNextAttribute();
+                    Variables.BackupMessage = reader.Value; // Backup server broadcast message?
+                    reader.MoveToNextAttribute();
+                    Variables.BackupPlugins = Boolean.Parse(reader.Value.ToLower());  // Backup plugins? (Spigot and Bukkit only)
+                    reader.MoveToNextAttribute();
+                    Variables.BackupLogs = Boolean.Parse(reader.Value.ToLower()); // Backup server logs?
+                    reader.MoveToNextAttribute();
+                    Variables.BackupContainer = reader.Value; // Where to save the backups?
+                    reader.MoveToNextAttribute();
+                    Variables.UseCustomTMPDir = Boolean.Parse(reader.Value.ToLower()); // Do we use a custom tmp dir? (Default is {Backups save path}\tmp
+                    reader.MoveToNextAttribute();
+                    Variables.CustomTMPDir = reader.Value; // If the above is enabled, where is this dir you want?
+                    reader.MoveToNextAttribute();
+                    Variables.BackupPrefix = reader.Value; // Do you want to prefix your backups?
+                    reader.MoveToNextAttribute();
+                    Variables.CompressBackups = Boolean.Parse(reader.Value.ToLower()); // Do you want to compress your backups?
+                    reader.MoveToNextAttribute();
+                    Variables.Platform = reader.Value; // Platform? (Spigot/CraftBukkit/Vanilla)
+                }
+            }
+            catch (Exception e)
+            {
+                // If something goes wrong, then actually do nothing
+                string ex = e.Message;
+            }
         }
 
         public static void SaveConfig()
