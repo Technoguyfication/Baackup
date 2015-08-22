@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Net.Sockets;
 using System.IO;
+using System.Diagnostics;
 
 namespace Baackup
 {
@@ -16,14 +17,26 @@ namespace Baackup
             if (Program.usercon)
             {
                 // We're using MCRCON by Tiiffi
+
+                ProcessStartInfo p = new ProcessStartInfo();
+
+                p.WindowStyle = ProcessWindowStyle.Hidden; // Hide window
+
+                p.FileName = Program.exepath + "mcrcon.exe"; // Set the exec path
+
+                p.Arguments = "-s -p " + Program.rconpass + " -H " + Program.rconhostname + " -P " + Program.rconport + " \"" + command + '"'; // Arguments
+
                 try
                 {
-                    System.Diagnostics.Process.Start(Program.exepath + "mcrcon.exe", "-s -p " + Program.rconpass + " -H " + Program.rconhostname + " -P " + Program.rconport + " \"" + command + '"');
+                    Process.Start(p);
                 }
                 catch (Exception e)
                 {
-                    Tools.Print("Failed to run RCON command: " + command + " (" + e.Message + ')');
+                    Tools.Log("Failed to launch RCON Executable: " + e.Message);
+                    return;
                 }
+
+                Tools.Log("FAF RCON Command Sent: " + command);
             }
             else
             {

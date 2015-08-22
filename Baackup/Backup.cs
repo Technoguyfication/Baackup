@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Diagnostics;
 
 namespace Baackup
 {
@@ -87,9 +88,13 @@ namespace Baackup
 
             #endregion
 
-            // Backup end
+            // Copyfiles end
             RCON.Send("save-on");
-            Tools.Log("Backup complete!");
+            Tools.Log("Done copying files!");
+
+            // Compress to final directory
+            Compress();
+            Tools.Log("Compression complete!");
 
             // Tell players backup is complete
             if (Program.backupfinishmsgactive)
@@ -143,6 +148,22 @@ namespace Baackup
             {
                 Tools.Log("Could not copy the directory \"" + folder + "\": " + e.Message);
             }
+        }
+
+        static void Compress()
+        {
+            ProcessStartInfo p = new ProcessStartInfo(); // Set processinfo
+
+            p.FileName = Program.exepath + "7z.exe"; // Set filename
+
+            // EXAMPLE FOR BELOW: a -t7z "C:\Backups\backup-{ID}.7z" "C:\backups\tmp\backup-{ID}\"
+            p.Arguments = "a -t7z \"" + Program.backupcontainer + "\\" + Program.backupid + ".7z\" \"" + Program.tmpsave + "\\\""; // Set args
+            p.WindowStyle = ProcessWindowStyle.Hidden; // Hde window
+
+            Tools.Log("Compressing (This may take a long time)");
+
+            Process x = Process.Start(p); // Start Process and wait to exit.
+            x.WaitForExit();
         }
 
     }
