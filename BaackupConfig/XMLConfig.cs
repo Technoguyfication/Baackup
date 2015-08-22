@@ -19,7 +19,7 @@ namespace BaackupConfig
             Variables.RCONPort = 25575;
 
             // Server Platform
-            Variables.Platform = "spigot";
+            Variables.Platform = "vanilla";
             
             // Worlds container
             Variables.WorldsContainerActive = false;
@@ -59,20 +59,14 @@ namespace BaackupConfig
             if (!ConfigExists())
             {
                 GenerateDefaultConfig();
-                Variables.SendConfigSettings();
                 return;
             }
 
-            // load config
-
-            Variables.SendConfigSettings();
+            // Load config
         }
 
         public static void SaveConfig()
         {
-            // Get latest settings from the GUI
-            Variables.UpdateConfigSettings();
-
             // Create a new XMLWriter
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;

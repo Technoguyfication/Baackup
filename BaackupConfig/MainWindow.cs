@@ -131,6 +131,111 @@ namespace BaackupConfig
             return name;
         }
 
+        /// <summary>
+        /// Sends the current saved / loaded config to the GUI.
+        /// </summary>
+        public void GetConfigSettings()
+        {
+
+            // RCON
+            UseRCONBox.Checked = Variables.UseRCON;
+            RCONHostnameTextBox.Text = Variables.RCONHostname;
+            RCONPasswordTextBox.Text = Variables.RCONPass;
+            RCONPortTextBox.Text = Variables.RCONPort.ToString();
+
+            // Server Platform
+            if (Variables.Platform == "spigot")
+            {
+                Platform_Spigot.Checked = true;
+
+                Platform_Vanilla.Checked = false;
+                Platform_CraftBukkit.Checked = false;
+            }
+            else if (Variables.Platform == "craftbukkit")
+            {
+                Platform_CraftBukkit.Checked = true;
+
+                Platform_Spigot.Checked = false;
+                Platform_Vanilla.Checked = false;
+            }
+            else
+            {
+                Platform_Vanilla.Checked = true;
+
+                Platform_Spigot.Checked = false;
+                Platform_CraftBukkit.Checked = false;
+            }
+
+            // Worlds container
+            WorldsContainerButton.Checked = Variables.WorldsContainerActive;
+            WorldsContainerPathTextBox.Text = Variables.WorldsContainerPath;
+
+            // Backup Messages
+            BackupStartedMessageEnabledBox.Checked = Variables.BackupMessageActive;
+            BackupStartedMessageTextBox.Text = Variables.BackupMessage;
+
+            BackupFinishedMessageEnabledBox.Checked = Variables.BackupFinishedMessageActive;
+            BackupFinishedMessageTextBox.Text = Variables.BackupFinishedMessage;
+
+            // Backup items
+            BackupPluginsBox.Checked = Variables.BackupPlugins;
+            BackupLogsBox.Checked = Variables.BackupLogs;
+
+            // Folders
+            BackupContainerTextBox.Text = Variables.BackupContainer;
+            TmpSaveLocationEnabledBox.Checked = Variables.UseCustomTMPDir;
+            TmpSaveLocationTextBox.Text = Variables.CustomTMPDir;
+
+            // Backup Saving
+            BackupPrefixTextBox.Text = Variables.BackupPrefix;
+            CompressBackupsBox.Checked = Variables.CompressBackups;
+        }
+
+        /// <summary>
+        /// Sends the current GUI options to the actual variables.
+        /// </summary>
+        public void SendConfigSettings()
+        {
+            // RCON
+            Variables.UseRCON = UseRCONBox.Checked;
+            Variables.RCONHostname = RCONHostnameTextBox.Text;
+            Variables.RCONPass = RCONPasswordTextBox.Text;
+            Variables.RCONPort = int.Parse(RCONPortTextBox.Text);
+
+            // Server Platform
+            if (Platform_CraftBukkit.Checked)
+                Variables.Platform = "craftbukkit";
+            else if (Platform_Spigot.Checked)
+                Variables.Platform = "spigot";
+            else
+                Variables.Platform = "vanilla";
+
+            // Worlds container
+            Variables.WorldsContainerActive = WorldsContainerButton.Checked;
+            Variables.WorldsContainerPath = WorldsContainerPathTextBox.Text;
+
+            // Backup Messages
+            Variables.BackupMessageActive = BackupStartedMessageEnabledBox.Checked;
+            Variables.BackupMessage = BackupStartedMessageTextBox.Text;
+
+            Variables.BackupFinishedMessageActive = BackupFinishedMessageEnabledBox.Checked;
+            Variables.BackupFinishedMessage = BackupFinishedMessageTextBox.Text;
+
+            // Backup items
+            Variables.BackupPlugins = BackupPluginsBox.Checked;
+            Variables.BackupLogs = BackupLogsBox.Checked;
+
+            // Folders
+            Variables.BackupContainer = BackupContainerTextBox.Text;
+            Variables.UseCustomTMPDir = TmpSaveLocationEnabledBox.Checked;
+            Variables.CustomTMPDir = TmpSaveLocationTextBox.Text;
+
+            // Backup Saving
+            Variables.BackupPrefix = BackupPrefixTextBox.Text;
+            Variables.CompressBackups = CompressBackupsBox.Checked;
+
+        }
+
         #endregion
 
         #region Actions
@@ -148,17 +253,22 @@ namespace BaackupConfig
         private void MainWindow_Load(object sender, EventArgs e)
         {
             XMLConfig.LoadConfig();
+            GetConfigSettings();
+
             GUIUpdate();
         }
 
         private void ReloadConfig_Click(object sender, EventArgs e)
         {
             XMLConfig.LoadConfig();
+            GetConfigSettings();
+
             GUIUpdate();
         }
 
         private void SaveConfig_Click(object sender, EventArgs e)
         {
+            SendConfigSettings();
             XMLConfig.SaveConfig();
 
             // Update just to be safe
