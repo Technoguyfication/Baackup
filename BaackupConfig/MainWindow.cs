@@ -28,21 +28,10 @@ namespace BaackupConfig
                 // Enable modded server options
                 ModdedOptions.Enabled = true;
 
-                // Bukkit
-                if (Platform_CraftBukkit.Checked)
-                {
-                    WorldsContainerButton.Enabled = false;
-                    WorldsContainerPathTextBox.Enabled = false;
-                    WorldsContainerPathBrowseButton.Enabled = false;
-                }
-
-                // Spigot
-                if (Platform_Spigot.Checked)
-                {
-                    WorldsContainerButton.Enabled = true;
-                    WorldsContainerPathTextBox.Enabled = true;
-                    WorldsContainerPathBrowseButton.Enabled = true;
-                }
+                // Worlds container
+                WorldsContainerButton.Enabled = true;
+                WorldsContainerPathTextBox.Enabled = true;
+                WorldsContainerPathBrowseButton.Enabled = true;
             }
             else // Vanilla
             {
