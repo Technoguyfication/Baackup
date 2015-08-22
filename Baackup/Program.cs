@@ -75,7 +75,7 @@ namespace Baackup
                 XMLConfig.LoadConfig();
                 Tools.NewBackupID();
                 if (usecustomtmpdir)
-                    tmpsave = customtmpdir + backupid + "\\";
+                    tmpsave = customtmpdir + "\\" + backupid + "\\";
                 else
                     tmpsave = backupcontainer + "\\tmp\\" + backupid + "\\";
 

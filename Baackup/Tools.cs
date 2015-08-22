@@ -18,7 +18,7 @@ namespace Baackup
 
         public static void Log(string text)
         {
-            Print('[' + DateTime.Now.ToString("hh:mm:ss") + "] " + text);
+            Print("[Baackup - " + DateTime.Now.ToString("hh:mm:ss") + "] " + text);
         }
 
         public static void Pause(string message = "")
