@@ -12,45 +12,50 @@ namespace Baackup
 
         public static void StartBackup()
         {
-            // Disable autosaving and save level
+            // Backup start
             RCON.Send("save-off");
             RCON.Send("save-all");
             Tools.Log("Wait 3 secs...");
             Tools.Wait(3);
 
-            // Warn players
+            // Tell players backup is starting
             if (Program.backupmsgactive)
                 RCON.Send(Program.backupmsg);
 
-            // Copy Server properties and other config files
-            CopyFile("server.properties");
-            CopyFile("ops.json");
-            CopyFile("whitelist.json");
-            CopyFile("banned-ips.json");
-            CopyFile("banned-players.json");
+            #region Server properties and config backup
+
+            string[] serverfiles = { "server.properties", "ops.json", "whitelist.json", "banned-ips.json", "banned-players.json" }; // -- A wild array has appeared! --
+
+            foreach (string file in serverfiles) // Copy each file from the array
+                CopyFile(file);
 
             if (Program.platform == "spigot")
             {
-                CopyFile("spigot.yml");
-                CopyFile("bukkit.yml");
-                CopyFile("commands.yml");
-                CopyFile("help.yml");
-                CopyFile("permissions.yml");
+                string[] spigotfiles = { "spigot.yml", "bukkit.yml", "commands.yml", "help.yml", "permissions.yml" }; // Yay it's an array
+
+                foreach (string file in spigotfiles) // Copy each file from the array
+                    CopyFile(file);
             }
 
             if (Program.platform == "craftbukkit")
             {
-                CopyFile("permissions.yml");
-                CopyFile("bukkit.yml");
-                CopyFile("commands.yml");
-                CopyFile("help.yml");
+                string[] bukkitfiles = { "permissions.yml", "bukkit.yml", "commands.yml", "help.yml" }; // Yay it's another array
+
+                foreach (string file in bukkitfiles) // Copy each file from the array
+                    CopyFile(file);
             }
 
-            // Backup logs
+            #endregion
+
+            #region Logs backup
+
             if (Program.backuplogs)
                 CopyFolder("logs");
 
-            // Backup worlds
+            #endregion
+
+            #region World Backup
+
             if (!Program.worldscontaineractive)
             {
                 string[] serverfolders = { "crash-reports", "plugins", "logs", "mods", "plugins" };
@@ -73,22 +78,26 @@ namespace Baackup
                 CopyFolder(Program.worldscontainerpath);
             }
 
-            // Backup plugins
+            #endregion
+
+            #region Plugin Backup
+
             if ((Program.platform == "spigot" || Program.platform == "craftbukkit") && Program.backupplugins)
                 CopyFolder("plugins");
 
+            #endregion
 
-
-            // Backup complete
+            // Backup end
             RCON.Send("save-on");
             Tools.Log("Backup complete!");
 
+            // Tell players backup is complete
             if (Program.backupfinishmsgactive)
                 RCON.Send(Program.backupfinishmsg);
 
+            // Wait one second then terminate program
             Tools.Wait(1);
             Tools.Exit(0);
-
         }
 
         static void CopyFile(string file)
