@@ -98,7 +98,11 @@ namespace Baackup
                 }
             }
             else
-                XMLConfig.GenerateConfig();
+            {
+                Tools.Print("Please use the configuration tool to generate a server configuration file.");
+                Tools.Pause();
+                Tools.Exit();
+            }
         }
     }
 }
