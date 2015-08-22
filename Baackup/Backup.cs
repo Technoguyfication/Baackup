@@ -93,8 +93,11 @@ namespace Baackup
             Tools.Log("Done copying files!");
 
             // Compress to final directory
-            Compress();
-            Tools.Log("Compression complete!");
+            if (Program.compressbackups)
+            {
+                Compress();
+                Tools.Log("Compression complete!");
+            }
 
             // Tell players backup is complete
             if (Program.backupfinishmsgactive)
