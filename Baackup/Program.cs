@@ -75,9 +75,9 @@ namespace Baackup
                 XMLConfig.LoadConfig();
                 Tools.NewBackupID();
                 if (usecustomtmpdir)
-                    tmpsave = customtmpdir + backupid;
+                    tmpsave = customtmpdir + "\\tmp\\" + backupid;
                 else
-                    tmpsave = backupcontainer + "\\tmp\\" + backupid + "\\";
+                    tmpsave = backupcontainer + "\\tmp\\" + backupid;
 
                 // Check that we are running in a server directory.
                 if (!IOStatus.FileExists("server.properties", true))
