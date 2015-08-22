@@ -8,7 +8,7 @@ cd %~dp0
 
 rem Start program.
 
-echo [Backup] Starting backup software.. please wait..
-"%~dp0\Baackup\Baackup.exe"
-if ERRORLEVEL==0 ( echo [Backup] Backup software reported finish. )
+echo [Baackup] Starting backup software.. please wait..
+"%~dp0\Baackup.exe"
+if ERRORLEVEL==0 ( echo [Baackup] Backup software reported finish. )
 exit

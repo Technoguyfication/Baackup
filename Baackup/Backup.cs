@@ -81,6 +81,10 @@ namespace Baackup
             // Backup complete
             RCON.Send("save-on");
             Tools.Log("Backup complete!");
+
+            if (Program.backupfinishmsgactive)
+                RCON.Send(Program.backupfinishmsg);
+
             Tools.Wait(1);
             Tools.Exit(0);
 

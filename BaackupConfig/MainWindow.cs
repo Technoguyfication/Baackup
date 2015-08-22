@@ -264,6 +264,9 @@ namespace BaackupConfig
             GetConfigSettings();
 
             GUIUpdate();
+
+            // Display message
+            MessageBox.Show("Successfully reloaded config settings from file.", "Success");
         }
 
         private void SaveConfig_Click(object sender, EventArgs e)
@@ -273,6 +276,9 @@ namespace BaackupConfig
 
             // Update just to be safe
             GUIUpdate();
+
+            // Display message
+            MessageBox.Show("Successfully saved config settings to file.", "Success");
         }
 
         private void WorldsContainerButton_CheckedChanged(object sender, EventArgs e)

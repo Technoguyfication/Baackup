@@ -50,6 +50,10 @@ namespace Baackup
                     Program.compressbackups = Boolean.Parse(reader.Value.ToLower()); // Do you want to compress your backups?
                     reader.MoveToNextAttribute();
                     Program.platform = reader.Value; // Platform? (Spigot/CraftBukkit/Vanilla)
+                    reader.MoveToNextAttribute();
+                    Program.backupfinishmsgactive = Boolean.Parse(reader.Value.ToLower()); // Display a message when we're finished backing up?
+                    reader.MoveToNextAttribute();
+                    Program.backupfinishmsg = reader.Value; // What is the backup finished message?
                 }
             }
             catch (Exception e)

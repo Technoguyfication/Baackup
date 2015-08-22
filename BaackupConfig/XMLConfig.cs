@@ -99,6 +99,10 @@ namespace BaackupConfig
                     Variables.CompressBackups = Boolean.Parse(reader.Value.ToLower()); // Do you want to compress your backups?
                     reader.MoveToNextAttribute();
                     Variables.Platform = reader.Value; // Platform? (Spigot/CraftBukkit/Vanilla)
+                    reader.MoveToNextAttribute();
+                    Variables.BackupFinishedMessageActive = Boolean.Parse(reader.Value.ToLower()); // Use the backup finished message?
+                    reader.MoveToNextAttribute();
+                    Variables.BackupFinishedMessage = reader.Value; // What is the backup finished message?
                 }
             }
             catch (Exception e)
@@ -139,6 +143,9 @@ namespace BaackupConfig
                 writer.WriteAttributeString("backupscustomidprefix", Variables.BackupPrefix);
                 writer.WriteAttributeString("compressbackups", Variables.CompressBackups.ToString());
                 writer.WriteAttributeString("platform", Variables.Platform);
+                writer.WriteAttributeString("backupfinishmessageactive", Variables.BackupFinishedMessageActive.ToString());
+                writer.WriteAttributeString("backupfinishedmessage", Variables.BackupFinishedMessage);
+
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
 
