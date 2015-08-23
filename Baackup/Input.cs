@@ -8,7 +8,6 @@ namespace Baackup
 {
     class Input
     {
-
         public static string GetInput(string none = "")
         {
             Tools.Print(Environment.NewLine, false);

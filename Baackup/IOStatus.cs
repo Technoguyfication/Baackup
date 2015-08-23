@@ -9,7 +9,6 @@ namespace Baackup
 {
     public class IOStatus
     {
-
         public static bool FileExists(string filepath, bool isRelative)
         {
             if (isRelative)
@@ -39,6 +38,5 @@ namespace Baackup
             else
                 return false;
         }
-
     }
 }

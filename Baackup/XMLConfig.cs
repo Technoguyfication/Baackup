@@ -12,7 +12,6 @@ namespace Baackup
     {
         public static void LoadConfig()
         {
-
             try // If anything goes wrong, this should keep it from breaking the whole program
             {
                 using (XmlReader reader = XmlReader.Create(Program.configfile))

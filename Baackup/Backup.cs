@@ -10,7 +10,6 @@ namespace Baackup
 {
     public class Backup
     {
-
         public static void StartBackup()
         {
             // Backup start
@@ -22,8 +21,6 @@ namespace Baackup
             // Tell players backup is starting
             if (Program.backupmsgactive)
                 RCON.Send(Program.backupmsg);
-
-            #region Server properties and config backup
 
             string[] serverfiles = { "server.properties", "ops.json", "whitelist.json", "banned-ips.json", "banned-players.json" }; // -- A wild array has appeared! --
 
@@ -46,10 +43,6 @@ namespace Baackup
                     CopyFile(file);
             }
 
-            #endregion
-
-            #region World Backup
-
             if (!Program.worldscontaineractive)
             {
                 string[] worlds = Directory.GetDirectories(Program.exepath);
@@ -65,21 +58,11 @@ namespace Baackup
                 CopyFolder(Program.worldscontainerpath);
             }
 
-            #endregion
-
-            #region Plugin Backup
-
             if ((Program.platform == "spigot" || Program.platform == "craftbukkit") && Program.backupplugins)
                 CopyFolder("plugins");
 
-            #endregion
-
-            #region Logs backup
-
             if (Program.backuplogs)
                 CopyFolder("logs");
-
-            #endregion
 
             // Copyfiles end
             RCON.Send("save-on");
@@ -91,8 +74,6 @@ namespace Baackup
                 Compress();
                 Tools.Log("Compression complete!");
             }
-
-            #region Copy Uncompressed Files
 
             if (!Program.compressbackups)
             {
@@ -112,13 +93,7 @@ namespace Baackup
                     File.Copy(newPath, newPath.Replace(Program.tmpsave, filesave + "\\"), true);
             }
 
-            #endregion
-
-            #region Remove Temporary Data
-
             Directory.Delete(Program.tmpsave, true);
-
-            #endregion
 
             // Tell players backup is complete
             if (Program.backupfinishmsgactive)
@@ -189,6 +164,5 @@ namespace Baackup
             Process x = Process.Start(p); // Start Process and wait to exit.
             x.WaitForExit();
         }
-
     }
 }

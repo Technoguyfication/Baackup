@@ -8,10 +8,6 @@ namespace BaackupConfig
 {
     public static class Variables
     {
-        #region Config Options
-
-        #region Server Settings
-
         // RCON
         public static bool UseRCON;
         public static string RCONPass;
@@ -20,8 +16,6 @@ namespace BaackupConfig
 
         // Server Platform
         public static string Platform;
-
-        #endregion
 
         // Worlds Container
         public static bool WorldsContainerActive;
@@ -46,10 +40,7 @@ namespace BaackupConfig
         public static string BackupPrefix;
         public static bool CompressBackups;
 
-        #endregion
-
         // Configuration File Path
         public static string ConfigFilePath = (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\baackupconfig.xml");
-
     }
 }

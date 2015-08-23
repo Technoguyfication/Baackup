@@ -13,7 +13,6 @@ namespace BaackupConfig
 {
     public partial class MainWindow : Form
     {
-
         public MainWindow()
         {
             InitializeComponent();
@@ -21,8 +20,6 @@ namespace BaackupConfig
 
         public void GUIUpdate()
         {
-            #region Modded Server Options
-
             if (Platform_CraftBukkit.Checked || Platform_Spigot.Checked)
             {
                 // Enable modded server options
@@ -39,8 +36,6 @@ namespace BaackupConfig
                 ModdedOptions.Enabled = false;
             }
 
-            #region Worlds Container
-
             if (WorldsContainerButton.Checked)
             {
                 WorldsContainerPathTextBox.Enabled = true;
@@ -51,12 +46,6 @@ namespace BaackupConfig
                 WorldsContainerPathTextBox.Enabled = false;
                 WorldsContainerPathBrowseButton.Enabled = false;
             }
-
-            #endregion
-
-            #endregion
-
-            #region RCON
 
             if (UseRCONBox.Checked)
             {
@@ -75,36 +64,21 @@ namespace BaackupConfig
                 MessagesPanel.Enabled = false;
             }
 
-            #endregion
-
-            #region Backup Messages
-
             if (BackupStartedMessageEnabledBox.Checked)
                 BackupStartedMessageTextBox.Enabled = true;
             else
                 BackupStartedMessageTextBox.Enabled = false;
-
 
             if (BackupFinishedMessageEnabledBox.Checked)
                 BackupFinishedMessageTextBox.Enabled = true;
             else
                 BackupFinishedMessageTextBox.Enabled = false;
 
-            #endregion
-
-            #region TMP Save Location
-
             if (TmpSaveLocationEnabledBox.Checked)
                 TmpSaveLocationTextBox.Enabled = true;
             else
                 TmpSaveLocationTextBox.Enabled = false;
-
-            #endregion
         }
-
-        #region Other Stuff That Makes The Program Do Stuff
-
-        #region Functional Things
 
         private string FileSafe(string name)
         {
@@ -125,7 +99,6 @@ namespace BaackupConfig
         /// </summary>
         public void GetConfigSettings()
         {
-
             // RCON
             UseRCONBox.Checked = Variables.UseRCON;
             RCONHostnameTextBox.Text = Variables.RCONHostname;
@@ -222,12 +195,7 @@ namespace BaackupConfig
             // Backup Saving
             Variables.BackupPrefix = BackupPrefixTextBox.Text;
             Variables.CompressBackups = CompressBackupsBox.Checked;
-
         }
-
-        #endregion
-
-        #region Actions
 
         private void Platform_Spigot_CheckedChanged(object sender, EventArgs e)
         {
@@ -367,9 +335,5 @@ namespace BaackupConfig
         {
             GUIUpdate();
         }
-
-        #endregion
-
-        #endregion
     }
 }

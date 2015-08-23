@@ -20,7 +20,7 @@ namespace BaackupConfig
 
             // Server Platform
             Variables.Platform = "vanilla";
-            
+
             // Worlds container
             Variables.WorldsContainerActive = false;
             Variables.WorldsContainerPath = null;

@@ -9,8 +9,6 @@ namespace Baackup
 {
     class Program
     {
-        #region Class Variables
-
         // Class variables
 
         // Config options
@@ -35,15 +33,13 @@ namespace Baackup
 
         // Config path
         public static string configfile = (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\baackupconfig.xml");
-        
+
         // Execution path
         public static string exepath;
 
         // TMP Backup path
         public static string tmpsave;
         public static string backupid;
-
-        #endregion
 
         static void Main(string[] args)
         {
