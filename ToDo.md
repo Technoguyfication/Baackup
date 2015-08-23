@@ -2,8 +2,10 @@
 
 - [x] Program Basics
 - [x] Config Read / Write / Generate
-- [ ] Configuration Tool
+- [x] Configuration Tool
 - [x] Backup file transfer
-- [ ] Compression
+- [x] Compression
 - [ ] Clean up dat code
 - [ ] Fix the crappy names of those variables in the Program() class.
+- [ ] More error handling
+- [ ] Better configuration file verification

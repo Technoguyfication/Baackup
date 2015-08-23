@@ -92,6 +92,34 @@ namespace Baackup
                 Tools.Log("Compression complete!");
             }
 
+            #region Copy Uncompressed Files
+
+            if (!Program.compressbackups)
+            {
+                Tools.Log("No compression enabled, copying files");
+
+                // Set root for file save
+                string filesave = Program.backupcontainer + "\\" + Program.backupid;
+
+                //Now Create all of the directories
+                foreach (string dirPath in Directory.GetDirectories(Program.tmpsave, "*",
+                    SearchOption.AllDirectories))
+                    Directory.CreateDirectory(dirPath.Replace(Program.tmpsave, filesave + "\\"));
+
+                //Copy all the files & Replaces any files with the same name
+                foreach (string newPath in Directory.GetFiles(Program.tmpsave, "*.*",
+                    SearchOption.AllDirectories))
+                    File.Copy(newPath, newPath.Replace(Program.tmpsave, filesave + "\\"), true);
+            }
+
+            #endregion
+
+            #region Remove Temporary Data
+
+            Directory.Delete(Program.tmpsave, true);
+
+            #endregion
+
             // Tell players backup is complete
             if (Program.backupfinishmsgactive)
                 RCON.Send(Program.backupfinishmsg);
