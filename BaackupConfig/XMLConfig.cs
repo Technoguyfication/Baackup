@@ -54,6 +54,8 @@ namespace BaackupConfig
                 return false;
         }
 
+        #region Config Save / Load
+
         public static void LoadConfig()
         {
             if (!ConfigExists())
@@ -158,5 +160,7 @@ namespace BaackupConfig
                 string ex = e.Message;
             }
         }
+
+        #endregion
     }
 }

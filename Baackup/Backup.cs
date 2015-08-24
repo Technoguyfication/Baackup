@@ -22,6 +22,8 @@ namespace Baackup
             if (Program.backupmsgactive)
                 RCON.Send(Program.backupmsg);
 
+            #region Copy Server Files
+
             string[] serverfiles = { "server.properties", "ops.json", "whitelist.json", "banned-ips.json", "banned-players.json" }; // -- A wild array has appeared! --
 
             foreach (string file in serverfiles) // Copy each file from the array
@@ -43,6 +45,10 @@ namespace Baackup
                     CopyFile(file);
             }
 
+            #endregion
+
+            #region Worlds Container
+
             if (!Program.worldscontaineractive)
             {
                 string[] worlds = Directory.GetDirectories(Program.exepath);
@@ -58,15 +64,27 @@ namespace Baackup
                 CopyFolder(Program.worldscontainerpath);
             }
 
+            #endregion
+
+            #region Backup Plugins
+
             if ((Program.platform == "spigot" || Program.platform == "craftbukkit") && Program.backupplugins)
                 CopyFolder("plugins");
+
+            #endregion
+
+            #region Backup Logs
 
             if (Program.backuplogs)
                 CopyFolder("logs");
 
+            #endregion
+
             // Copyfiles end
             RCON.Send("save-on");
             Tools.Log("Done copying files!");
+
+            #region Compress / Move
 
             // Compress to final directory
             if (Program.compressbackups)
@@ -95,6 +113,8 @@ namespace Baackup
 
             Directory.Delete(Program.tmpsave, true);
 
+            #endregion
+
             // Tell players backup is complete
             if (Program.backupfinishmsgactive)
                 RCON.Send(Program.backupfinishmsg);
@@ -103,6 +123,8 @@ namespace Baackup
             Tools.Wait(1);
             Tools.Exit(0);
         }
+
+        #region Other Stuff
 
         static void CopyFile(string file)
         {
@@ -164,5 +186,7 @@ namespace Baackup
             Process x = Process.Start(p); // Start Process and wait to exit.
             x.WaitForExit();
         }
+
+        #endregion
     }
 }

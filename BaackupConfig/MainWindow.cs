@@ -20,6 +20,8 @@ namespace BaackupConfig
 
         public void GUIUpdate()
         {
+            #region Modded Server Options
+
             if (Platform_CraftBukkit.Checked || Platform_Spigot.Checked)
             {
                 // Enable modded server options
@@ -36,6 +38,10 @@ namespace BaackupConfig
                 ModdedOptions.Enabled = false;
             }
 
+            #endregion
+
+            #region Worlds Container
+
             if (WorldsContainerButton.Checked)
             {
                 WorldsContainerPathTextBox.Enabled = true;
@@ -46,6 +52,10 @@ namespace BaackupConfig
                 WorldsContainerPathTextBox.Enabled = false;
                 WorldsContainerPathBrowseButton.Enabled = false;
             }
+
+            #endregion
+
+            #region RCON
 
             if (UseRCONBox.Checked)
             {
@@ -64,22 +74,39 @@ namespace BaackupConfig
                 MessagesPanel.Enabled = false;
             }
 
-            if (BackupStartedMessageEnabledBox.Checked)
+            #endregion
+
+            #region Messages
+
+            if (BackupStartedMessageEnabledBox.Checked) // Backup Started Message Switch
                 BackupStartedMessageTextBox.Enabled = true;
             else
                 BackupStartedMessageTextBox.Enabled = false;
 
-            if (BackupFinishedMessageEnabledBox.Checked)
+            if (BackupFinishedMessageEnabledBox.Checked) // Backup Finished Message Switch
                 BackupFinishedMessageTextBox.Enabled = true;
             else
                 BackupFinishedMessageTextBox.Enabled = false;
 
-            if (TmpSaveLocationEnabledBox.Checked)
+            #endregion
+
+            #region Temporary Save Location
+
+            if (TmpSaveLocationEnabledBox.Checked) // Temporary Save Location Switch
                 TmpSaveLocationTextBox.Enabled = true;
             else
                 TmpSaveLocationTextBox.Enabled = false;
+
+            #endregion
         }
 
+        #region Other Stuff
+
+        /// <summary>
+        /// Returns the filename-safe version of a string.
+        /// </summary>
+        /// <param name="Questionable String"></param>
+        /// <returns></returns>
         private string FileSafe(string name)
         {
             string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
@@ -196,6 +223,8 @@ namespace BaackupConfig
             Variables.BackupPrefix = BackupPrefixTextBox.Text;
             Variables.CompressBackups = CompressBackupsBox.Checked;
         }
+
+        #region Events
 
         private void Platform_Spigot_CheckedChanged(object sender, EventArgs e)
         {
@@ -335,5 +364,9 @@ namespace BaackupConfig
         {
             GUIUpdate();
         }
+
+        #endregion
+
+        #endregion
     }
 }

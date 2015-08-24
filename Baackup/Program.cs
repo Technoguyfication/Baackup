@@ -9,7 +9,7 @@ namespace Baackup
 {
     class Program
     {
-        // Class variables
+        #region Class Variables
 
         // Config options
         public static bool usercon;
@@ -40,6 +40,8 @@ namespace Baackup
         // TMP Backup path
         public static string tmpsave;
         public static string backupid;
+
+        #endregion
 
         static void Main(string[] args)
         {

@@ -10,6 +10,8 @@ namespace Baackup
 {
     public class XMLConfig
     {
+        #region Config Loading
+
         public static void LoadConfig()
         {
             try // If anything goes wrong, this should keep it from breaking the whole program
@@ -67,6 +69,10 @@ namespace Baackup
             }
         }
 
+        #endregion
+
+        #region Other Stuff
+
         public static bool ConfigExists()
         {
             if (File.Exists(Program.configfile))
@@ -74,5 +80,7 @@ namespace Baackup
             else
                 return false;
         }
+
+        #endregion
     }
 }
