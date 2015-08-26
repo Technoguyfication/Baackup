@@ -5,7 +5,7 @@
 - [x] Configuration Tool
 - [x] Backup file transfer
 - [x] Compression
-- [x] Clean up dat code
+- [ ] Clean up dat code
 - [ ] Fix the crappy names of those variables in the Program() class.
 - [ ] More error handling
-- [ ] Better configuration file verification -- We're getting there --
+- [ ] Better configuration file verification
