@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BaackupShared
 {
-    class Configuration
+    public static class Configuration
     {
         #region Backup Process Settings
 
@@ -32,7 +32,7 @@ namespace BaackupShared
 
         // General Backup Items
         public static bool Backup_PluginsEnabled { get; set; }
-        public static bool Backup_ConfigEnabled { get; set; }
+        public static bool Backup_LogsEnabled { get; set; }
 
         // TMP Settings
         public static bool TMP_CustomEnabled { get; set; }
@@ -42,6 +42,15 @@ namespace BaackupShared
         public static string Save_Container { get; set; }
         public static string Save_Prefix { get; set; }
         public static bool Save_CompressionEnabled { get; set; }
+
+        #endregion
+
+        #region Indirect Backup Process Settings
+
+        public static bool Platform_IsPluginsSupported()
+        {
+            return (Platform == "spigot" || Platform == "craftbukkit");
+        }
 
         #endregion
     }

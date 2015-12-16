@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
+using BaackupShared;
 
 namespace Baackup
 {
@@ -20,8 +21,8 @@ namespace Baackup
             Tools.Wait(3);
 
             // Inform players that backup is starting
-            if (Program.backupmsgactive)
-                RCON.Send(Program.backupmsg);
+            if (Configuration.BackupMessages_StartedEnabled)
+                RCON.Send(Configuration.BackupMessages_StartedMessage);
 
             #region Copy Server Configuration Files
 
@@ -30,7 +31,7 @@ namespace Baackup
             foreach (string file in serverfiles) // Copy each file from the array
                 CopyFile(file);
 
-            if (Program.platform == "spigot")
+            if (Configuration.Platform == "spigot")
             {
                 string[] spigotfiles = { "spigot.yml", "bukkit.yml", "commands.yml", "help.yml", "permissions.yml" }; // Yay it's an array
 
@@ -38,7 +39,7 @@ namespace Baackup
                     CopyFile(file);
             }
 
-            if (Program.platform == "craftbukkit")
+            if (Configuration.Platform == "craftbukkit")
             {
                 string[] bukkitfiles = { "permissions.yml", "bukkit.yml", "commands.yml", "help.yml" }; // Yay it's another array
 
@@ -50,7 +51,7 @@ namespace Baackup
 
             #region Copy Worlds
 
-            if (!Program.worldscontaineractive)
+            if (!Configuration.WorldsContainer_Enabled)
             {
                 string[] worlds = Directory.GetDirectories(Program.ServerDirectory);
 
@@ -62,33 +63,32 @@ namespace Baackup
             }
             else
             {
-                CopyFolder(Program.worldscontainerpath); // If a worlds container folder is specified, override the check and copy everything.
+                CopyFolder(Configuration.WorldsContainer_Path); // If a worlds container folder is specified, override the check and copy everything.
             }
 
             #endregion
 
             #region Backup Plugins
 
-            if ((Program.platform == "spigot" || Program.platform == "craftbukkit") && Program.backupplugins)
+            if (Configuration.Platform_IsPluginsSupported() && Configuration.Backup_PluginsEnabled)
                 CopyFolder("plugins");
 
             #endregion
 
             #region Backup Logs
 
-            if (Program.backuplogs)
+            if (Configuration.Backup_LogsEnabled)
                 CopyFolder("logs");
 
             #endregion
 
-            // Copyfiles end
-            RCON.Send("save-on");
-            Tools.Log("Done copying files!");
+            RCON.Send("save-on"); // Re-enable autosaving
+            Tools.Log("Files copied, Compression / Final Move will continue in background.");
 
             #region Compress / Move
 
             // Compress to final directory
-            if (Program.compressbackups)
+            if (Configuration.Save_CompressionEnabled)
             {
                 CompressAndSave();
                 Tools.Log("Compression complete!");
@@ -117,8 +117,8 @@ namespace Baackup
             #endregion Compress / Move
 
             // Tell players backup is complete
-            if (Program.backupfinishmsgactive)
-                RCON.Send(Program.backupfinishmsg);
+            if (Configuration.BackupMessages_FinishedEnabled)
+                RCON.Send(Configuration.BackupMessages_FinishedMessage);
 
             // Wait one second then terminate program
             Tools.Wait(1);
