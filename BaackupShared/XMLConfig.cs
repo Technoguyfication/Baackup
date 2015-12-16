@@ -10,6 +10,15 @@ namespace BaackupConfig
 {
     public class XMLConfig
     {
+
+        /*
+
+            This entire thing has gone to hell. recode.
+
+        */
+
+
+        /*
         public static void GenerateDefaultConfig()
         {
             // RCON
@@ -156,11 +165,13 @@ namespace BaackupConfig
             }
             catch (Exception e)
             {
-                /* do something with this */
+                // do something with this
                 string ex = e.Message;
             }
         }
 
         #endregion Config Save / Load
+        
+        */
     }
 }

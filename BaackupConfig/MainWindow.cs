@@ -16,6 +16,7 @@ namespace BaackupConfig
         public MainWindow()
         {
             InitializeComponent();
+            this.Text = Properties.Resources.WindowTitle + " Tool";
         }
 
         public void GUIUpdate()

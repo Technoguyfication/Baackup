@@ -61,18 +61,12 @@ namespace Baackup.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to baackupconfig.xml.
         /// </summary>
-        internal static byte[] mcrcon {
+        internal static string ConfigFileName {
             get {
-                object obj = ResourceManager.GetObject("mcrcon", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("ConfigFileName", resourceCulture);
             }
-        }
-
-        public static byte[] GetMcrcon()
-        {
-            return mcrcon;
         }
     }
 }

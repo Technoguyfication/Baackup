@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="mcrcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\mcrcon.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="ConfigFileName" xml:space="preserve">
+    <value>baackupconfig.xml</value>
+    <comment>KEEP THIS CONSTANT! Otherwise, all configs will be overlooked.</comment>
   </data>
 </root>

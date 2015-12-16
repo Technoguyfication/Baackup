@@ -51,7 +51,7 @@ namespace Baackup
 
             if (!Program.worldscontaineractive)
             {
-                string[] worlds = Directory.GetDirectories(Program.exepath);
+                string[] worlds = Directory.GetDirectories(Program.Executable);
 
                 foreach (string world in worlds)
                 {
@@ -130,7 +130,7 @@ namespace Baackup
         {
             try
             {
-                File.Copy(Program.exepath + file, Program.tmpsave + file);
+                File.Copy(Program.Executable + file, Program.tmpsave + file);
                 Tools.Log("Copied File:" + file);
             }
             catch (Exception e)
@@ -141,7 +141,7 @@ namespace Baackup
 
         static void CopyFolder(string folder)
         {
-            folder = Program.exepath + new DirectoryInfo(folder).Name;
+            folder = Program.Executable + new DirectoryInfo(folder).Name;
 
             try
             {
@@ -176,7 +176,7 @@ namespace Baackup
         {
             ProcessStartInfo p = new ProcessStartInfo(); // Set processinfo
 
-            p.FileName = Program.exepath + "7z.exe"; // Set filename
+            p.FileName = Program.Executable + "7z.exe"; // Set filename
 
             // EXAMPLE FOR BELOW: a -t7z "C:\Backups\backup-{ID}.7z" "C:\backups\tmp\backup-{ID}\"
             p.Arguments = "a -t7z \"" + Program.backupcontainer + "\\" + Program.backupid + ".7z\" \"" + Program.tmpsave + "\\\""; // Set args

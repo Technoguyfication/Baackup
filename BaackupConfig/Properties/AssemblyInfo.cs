@@ -4,12 +4,12 @@ using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following set of attributes.
 // Change these attribute values to modify the information associated with an assembly.
-[assembly: AssemblyTitle("BaackupConfig")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Baackup Configuration Tool")]
+[assembly: AssemblyDescription("Configuration Tool for Baackup")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Technoguyfication and Fesarius Gaming")]
 [assembly: AssemblyProduct("BaackupConfig")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCopyright("Copyright © 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
