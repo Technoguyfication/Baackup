@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using BaackupShared;
 
 namespace Baackup
 {
@@ -12,13 +13,27 @@ namespace Baackup
         #region Class Variables
 
         // Config path
-        public static string Config_File = (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + Properties.Resources.ConfigFileName);
+        public static string Config_File = (string.Format("{0}\\{1}", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Properties.Resources.ConfigFileName));
 
         // Execution path
-        public static string ServerDirectory;
+        public static string ServerDirectory { get; set; }
 
         // TMP Settings
-        public static string BackupID;
+        public static string BackupID = Tools.NewBackupID();
+        public static string BackupTMPSave
+        {
+            get
+            {
+                if (Configuration.TMP_CustomEnabled)
+                {
+                    return string.Format("{0}\\{1}\\", Configuration.TMP_CustomPath, BackupID);
+                }
+                else
+                {
+                    return string.Format("{0}\\Baackup\\{1}", Path.GetTempPath(), BackupID);
+                }
+            }
+        }
 
         #endregion Class Variables
 
@@ -31,10 +46,9 @@ namespace Baackup
             {
                 ServerDirectory = args[0] + '\\';
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Tools.Log("There was an issue starting the program!\nAre you sure you started it with the Batch script?\n\nError details: " + e.Message);
-                Tools.Pause();
+                Tools.Log("Baackup must be started with the provided Batch script", "Fatal");
                 Tools.Exit(1);
             }
 

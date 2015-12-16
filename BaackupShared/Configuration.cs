@@ -36,17 +36,30 @@ namespace BaackupShared
 
         // TMP Settings
         public static bool TMP_CustomEnabled { get; set; }
+
+        /// <summary>
+        /// The custom save directory for the program to run inside if enabled.
+        /// This will automatically return a full path.
+        /// </summary>
         public static string TMP_CustomPath { get; set; }
 
         // Save Settings
         public static string Save_Container { get; set; }
         public static string Save_Prefix { get; set; }
+
+        /// <summary>
+        /// Should the program automatically compress the backups?
+        /// </summary>
         public static bool Save_CompressionEnabled { get; set; }
 
         #endregion
 
         #region Indirect Backup Process Settings
 
+        /// <summary>
+        /// Tests whether the server supports plugins.
+        /// </summary>
+        /// <returns>Whether or not the sever support plugins.</returns>
         public static bool Platform_IsPluginsSupported()
         {
             return (Platform == "spigot" || Platform == "craftbukkit");

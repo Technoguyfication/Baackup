@@ -7,6 +7,7 @@ using System.Threading;
 using System.Net.Sockets;
 using System.IO;
 using System.Diagnostics;
+using BaackupShared;
 
 namespace Baackup
 {
@@ -14,7 +15,7 @@ namespace Baackup
     {
         public static void Send(string command)
         {
-            if (Program.UseRCON)
+            if (Configuration.RCON_Enabled)
             {
                 // We're using MCRCON by Tiiffi
 

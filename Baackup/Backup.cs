@@ -13,12 +13,15 @@ namespace Baackup
     {
         public static void StartBackup()
         {
-            // Backup start
-            RCON.Send("save-off"); // Disable Autosave
-            RCON.Send("save-all"); // Perform Manual Save
+            // Autosave the server if possible
+            if (Configuration.RCON_Enabled) // We don't _really_ need to test for RCON support, but this saves the uselss log entry.
+            {
+                RCON.Send("save-off"); // Disable Autosave
+                RCON.Send("save-all"); // Perform Manual Save
 
-            Tools.Log("Waiting 3 seconds for server to finish saving...");
-            Tools.Wait(3);
+                Tools.Log("Waiting 3 seconds for server to perform manual save.");
+                Tools.Wait(3);
+            }
 
             // Inform players that backup is starting
             if (Configuration.BackupMessages_StartedEnabled)
@@ -26,25 +29,39 @@ namespace Baackup
 
             #region Copy Server Configuration Files
 
-            string[] serverfiles = { "server.properties", "ops.json", "whitelist.json", "banned-ips.json", "banned-players.json" }; // -- A wild array has appeared! --
+            // Make a list of all the server files.
+            List<string> serverfiles = new List<string> { // We're going to have to assume that the server runs MC1.7.10 or above.
+                "server.properties",
+                "ops.json",
+                "whitelist.json",
+                "banned-ips.json",
+                "banned-players.json"
+            };
 
-            foreach (string file in serverfiles) // Copy each file from the array
-                CopyFile(file);
-
-            if (Configuration.Platform == "spigot")
+            // Add all the modded ones if applicable
+            if (Configuration.Platform_IsPluginsSupported())
             {
-                string[] spigotfiles = { "spigot.yml", "bukkit.yml", "commands.yml", "help.yml", "permissions.yml" }; // Yay it's an array
-
-                foreach (string file in spigotfiles) // Copy each file from the array
-                    CopyFile(file);
+                serverfiles.AddRange(new List<string> { "permissions.yml", "commands.yml", "help.yml", "bukkit.yml" });
             }
 
-            if (Configuration.Platform == "craftbukkit")
-            {
-                string[] bukkitfiles = { "permissions.yml", "bukkit.yml", "commands.yml", "help.yml" }; // Yay it's another array
+            // Add spigot's file if the server is spigot
+            if (Configuration.Platform == "spigot")
+                serverfiles.Add("spigot.yml");
 
-                foreach (string file in bukkitfiles) // Copy each file from the array
-                    CopyFile(file);
+            // Make sure all these files actually exist
+            foreach (string file in serverfiles)
+            {
+                if (!File.Exists(file))
+                {
+                    Tools.Log(string.Format("Server config file \"{0}\" was not found! Removing from backup que.", file), "Warning");
+                    serverfiles.Remove(file);
+                }
+            }
+
+            // Now that we have a verified file list, backup said files
+            foreach (string file in serverfiles)
+            {
+                CopyFile(file);
             }
 
             #endregion
@@ -93,13 +110,12 @@ namespace Baackup
                 CompressAndSave();
                 Tools.Log("Compression complete!");
             }
-
-            if (!Program.compressbackups)
+            else
             {
                 Tools.Log("No compression enabled, copying files");
 
                 // Set root for file save
-                string filesave = Program.backupcontainer + "\\" + Program.backupid;
+                string filesave = Configuration.Save_Container + "\\" /*+ id */;
 
                 //Now Create all of the directories
                 foreach (string dirPath in Directory.GetDirectories(Program.tmpsave, "*",

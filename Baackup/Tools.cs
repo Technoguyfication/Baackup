@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BaackupShared;
 
 namespace Baackup
 {
@@ -12,7 +13,7 @@ namespace Baackup
         /// </summary>
         /// <param name="text">Message to print</param>
         /// <param name="level">Log Level. Defaults to [INFO]</param>
-        public static void Log(string text, string level = "Info")
+        public static void Log(string text, string level = "Info", bool verbose = false)
         {
             Console.WriteLine("[Baackup - " + DateTime.Now.ToString("hh:mm:ss") + "] [" + level.ToUpper() + "] " + text);
         }
@@ -23,9 +24,11 @@ namespace Baackup
         /// <param name="message"></param>
         public static void Pause(string message = null)
         {
-            if (!(message == null))
+            // If the program should be autonomous, this needs to not do anything.
+
+            /*if (!(message == null))
                 Log(message);
-            Console.ReadKey(true);
+            Console.ReadKey(true);*/
         }
 
         /// <summary>
@@ -79,7 +82,7 @@ namespace Baackup
         /// <returns>Unique backup ID</returns>
         public static string NewBackupID()
         {
-            return Program.backupscustomidprefix + '_' + DateTime.Now.ToString("yyyy-mmm-dd.hh-mm-ss-ffff--backup");
+            return Configuration.Save_Prefix + '_' + DateTime.Now.ToString("yyyy-mmm-dd.hh-mm-ss-ffff--backup");
         }
     }
 }
