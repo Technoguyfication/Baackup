@@ -60,9 +60,7 @@ namespace Baackup
 
             // Now that we have a verified file list, backup said files
             foreach (string file in serverfiles)
-            {
                 CopyFile(file);
-            }
 
             #endregion
 
@@ -70,13 +68,20 @@ namespace Baackup
 
             if (!Configuration.WorldsContainer_Enabled)
             {
-                string[] worlds = Directory.GetDirectories(Program.ServerDirectory);
+                List<string> worlds = new List<string>(); // Make a new list
+                worlds.AddRange(Directory.GetDirectories(Program.ServerDirectory)); // Populate the list with the folders in the server folder
 
+                // Remove any non-world entries
                 foreach (string world in worlds)
                 {
-                    if (File.Exists(world + "\\level.dat")) // Only copy a folder if it contains a level.dat file inside of it.
-                        CopyFolder(world);
+                    if (!File.Exists(string.Format("{0}\\level.dat", world))) // Test for the "level.dat" file
+                        worlds.Remove(world);
                 }
+
+                // Backup the verified worlds list
+                foreach (string world in worlds)
+                    CopyFolder(world);
+
             }
             else
             {

@@ -12,11 +12,15 @@ namespace Baackup
     {
         #region Class Variables
 
-        // Config path
-        public static string Config_File = (string.Format("{0}\\{1}", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Properties.Resources.ConfigFileName));
-
-        // Execution path
+        // Execution paths
         public static string ServerDirectory { get; set; }
+        public static string ExecutableDirectory
+        {
+            get
+            {
+                return Directory.GetDirectoryRoot(System.Reflection.Assembly.GetExecutingAssembly().Location); // Return the folder that the executable is inside
+            }
+        }
 
         // TMP Settings
         public static string BackupID = Tools.NewBackupID();
@@ -41,7 +45,7 @@ namespace Baackup
         {
             Tools.Title(); // Basic Title
 
-            // Attempt to get the executable path from the launch args
+            // Attempt to get the server path
             try
             {
                 ServerDirectory = args[0] + '\\';
@@ -54,6 +58,7 @@ namespace Baackup
 
             new Program().Start(); // New Instance of the program, then start.
 
+            Tools.Log("Unrecoverable exception, program is in wrong class. Exiting.", "Fatal");
             Tools.Exit(1); // If for some reason we end up back here, there's an error so we exit with '1'
         }
 

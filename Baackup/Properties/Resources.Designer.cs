@@ -59,14 +59,5 @@ namespace Baackup.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to baackupconfig.xml.
-        /// </summary>
-        internal static string ConfigFileName {
-            get {
-                return ResourceManager.GetString("ConfigFileName", resourceCulture);
-            }
-        }
     }
 }
