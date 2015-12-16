@@ -11,19 +11,20 @@ namespace Baackup
         /// Write text to the log. (Console)
         /// </summary>
         /// <param name="text">Message to print</param>
-        public static void Log(string text)
+        /// <param name="level">Log Level. Defaults to [INFO]</param>
+        public static void Log(string text, string level = "Info")
         {
-            Print("[Baackup - " + DateTime.Now.ToString("hh:mm:ss") + "] " + text);
+            Console.WriteLine("[Baackup - " + DateTime.Now.ToString("hh:mm:ss") + "] [" + level.ToUpper() + "] " + text);
         }
 
         /// <summary>
         /// Pause the console and wait for keypress.
         /// </summary>
         /// <param name="message"></param>
-        public static void Pause(string message = "")
+        public static void Pause(string message = null)
         {
-            if (!(message == ""))
-                Print(message);
+            if (!(message == null))
+                Log(message);
             Console.ReadKey(true);
         }
 

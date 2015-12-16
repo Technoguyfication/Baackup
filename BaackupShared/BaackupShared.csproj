@@ -40,9 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IOStatus.cs" />
+    <Compile Include="Configuration.cs" />
+    <None Include="IO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XMLConfig.cs" />
+    <None Include="XMLConfig.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

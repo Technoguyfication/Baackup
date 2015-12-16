@@ -13,16 +13,17 @@ namespace Baackup
         public static void StartBackup()
         {
             // Backup start
-            RCON.Send("save-off");
-            RCON.Send("save-all");
-            Tools.Log("Wait 3 secs...");
+            RCON.Send("save-off"); // Disable Autosave
+            RCON.Send("save-all"); // Perform Manual Save
+
+            Tools.Log("Waiting 3 seconds for server to finish saving...");
             Tools.Wait(3);
 
-            // Tell players backup is starting
+            // Inform players that backup is starting
             if (Program.backupmsgactive)
                 RCON.Send(Program.backupmsg);
 
-            #region Copy Server Files
+            #region Copy Server Configuration Files
 
             string[] serverfiles = { "server.properties", "ops.json", "whitelist.json", "banned-ips.json", "banned-players.json" }; // -- A wild array has appeared! --
 
@@ -45,40 +46,40 @@ namespace Baackup
                     CopyFile(file);
             }
 
-            #endregion Copy Server Files
+            #endregion
 
-            #region Worlds Container
+            #region Copy Worlds
 
             if (!Program.worldscontaineractive)
             {
-                string[] worlds = Directory.GetDirectories(Program.Executable);
+                string[] worlds = Directory.GetDirectories(Program.ServerDirectory);
 
                 foreach (string world in worlds)
                 {
-                    if (File.Exists(world + "\\level.dat"))
+                    if (File.Exists(world + "\\level.dat")) // Only copy a folder if it contains a level.dat file inside of it.
                         CopyFolder(world);
                 }
             }
             else
             {
-                CopyFolder(Program.worldscontainerpath);
+                CopyFolder(Program.worldscontainerpath); // If a worlds container folder is specified, override the check and copy everything.
             }
 
-            #endregion Worlds Container
+            #endregion
 
             #region Backup Plugins
 
             if ((Program.platform == "spigot" || Program.platform == "craftbukkit") && Program.backupplugins)
                 CopyFolder("plugins");
 
-            #endregion Backup Plugins
+            #endregion
 
             #region Backup Logs
 
             if (Program.backuplogs)
                 CopyFolder("logs");
 
-            #endregion Backup Logs
+            #endregion
 
             // Copyfiles end
             RCON.Send("save-on");
@@ -89,7 +90,7 @@ namespace Baackup
             // Compress to final directory
             if (Program.compressbackups)
             {
-                Compress();
+                CompressAndSave();
                 Tools.Log("Compression complete!");
             }
 
@@ -130,7 +131,7 @@ namespace Baackup
         {
             try
             {
-                File.Copy(Program.Executable + file, Program.tmpsave + file);
+                File.Copy(Program.ServerDirectory + file, Program.tmpsave + file);
                 Tools.Log("Copied File:" + file);
             }
             catch (Exception e)
@@ -141,7 +142,7 @@ namespace Baackup
 
         static void CopyFolder(string folder)
         {
-            folder = Program.Executable + new DirectoryInfo(folder).Name;
+            folder = Program.ServerDirectory + new DirectoryInfo(folder).Name;
 
             try
             {
@@ -172,11 +173,11 @@ namespace Baackup
             }
         }
 
-        static void Compress()
+        static void CompressAndSave()
         {
             ProcessStartInfo p = new ProcessStartInfo(); // Set processinfo
 
-            p.FileName = Program.Executable + "7z.exe"; // Set filename
+            p.FileName = Program.ServerDirectory + "7z.exe"; // Set filename
 
             // EXAMPLE FOR BELOW: a -t7z "C:\Backups\backup-{ID}.7z" "C:\backups\tmp\backup-{ID}\"
             p.Arguments = "a -t7z \"" + Program.backupcontainer + "\\" + Program.backupid + ".7z\" \"" + Program.tmpsave + "\\\""; // Set args

@@ -22,7 +22,7 @@ namespace Baackup
 
                 p.WindowStyle = ProcessWindowStyle.Hidden; // Hide window
 
-                p.FileName = Program.Executable + "mcrcon.exe"; // Set the exec path
+                p.FileName = Program.ServerDirectory + "mcrcon.exe"; // Set the exec path
 
                 p.Arguments = "-s -p " + Program.Config_RCON_Password + " -H " + Program.Config_RCON_Hostname + " -P " + Program.rconport + " \"" + command + '"'; // Arguments
 
