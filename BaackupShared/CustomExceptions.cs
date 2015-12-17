@@ -30,4 +30,16 @@ namespace BaackupShared
           System.Runtime.Serialization.StreamingContext context) : base(info, context)
         { }
     }
+
+    [Serializable]
+    public class ConfigResetException : Exception
+    {
+        public ConfigResetException() { }
+        public ConfigResetException(string message) : base(message) { }
+        public ConfigResetException(string message, Exception inner) : base(message, inner) { }
+        protected ConfigResetException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context) : base(info, context)
+        { }
+    }
 }

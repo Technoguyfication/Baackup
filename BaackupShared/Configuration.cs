@@ -75,24 +75,15 @@ namespace BaackupShared
 
         #region Methods
 
-        public static void Initialize(bool config)
+        public static void Initialize()
         {
             try
             {
-                DB = new XMLConfig((Properties.Resources.ConfigPath.Replace("{appdata}", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData))));
+                DB = new XMLConfig(Properties.Resources.ConfigPath.Replace("{appdata}", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)));
             }
-            catch (ConfigNonexistentException) // Is the configuration not there at all?
+            catch (Exception) // I just don't know what went wrong... (And I don't care either)
             {
-                if (config)
-                    DB.DefaultConfig();
-            }
-            catch (ConfigInvalidException e) // Is the configuration there but unreadable?
-            {
-                throw new ConfigInvalidException(e.Message);
-            }
-            catch (Exception e) // Do we not know what the hell happened?
-            {
-                throw new Exception(e.Message);
+                throw; // Rethrow
             }
         }
 

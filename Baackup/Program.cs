@@ -67,31 +67,41 @@ namespace Baackup
 
         public void Start()
         {
-            // Display title and intro text
+            // Display startup messages
             Tools.Log("Baackup Initialized...");
             Tools.Log("Running on path: " + ServerDirectory);
+
+            #region Configuration Initialization
 
             // Is the config existent and valid?
             try
             {
-
+                Configuration.Initialize();
             }
-            catch (ConfigNonexistentException)
+            catch (ConfigNonexistentException) // The config wasn't found. I tried really hard to find it, but I'm the little programming language that couldn't.
             {
                 Tools.Log("Could not find the configuration file! Please run the Configuration Tool.", "Fatal");
                 Tools.Exit(2); // File not found
             }
-            catch (ConfigInvalidException)
+            catch (ConfigInvalidException) // I found it, but I couldn't get it open :(
             {
                 Tools.Log("The config could not be read, please reset it by deleting \"BaackupConfig.xml\" in your AppData and re-running the Configuration Tool.", "Fatal");
                 Tools.Exit(4); // File could not be opened.
             }
-            catch (Exception e)
+            catch (ConfigResetException) // I found it, but it told me to wipe it.
             {
-                Tools.Log("There was a general error while reading the configuration. Please try resetting the config file located in AppData.", "Fatal");
+                Tools.Log("The config version was different than the required version. Resetting configuration and stopping program!", "Warning");
+                Tools.Exit(0); // This isn't really an error.
+            }
+            catch (Exception e) // I found it, but it set the office on fire when I opened it D:
+            {
+                Tools.Log(string.Format("There was a general error while reading the configuration. Please try resetting the config file located in AppData. The error message was \"{0}\"", e.Message), "Fatal");
                 Tools.Exit(1); // General Error
             }
 
+            #endregion
+
+            // We're good to go!
             Tools.Log("Everything is OK");
             Backup.StartBackup(IO); // Begin backup process
         }
