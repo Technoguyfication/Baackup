@@ -19,29 +19,28 @@ namespace Baackup
             {
                 // We're using MCRCON by Tiiffi
 
-                ProcessStartInfo p = new ProcessStartInfo();
+                ProcessStartInfo RCONStartInfo = new ProcessStartInfo();
 
-                p.WindowStyle = ProcessWindowStyle.Hidden; // Hide window
+                RCONStartInfo.FileName = string.Format("{0}\\mcrcon.exe", Program.ExecutableDirectory); // Set the exec path
 
-                p.FileName = Program.ServerDirectory + "mcrcon.exe"; // Set the exec path
-
-                p.Arguments = "-s -p " + Program.Config_RCON_Password + " -H " + Program.Config_RCON_Hostname + " -P " + Program.rconport + " \"" + command + '"'; // Arguments
+                RCONStartInfo.Arguments = string.Format("-s -p \"{0}\" -H {1} -P {2} \"{3}\"", Configuration.RCON_Password, Configuration.RCON_Hostname, Configuration.RCON_Port, command);
+                RCONStartInfo.WindowStyle = ProcessWindowStyle.Hidden; // Hide window
 
                 try
                 {
-                    Process.Start(p);
+                    Process.Start(RCONStartInfo);
                 }
                 catch (Exception e)
                 {
-                    Tools.Log("Failed to launch RCON Executable: " + e.Message);
+                    Tools.Log(string.Format("Failed to launch RCON Executable: {0}", e.Message), "Error");
                     return;
                 }
 
-                Tools.Log("FAF RCON Command Sent: " + command);
+                Tools.Log("RCON Command Sent: " + command);
             }
             else
             {
-                Tools.Log("Failed to run RCON command: " + command + " (RCON Disabled)");
+                Tools.Log(string.Format("Failed to run RCON command: {0} (RCON Disabled)", command));
             }
         }
     }

@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO;
 using System.Diagnostics;
+using System.IO;
 using BaackupShared;
 
 namespace Baackup
 {
     public class Backup
     {
-        public static void StartBackup()
+        public static void StartBackup(BaackupIO IO)
         {
             // Autosave the server if possible
             if (Configuration.RCON_Enabled) // We don't _really_ need to test for RCON support, but this saves the uselss log entry.
@@ -51,7 +51,7 @@ namespace Baackup
             // Make sure all these files actually exist
             foreach (string file in serverfiles)
             {
-                if (!File.Exists(file))
+                if (!IO.ServerFileExists(file))
                 {
                     Tools.Log(string.Format("Server config file \"{0}\" was not found! Removing from backup que.", file), "Warning");
                     serverfiles.Remove(file);
@@ -74,7 +74,7 @@ namespace Baackup
                 // Remove any non-world entries
                 foreach (string world in worlds)
                 {
-                    if (!File.Exists(string.Format("{0}\\level.dat", world))) // Test for the "level.dat" file
+                    if (!IO.ServerFileExists(string.Format("{0}\\level.dat", world))) // Test for the "level.dat" file
                         worlds.Remove(world);
                 }
 
@@ -109,31 +109,17 @@ namespace Baackup
 
             #region Compress / Move
 
+            if (!File.Exists(Program.BackupTMPSave))
+            {
+                Tools.Log("We could not locate the temporary backup directory! Baackup can no longer continue to function, exiting.", "Fatal");
+                Tools.Exit(3);
+            }
+
             // Compress to final directory
             if (Configuration.Save_CompressionEnabled)
-            {
                 CompressAndSave();
-                Tools.Log("Compression complete!");
-            }
-            else
-            {
-                Tools.Log("No compression enabled, copying files");
 
-                // Set root for file save
-                string filesave = Configuration.Save_Container + "\\" /*+ id */;
-
-                //Now Create all of the directories
-                foreach (string dirPath in Directory.GetDirectories(Program.tmpsave, "*",
-                    SearchOption.AllDirectories))
-                    Directory.CreateDirectory(dirPath.Replace(Program.tmpsave, filesave + "\\"));
-
-                //Copy all the files & Replaces any files with the same name
-                foreach (string newPath in Directory.GetFiles(Program.tmpsave, "*.*",
-                    SearchOption.AllDirectories))
-                    File.Copy(newPath, newPath.Replace(Program.tmpsave, filesave + "\\"), true);
-            }
-
-            Directory.Delete(Program.tmpsave, true);
+            Directory.Delete(Program.BackupTMPSave, true);
 
             #endregion Compress / Move
 
@@ -143,71 +129,59 @@ namespace Baackup
 
             // Wait one second then terminate program
             Tools.Wait(1);
+            Tools.Log("Shutting down...");
             Tools.Exit(0);
         }
 
         #region Other Stuff
 
-        static void CopyFile(string file)
+        private static void CopyFile(string file)
         {
-            try
-            {
-                File.Copy(Program.ServerDirectory + file, Program.tmpsave + file);
-                Tools.Log("Copied File:" + file);
-            }
-            catch (Exception e)
-            {
-                Tools.Log("Could not copy file \"" + file + "\": " + e.Message);
-            }
+
         }
 
-        static void CopyFolder(string folder)
+        private static void CopyFolder(string folder)
         {
-            folder = Program.ServerDirectory + new DirectoryInfo(folder).Name;
+
+        }
+
+        private static void CompressAndSave()
+        {
+            if (!File.Exists(Program.ServerDirectory + "7z.exe"))
+            {
+                Tools.Log("Could not locate 7z.exe! We can't compress the files, copying files to save location instead.", "Error");
+                SaveOnly();
+                return;
+            }
+
+            ProcessStartInfo ZipStartInfo = new ProcessStartInfo(); // Set processinfo
+
+            ZipStartInfo.FileName = Program.ServerDirectory + "7z.exe"; // Set filename
+
+            // Example args: a -t7z "C:\Backups\1-2-3.1234-Baackup.7z" "C:\Temp\Baackup\1-2-3.1234-Baackup\"
+            ZipStartInfo.Arguments = string.Format("a -t7z \"{0}\\{1}-{2}\" \"{3}\"", Configuration.Save_Container, Program.BackupID, Configuration.Save_Prefix, Program.BackupTMPSave);
+            ZipStartInfo.WindowStyle = ProcessWindowStyle.Hidden; // Hide window
+
+            Tools.Log("Beginning compression.. (This may take a while)");
 
             try
             {
-                Tools.Log("Copying Directory: " + folder);
-
-                //Create start directory
-                Directory.CreateDirectory(Program.tmpsave + new DirectoryInfo(folder).Name);
-
-                //Create all of the directories
-                foreach (string dirPath in Directory.GetDirectories(folder, "*",
-                    SearchOption.AllDirectories))
-                {
-                    Directory.CreateDirectory(dirPath.Replace(folder, Program.tmpsave + new DirectoryInfo(folder).Name));
-                    Tools.Log(folder + ": Create subdirectory with name " + dirPath.Replace(folder, Program.tmpsave + folder));
-                }
-
-                //Copy all the files & Replaces any files with the same name
-                foreach (string newPath in Directory.GetFiles(folder, "*.*",
-                    SearchOption.AllDirectories))
-                {
-                    File.Copy(newPath, newPath.Replace(folder, Program.tmpsave + new DirectoryInfo(folder).Name), true);
-                    Tools.Log(folder + ": Create file with name " + Path.GetFileName(newPath.Replace(folder, Program.tmpsave + folder)) + " inside " + Path.GetDirectoryName(newPath.Replace(folder, Program.tmpsave + folder)));
-                }
+                Process ZipProcess = Process.Start(ZipStartInfo); // Start Process and wait to exit.
+                ZipProcess.WaitForExit();
             }
-            catch (Exception e)
+            catch (Exception) // 7-zip has died in some way
             {
-                Tools.Log("Could not copy the directory \"" + folder + "\": " + e.Message);
+                Tools.Log("7z.exe failed to execute properly! Copying files to save location instead.", "Error");
+                SaveOnly();
+                return;
             }
+
+            Tools.Log("Compression complete!");
         }
 
-        static void CompressAndSave()
+        private static void SaveOnly()
         {
-            ProcessStartInfo p = new ProcessStartInfo(); // Set processinfo
 
-            p.FileName = Program.ServerDirectory + "7z.exe"; // Set filename
-
-            // EXAMPLE FOR BELOW: a -t7z "C:\Backups\backup-{ID}.7z" "C:\backups\tmp\backup-{ID}\"
-            p.Arguments = "a -t7z \"" + Program.backupcontainer + "\\" + Program.backupid + ".7z\" \"" + Program.tmpsave + "\\\""; // Set args
-            p.WindowStyle = ProcessWindowStyle.Hidden; // Hde window
-
-            Tools.Log("Compressing (This may take a long time)");
-
-            Process x = Process.Start(p); // Start Process and wait to exit.
-            x.WaitForExit();
         }
 
         #endregion Other Stuff

@@ -39,6 +39,9 @@ namespace Baackup
             }
         }
 
+        // Classes
+        public static BaackupIO IO;
+
         #endregion Class Variables
 
         static void Main(string[] args)
@@ -56,6 +59,8 @@ namespace Baackup
                 Tools.Exit(1);
             }
 
+            IO = new BaackupIO(ServerDirectory); // Set the IO reference now that we have a directory
+
             new Program().Start(); // New Instance of the program, then start.
 
             Tools.Log("Unrecoverable exception, program is in wrong class. Exiting.", "Fatal");
@@ -71,7 +76,7 @@ namespace Baackup
             // if (config exists and is valid)
 
             Tools.Log("Everything is OK");
-            Backup.StartBackup(); // Begin backup process
+            Backup.StartBackup(IO); // Begin backup process
         }
     }
 }
