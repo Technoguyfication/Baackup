@@ -111,7 +111,7 @@ namespace Baackup
 
             if (!Directory.Exists(Program.BackupTMPSave))
             {
-                Tools.Log("We could not locate the temporary backup directory! Baackup can no longer continue to function, exiting.", "Fatal");
+                Tools.Log("We could not locate the temporary backup directory! Baackup can no longer continue to function.", "Fatal");
                 Tools.Exit(3);
             }
 
@@ -133,7 +133,6 @@ namespace Baackup
 
             // Wait one second then terminate program
             Tools.Wait(1);
-            Tools.Log("Shutting down...");
             Tools.Exit(0);
         }
 

@@ -6,172 +6,72 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Xml;
 
-namespace BaackupConfig
+namespace BaackupShared
 {
-    public class XMLConfig
+    internal class XMLConfig
     {
+        private int ConfigVersion { get { return int.Parse(Properties.Resources.ConfigVersion); } } // int.Parse() shouldn't return an exception unless the resources get messed up.
+        private string ConfigFile { get; set; }
 
-        /*
+        // RCON
+        bool RCON_Enabled;
+        string RCON_Password;
+        string RCON_Hostname;
+        int RCON_Port;
 
-            This entire thing has gone to hell. recode.
+        // Server Platform
+        string Platform;
 
-        */
+        // Worlds Container
+        bool WorldsContainer_Enabled;
+        string WorldsContainer_Path;
 
+        // Backup Messages
+        bool BackupMessages_StartedEnabled;
+        string BackupMessages_StartedMessage;
 
-        /*
-        public static void GenerateDefaultConfig()
+        bool BackupMessages_FinishedEnabled;
+        string BackupMessages_FinishedMessage;
+
+        // General Backup Items
+        bool Backup_PluginsEnabled;
+        bool Backup_LogsEnabled;
+
+        // TMP Settings
+        bool TMP_CustomEnabled;
+        string TMP_CustomPath;
+
+        // Save Settings
+        string Save_Container;
+        string Save_Prefix;
+        bool Save_CompressionEnabled;
+
+        public XMLConfig(string ConfigurationFile)
         {
-            // RCON
-            Variables.UseRCON = false;
-            Variables.RCONHostname = "127.0.0.1";
-            Variables.RCONPass = null;
-            Variables.RCONPort = 25575;
+            ConfigFile = ConfigurationFile; // Set the configuration file path
 
-            // Server Platform
-            Variables.Platform = "vanilla";
-
-            // Worlds container
-            Variables.WorldsContainerActive = false;
-            Variables.WorldsContainerPath = null;
-
-            // Backup Messages
-            Variables.BackupMessageActive = false;
-            Variables.BackupMessage = "say The server is backing up! Prepare for some slight lag!";
-
-            Variables.BackupFinishedMessageActive = false;
-            Variables.BackupFinishedMessage = "say Server Backup Completed!";
-
-            // Backup items
-            Variables.BackupPlugins = false;
-            Variables.BackupLogs = true;
-
-            // Folders
-            Variables.BackupContainer = null;
-            Variables.UseCustomTMPDir = false;
-            Variables.CustomTMPDir = null;
-
-            // Backup Saving
-            Variables.BackupPrefix = null;
-            Variables.CompressBackups = true;
+            Load(); // Any exceptions this generates should be passed to the Configuration class
         }
 
-        public static bool ConfigExists()
+        #region Config Get
+
+        private void Load()
         {
-            if (File.Exists(Variables.ConfigFilePath))
-                return true;
-            else
-                return false;
+            // If the configuration file does not exist, simply return false.
+            if (!File.Exists(ConfigFile))
+            {
+                throw new ConfigNonexistentException();
+            }
+
+
         }
 
-        #region Config Save / Load
-
-        public static void LoadConfig()
+        public void DefaultConfig()
         {
-            if (!ConfigExists())
-            {
-                GenerateDefaultConfig();
-                return;
-            }
 
-            try // If anything goes wrong, this should keep it from breaking the whole program
-            {
-                using (XmlReader reader = XmlReader.Create(Variables.ConfigFilePath))
-                {
-                    reader.ReadToFollowing("Config"); // Here we specify the config.. not that there's anything else right now
-                    reader.MoveToFirstAttribute();
-                    Variables.UseRCON = Boolean.Parse(reader.Value.ToLower()); // Use rcon?
-                    reader.MoveToNextAttribute();
-                    Variables.RCONPass = reader.Value; // Rcon password
-                    reader.MoveToNextAttribute();
-                    Variables.RCONHostname = reader.Value; // Rcon hostname
-                    reader.MoveToNextAttribute();
-                    Variables.RCONPort = int.Parse(reader.Value); // Rcon port
-                    reader.MoveToNextAttribute();
-                    Variables.WorldsContainerActive = Boolean.Parse(reader.Value.ToLower()); // Use worlds container?
-                    reader.MoveToNextAttribute();
-                    Variables.WorldsContainerPath = reader.Value; // Path to worlds container
-                    reader.MoveToNextAttribute();
-                    Variables.BackupMessageActive = Boolean.Parse(reader.Value.ToLower()); // Use backup server broadcast?
-                    reader.MoveToNextAttribute();
-                    Variables.BackupMessage = reader.Value; // Backup server broadcast message?
-                    reader.MoveToNextAttribute();
-                    Variables.BackupPlugins = Boolean.Parse(reader.Value.ToLower());  // Backup plugins? (Spigot and Bukkit only)
-                    reader.MoveToNextAttribute();
-                    Variables.BackupLogs = Boolean.Parse(reader.Value.ToLower()); // Backup server logs?
-                    reader.MoveToNextAttribute();
-                    Variables.BackupContainer = reader.Value; // Where to save the backups?
-                    reader.MoveToNextAttribute();
-                    Variables.UseCustomTMPDir = Boolean.Parse(reader.Value.ToLower()); // Do we use a custom tmp dir? (Default is {Backups save path}\tmp
-                    reader.MoveToNextAttribute();
-                    Variables.CustomTMPDir = reader.Value; // If the above is enabled, where is this dir you want?
-                    reader.MoveToNextAttribute();
-                    Variables.BackupPrefix = reader.Value; // Do you want to prefix your backups?
-                    reader.MoveToNextAttribute();
-                    Variables.CompressBackups = Boolean.Parse(reader.Value.ToLower()); // Do you want to compress your backups?
-                    reader.MoveToNextAttribute();
-                    Variables.Platform = reader.Value; // Platform? (Spigot/CraftBukkit/Vanilla)
-                    reader.MoveToNextAttribute();
-                    Variables.BackupFinishedMessageActive = Boolean.Parse(reader.Value.ToLower()); // Use the backup finished message?
-                    reader.MoveToNextAttribute();
-                    Variables.BackupFinishedMessage = reader.Value; // What is the backup finished message?
-                }
-            }
-            catch (Exception e)
-            {
-                // If something goes wrong, then actually do nothing
-                string ex = e.Message;
-            }
         }
 
-        public static void SaveConfig()
-        {
-            // Create a new XMLWriter
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.Indent = true;
+        #endregion
 
-            // Make sure we don't break everything if some error is thrown
-
-            try
-            {
-                XmlWriter writer = XmlWriter.Create(Variables.ConfigFilePath, settings);
-
-                writer.WriteStartDocument();
-                writer.WriteComment("This is the config file for Baackup, NEVER share or upload this file anywhere on the internet as it could contain your server's RCON password and info in it. Please use the included Configuration tool to edit this file.");
-                writer.WriteStartElement("Config");
-                writer.WriteAttributeString("usercon", Variables.UseRCON.ToString());
-                writer.WriteAttributeString("rconpass", Variables.RCONPass);
-                writer.WriteAttributeString("rconhostname", Variables.RCONHostname);
-                writer.WriteAttributeString("rconport", Variables.RCONPort.ToString());
-                writer.WriteAttributeString("worldscontaineractive", Variables.WorldsContainerActive.ToString());
-                writer.WriteAttributeString("worldscontainerpath", Variables.WorldsContainerPath);
-                writer.WriteAttributeString("backupmsgactive", Variables.BackupMessageActive.ToString());
-                writer.WriteAttributeString("backupmsg", Variables.BackupMessage);
-                writer.WriteAttributeString("backupplugins", Variables.BackupPlugins.ToString());
-                writer.WriteAttributeString("backuplogs", Variables.BackupLogs.ToString());
-                writer.WriteAttributeString("backupcontainer", Variables.BackupContainer);
-                writer.WriteAttributeString("usecustomtmpdir", Variables.UseCustomTMPDir.ToString());
-                writer.WriteAttributeString("customtmpdir", Variables.CustomTMPDir);
-                writer.WriteAttributeString("backupscustomidprefix", Variables.BackupPrefix);
-                writer.WriteAttributeString("compressbackups", Variables.CompressBackups.ToString());
-                writer.WriteAttributeString("platform", Variables.Platform);
-                writer.WriteAttributeString("backupfinishmessageactive", Variables.BackupFinishedMessageActive.ToString());
-                writer.WriteAttributeString("backupfinishedmessage", Variables.BackupFinishedMessage);
-
-                writer.WriteEndElement();
-                writer.WriteEndDocument();
-
-                writer.Flush();
-                writer.Close();
-            }
-            catch (Exception e)
-            {
-                // do something with this
-                string ex = e.Message;
-            }
-        }
-
-        #endregion Config Save / Load
-        
-        */
     }
 }

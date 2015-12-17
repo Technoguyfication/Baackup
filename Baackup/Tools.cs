@@ -7,7 +7,7 @@ using BaackupShared;
 
 namespace Baackup
 {
-    public class Tools
+    public static class Tools
     {
         /// Write text to the log. (Console)
         /// </summary>
@@ -56,6 +56,7 @@ namespace Baackup
         /// <param name="code">Exit code to exit with. Default: 0</param>
         public static void Exit(int code = 0)
         {
+            Log(string.Format("Exiting with code {0} ({1})", code, ReadableExitCode(code)));
             Environment.Exit(code);
         }
 
@@ -83,6 +84,17 @@ namespace Baackup
         public static string NewBackupID()
         {
             return string.Format("{0}--{1}", Configuration.Save_Prefix, DateTime.Now.ToString("yyyy-mmm-dd.hh-mm-ss-ffff"));
+        }
+
+        public static string ReadableExitCode(int code)
+        {
+            return new string[] {
+                "The operation completed successfully.",
+                "General Failure",
+                "The system cannot find the file specified.",
+                "The system cannot find the path specified.",
+                "The system cannot open the file",
+                "Access is denied." }[code];
         }
     }
 }
