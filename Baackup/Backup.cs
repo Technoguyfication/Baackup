@@ -90,14 +90,14 @@ namespace Baackup
 
             #endregion
 
-            #region Backup Plugins
+            #region Copy Plugins
 
             if (Configuration.Platform_IsPluginsSupported() && Configuration.Backup_PluginsEnabled)
                 CopyFolder("plugins");
 
             #endregion
 
-            #region Backup Logs
+            #region Copy Logs
 
             if (Configuration.Backup_LogsEnabled)
                 CopyFolder("logs");
@@ -109,17 +109,21 @@ namespace Baackup
 
             #region Compress / Move
 
-            if (!File.Exists(Program.BackupTMPSave))
+            if (!Directory.Exists(Program.BackupTMPSave))
             {
                 Tools.Log("We could not locate the temporary backup directory! Baackup can no longer continue to function, exiting.", "Fatal");
                 Tools.Exit(3);
             }
 
-            // Compress to final directory
+            // Send to final directory
             if (Configuration.Save_CompressionEnabled)
                 CompressAndSave();
+            else
+                SaveOnly();
 
-            Directory.Delete(Program.BackupTMPSave, true);
+            Tools.Log("Removing temporary files...");
+
+            Directory.Delete(Program.BackupTMPSave, true); // Dete temporary files
 
             #endregion Compress / Move
 
@@ -137,12 +141,12 @@ namespace Baackup
 
         private static void CopyFile(string file)
         {
-
+            File.Copy(string.Format("{0}\\{1}", Program.ServerDirectory, file), string.Format("{0}\\{1}", Program.BackupTMPSave, file));
         }
 
         private static void CopyFolder(string folder)
         {
-
+            CopyFolderStructure(string.Format("{0}\\{1}", Program.ServerDirectory, folder), Program.BackupTMPSave);
         }
 
         private static void CompressAndSave()
@@ -181,7 +185,29 @@ namespace Baackup
 
         private static void SaveOnly()
         {
+            string savecontainer = string.Format("{0}\\{1}", Path.GetFullPath(Configuration.Save_Container), Program.BackupID);
 
+            // Create the save container
+            Directory.CreateDirectory(savecontainer);
+
+            CopyFolderStructure(Program.BackupTMPSave, savecontainer);
+
+            Tools.Log("Backup files copied to backup location!");
+        }
+
+        private static void CopyFolderStructure(string source, string dest)
+        {
+            // Create directory structure first
+            foreach (string folder in Directory.GetDirectories(source, "*", SearchOption.AllDirectories))
+            {
+                Directory.CreateDirectory(string.Format("{0}\\{1}", dest, folder));
+            }
+
+            // Now copy the files
+            foreach (string file in Directory.GetFiles(source, "*", SearchOption.AllDirectories))
+            {
+                File.Copy(file, string.Format("{0}\\{1}", dest, file));
+            }
         }
 
         #endregion Other Stuff

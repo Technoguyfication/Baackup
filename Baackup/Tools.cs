@@ -13,7 +13,7 @@ namespace Baackup
         /// </summary>
         /// <param name="text">Message to print</param>
         /// <param name="level">Log Level. Defaults to [INFO]</param>
-        public static void Log(string text, string level = "Info", bool verbose = false)
+        public static void Log(string text, string level = "Info")
         {
             Console.WriteLine("[Baackup - " + DateTime.Now.ToString("hh:mm:ss") + "] [" + level.ToUpper() + "] " + text);
         }
@@ -82,7 +82,7 @@ namespace Baackup
         /// <returns>Unique backup ID</returns>
         public static string NewBackupID()
         {
-            return Configuration.Save_Prefix + '_' + DateTime.Now.ToString("yyyy-mmm-dd.hh-mm-ss-ffff--backup");
+            return string.Format("{0}--{1}", Configuration.Save_Prefix, DateTime.Now.ToString("yyyy-mmm-dd.hh-mm-ss-ffff"));
         }
     }
 }
