@@ -37,7 +37,7 @@ namespace Baackup
                     return string.Format("{0}\\Baackup\\{1}", Path.GetTempPath(), BackupID);
                 }
             }
-        }
+        } // This should not be used until configuration is verified!
 
         // Classes
         public static BaackupIO IO;
@@ -59,17 +59,24 @@ namespace Baackup
 
             IO = new BaackupIO(ServerDirectory); // Set the IO reference now that we have a directory
 
-            new Program().Start(); // New Instance of the program, then start.
+            try
+            {
+                new Program().Start(); // New Instance of the program, then start.
+            }
+            catch (Exception e) // If something isn't caught yet, there's a problem
+            {
+                Tools.Log(string.Format("Uncaught error in program! Details: {0}", e.Message), "Fatal");
+            }
 
-            Tools.Log("Unrecoverable exception, program is in wrong class.", "Fatal");
+            Tools.Log("Unrecoverable exception, program is in wrong class", "Fatal");
             Tools.Exit(1); // If for some reason we end up back here, there's an error so we exit with '1'
         }
 
         public void Start()
         {
             // Display startup messages
-            Tools.Log("Baackup Initialized...");
-            Tools.Log("Running on path: " + ServerDirectory);
+            Tools.Log("Baackup is starting...");
+            Tools.Log(string.Format("Looking for server at: {0}", ServerDirectory));
 
             #region Configuration Initialization
 

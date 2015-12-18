@@ -18,7 +18,6 @@ namespace BaackupShared
         { }
     }
 
-
     [Serializable]
     public class ConfigInvalidException : Exception
     {
@@ -38,6 +37,18 @@ namespace BaackupShared
         public ConfigResetException(string message) : base(message) { }
         public ConfigResetException(string message, Exception inner) : base(message, inner) { }
         protected ConfigResetException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context) : base(info, context)
+        { }
+    }
+
+    [Serializable]
+    public class ConfigNotInitializedException : Exception
+    {
+        public ConfigNotInitializedException() { }
+        public ConfigNotInitializedException(string message) : base(message) { }
+        public ConfigNotInitializedException(string message, Exception inner) : base(message, inner) { }
+        protected ConfigNotInitializedException(
           System.Runtime.Serialization.SerializationInfo info,
           System.Runtime.Serialization.StreamingContext context) : base(info, context)
         { }

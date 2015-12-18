@@ -12,32 +12,39 @@ namespace Baackup
     {
         public static void Send(string command)
         {
-            if (Configuration.RCON_Enabled)
+            try
             {
-                // We're using MCRCON by Tiiffi
-
-                ProcessStartInfo RCONStartInfo = new ProcessStartInfo();
-
-                RCONStartInfo.FileName = string.Format("{0}\\mcrcon.exe", Program.ExecutableDirectory); // Set the exec path
-
-                RCONStartInfo.Arguments = string.Format("-s -p \"{0}\" -H {1} -P {2} \"{3}\"", Configuration.RCON_Password, Configuration.RCON_Hostname, Configuration.RCON_Port, command);
-                RCONStartInfo.WindowStyle = ProcessWindowStyle.Hidden; // Hide window
-
-                try
+                if (Configuration.RCON_Enabled)
                 {
-                    Process.Start(RCONStartInfo);
-                }
-                catch (Exception e)
-                {
-                    Tools.Log(string.Format("Failed to launch RCON Executable: {0}", e.Message), "Error");
-                    return;
-                }
+                    // We're using MCRCON by Tiiffi
 
-                Tools.Log("RCON Command Sent: " + command);
+                    ProcessStartInfo RCONStartInfo = new ProcessStartInfo();
+
+                    RCONStartInfo.FileName = string.Format("{0}\\mcrcon.exe", Program.ExecutableDirectory); // Set the exec path
+
+                    RCONStartInfo.Arguments = string.Format("-s -p \"{0}\" -H {1} -P {2} \"{3}\"", Configuration.RCON_Password, Configuration.RCON_Hostname, Configuration.RCON_Port, command);
+                    RCONStartInfo.WindowStyle = ProcessWindowStyle.Hidden; // Hide window
+
+                    try
+                    {
+                        Process.Start(RCONStartInfo);
+                    }
+                    catch (Exception e)
+                    {
+                        Tools.Log(string.Format("Failed to launch RCON Executable: {0}", e.Message), "Error");
+                        return;
+                    }
+
+                    Tools.Log(string.Format("RCON Command Sent: {0}"), command);
+                }
+                else
+                {
+                    Tools.Log(string.Format("Failed to run RCON command: {0} (RCON Disabled)", command));
+                }
             }
-            else
+            catch (ConfigNotInitializedException)
             {
-                Tools.Log(string.Format("Failed to run RCON command: {0} (RCON Disabled)", command));
+                Tools.Log("Tried to access non-initalized configuration!", "Fatal");
             }
         }
     }
