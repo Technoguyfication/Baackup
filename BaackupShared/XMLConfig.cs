@@ -13,7 +13,7 @@ namespace BaackupShared
         #region XMLConfig Data
 
         private int ConfigVersion { get { return int.Parse(Properties.Resources.ConfigVersion); } } // int.Parse() shouldn't return an exception unless the resources get messed up.
-        private string ConfigFile { get; set; }
+        private string ConfigFile;
 
         #endregion
 
@@ -63,6 +63,9 @@ namespace BaackupShared
 
         #region Config Get
 
+        /// <summary>
+        /// Loads the configuration from the file.
+        /// </summary>
         private void Load()
         {
             int _version; // Temporary version to be loaded from XML file. If this isn't equal to the program version, config will be reset.
@@ -122,9 +125,62 @@ namespace BaackupShared
             }
         }
 
-        public void DefaultConfig()
+        /// <summary>
+        /// Saves configuration to the file.
+        /// </summary>
+        public void Save()
         {
+            // Make sure directory exists
+            if (!Directory.Exists(Directory.GetDirectoryRoot(ConfigFile)))
+                Directory.CreateDirectory(Directory.GetDirectoryRoot(ConfigFile));
 
+
+            // Begin XMLWriter Settings
+            XmlWriterSettings xmlsettings = new XmlWriterSettings();
+            xmlsettings.Indent = true;
+
+            // Start XMLWriter
+            XmlWriter writer = XmlWriter.Create(ConfigFile, xmlsettings);
+
+            // Write
+            writer.WriteStartDocument(); // Begin the file
+            writer.WriteComment("WARNING! This file may contain server RCON passwords and other sensitive information! NEVER share this file anywhere!"); // Write warning
+
+            writer.WriteStartElement("BaackupConfig"); // Start element
+            writer.WriteAttributeString("version", ConfigVersion.ToString()); // Config version
+
+            writer.WriteElementString("RCON_Enabled", RCON_Enabled.ToString()); // RCON Enabled
+            writer.WriteElementString("RCON_Password", RCON_Password); // RCON Password
+            writer.WriteElementString("RCON_Hostname", RCON_Hostname); // RCON Hostname
+            writer.WriteElementString("RCON_Port", RCON_Port.ToString()); // RCON Port
+
+            writer.WriteElementString("Platform", Platform); // Server Platform
+
+            writer.WriteElementString("WorldsContainer_Enabled", WorldsContainer_Enabled.ToString()); // Worlds Container Enabled
+            writer.WriteElementString("WorldsContainer_Path", WorldsContainer_Path); // Worlds Cotnainer Path
+
+            writer.WriteElementString("BackupMessages_StartedEnabled", BackupMessages_StartedEnabled.ToString()); // Started Backup Message
+            writer.WriteElementString("BackupMessages_StratedMessaged", BackupMessages_StartedMessage); // Started Backup Message
+            writer.WriteElementString("BackupMessages_FinishedEnabled", BackupMessages_FinishedEnabled.ToString()); // Finished Backup Message Enabled
+            writer.WriteElementString("BackupMessages_FinishedMessage", BackupMessages_FinishedMessage); // Finished Backup Message
+
+            writer.WriteElementString("Backup_PluginsEnabled", Backup_PluginsEnabled.ToString()); // Plugins Enabled
+            writer.WriteElementString("Backup_LogsEnabled", Backup_LogsEnabled.ToString()); // Logs Enabled
+
+            writer.WriteElementString("TMP_CustomEnabled", TMP_CustomEnabled.ToString()); // TMP Custom Enabled
+            writer.WriteElementString("TMP_CustomPath", TMP_CustomPath); // TMP Custom Path
+
+            writer.WriteElementString("Save_Container", Save_Container); // Save Container
+            writer.WriteElementString("Save_CompressionEnabled", Save_CompressionEnabled.ToString()); // Save Compression Enabled
+            writer.WriteElementString("Save_Prefix", Save_Prefix); // Save Prefix
+
+            writer.WriteEndElement(); // Finish </BaackupConfig>
+            writer.WriteEndDocument(); // Finish </xml>
+
+            writer.Flush(); // Flush file stream
+            writer.Close(); // Close file
+
+            writer = null; // No need to keep this garbage. Standing around. Smelling, and being useless.
         }
 
         #endregion

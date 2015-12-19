@@ -40,11 +40,11 @@ namespace Baackup
             /* Example:
             Baackup For Minecraft Server - Technoguyfication - v1.0.0.0 - Main */
 
-            string s = "[Baackup for Minecraft Server - Technoguyfication - v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            string s = "Baackup for Minecraft Server - Technoguyfication - v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 
             if (!(title == null))
             {
-                s = s + " - " + title; // Append the title to the end of the title.
+                s = string.Format("{0} - {1}", s, title); // Append the title to the end of the title.
             }
 
             Console.Title = s;
