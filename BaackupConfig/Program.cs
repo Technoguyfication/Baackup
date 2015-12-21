@@ -9,10 +9,13 @@ namespace BaackupConfig
 {
     class Program
     {
+        public static Main main = new Main();
+
+        [STAThread]
         static void Main(string[] args)
         {
             Application.EnableVisualStyles();
-            Application.Run(new Main());
+            Application.Run(main);
         }
     }
 }

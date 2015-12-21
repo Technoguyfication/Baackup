@@ -16,5 +16,19 @@ namespace BaackupConfig
         {
             InitializeComponent();
         }
+
+        #region Events
+
+        private void Box_RCON_Port_Leave(object sender, EventArgs e)
+        {
+            Validation.ValidatePortEntry(sender, e);
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+            // Do things and stuff
+        }
+
+        #endregion
     }
 }
