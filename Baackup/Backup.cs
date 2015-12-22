@@ -47,7 +47,7 @@ namespace Baackup
             }
 
             // Inform players that backup is starting
-            if (Configuration.BackupMessages_StartedEnabled)
+            if (Configuration.BackupMessages_StartedEnabled && Configuration.RCON_Enabled)
                 RCON.Send(Configuration.BackupMessages_StartedMessage);
 
             #region Copy Server Configuration Files
@@ -127,7 +127,8 @@ namespace Baackup
 
             #endregion
 
-            RCON.Send("save-on"); // Re-enable autosaving
+            if (Configuration.RCON_Enabled)
+                RCON.Send("save-on"); // Re-enable autosaving
             Tools.Log("Files copied, Compression / Final Move will continue in background.");
 
             #region Compress / Move
@@ -151,7 +152,7 @@ namespace Baackup
             #endregion Compress / Move
 
             // Tell players backup is complete
-            if (Configuration.BackupMessages_FinishedEnabled)
+            if (Configuration.BackupMessages_FinishedEnabled && Configuration.RCON_Enabled)
                 RCON.Send(Configuration.BackupMessages_FinishedMessage);
 
             // Wait one second then terminate program
