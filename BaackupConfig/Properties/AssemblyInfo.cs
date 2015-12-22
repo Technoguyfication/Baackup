@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following set of attributes.
 // Change these attribute values to modify the information associated with an assembly.
 [assembly: AssemblyTitle("Baackup Configuration Tool")]
-[assembly: AssemblyDescription("Configuration Tool for Baackup")]
+[assembly: AssemblyDescription("Configuration Tool for Baackup, the free and open source Minecraft server backup program.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Technoguyfication and Fesarius Gaming")]
-[assembly: AssemblyProduct("BaackupConfig")]
-[assembly: AssemblyCopyright("Copyright © 2015")]
+[assembly: AssemblyCompany("Technoguyfication")]
+[assembly: AssemblyProduct("Baackup Configuration Tool")]
+[assembly: AssemblyCopyright("Copyright © Technoguyfication 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
