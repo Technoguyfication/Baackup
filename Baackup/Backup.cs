@@ -1,4 +1,27 @@
-﻿using System;
+﻿#region GNU License
+
+    /*
+     *  Baackup - The free and open source Minecraft server backup program.
+     *  Copyright (C) 2016  Hayden (Technoguyfication) Andreyka
+     *
+     *  This program is free software; you can redistribute it and/or modify
+     *  it under the terms of the GNU General Public License as published by
+     *  the Free Software Foundation; either version 2 of the License, or
+     *  (at your option) any later version.
+     *
+     *  This program is distributed in the hope that it will be useful,
+     *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+     *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     *  GNU General Public License for more details.
+     *
+     *  You should have received a copy of the GNU General Public License along
+     *  with this program; if not, write to the Free Software Foundation, Inc.,
+     *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+     */
+
+#endregion
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -140,34 +163,59 @@ namespace Baackup
 
         private static void CopyFile(string file)
         {
-            File.Copy(string.Format("{0}\\{1}", Program.ServerDirectory, file), string.Format("{0}\\{1}", Program.BackupTMPSave, file));
+            try
+            {
+                File.Copy(string.Format("{0}\\{1}", Program.ServerDirectory, file), string.Format("{0}\\{1}", Program.BackupTMPSave, file));
+            }
+            catch (Exception) // Did something go wrong?
+            {
+                Tools.Log(string.Format("Failed copying \"{0}\" to \"{1}\" (Check your server files!)", file, Program.BackupTMPSave + file), "Warning");
+            }
         }
 
         private static void CopyFolder(string folder)
         {
-            CopyFolderStructure(string.Format("{0}\\{1}", Program.ServerDirectory, folder), Program.BackupTMPSave);
+            string source = string.Format("{0}\\{1}", Program.ServerDirectory, folder); // Format strings into a source folder
+
+            // Create directory structure first
+            foreach (string _folder in Directory.GetDirectories(source, "*", SearchOption.AllDirectories))
+            {
+                Directory.CreateDirectory(string.Format("{0}\\{1}", Program.BackupTMPSave, _folder));
+            }
+
+            // Now copy the files
+            foreach (string file in Directory.GetFiles(source, "*", SearchOption.AllDirectories))
+            {
+                CopyFile(file); // Copy da file
+            }
         }
 
         private static void CompressAndSave()
         {
-            if (!File.Exists(Program.ServerDirectory + "7z.exe"))
+            string SZipExecutable = string.Format("{0}\\Lib\\7z.exe", Program.ServerDirectory); // Set the 7-Zip executable
+
+            if (!File.Exists(SZipExecutable)) // Does the 7-zip file even exist?
             {
                 Tools.Log("Could not locate 7z.exe! We can't compress the files, copying files to save location instead.", "Error");
                 SaveOnly();
                 return;
             }
 
+            #region Process Info
+
             ProcessStartInfo ZipStartInfo = new ProcessStartInfo(); // Set processinfo
 
-            ZipStartInfo.FileName = Program.ServerDirectory + "7z.exe"; // Set filename
+            ZipStartInfo.FileName = SZipExecutable; // Set filename
 
             // Example args: a -t7z "C:\Backups\1-2-3.1234-Baackup.7z" "C:\Temp\Baackup\1-2-3.1234-Baackup\"
             ZipStartInfo.Arguments = string.Format("a -t7z \"{0}\\{1}-{2}\" \"{3}\"", Configuration.Save_Container, Program.BackupID, Configuration.Save_Prefix, Program.BackupTMPSave);
             ZipStartInfo.WindowStyle = ProcessWindowStyle.Hidden; // Hide window
 
+            #endregion
+
             Tools.Log("Beginning compression.. (This may take a while)");
 
-            try
+            try // Can we start 7-Zip and have it run successfully?
             {
                 Process ZipProcess = Process.Start(ZipStartInfo); // Start Process and wait to exit.
                 ZipProcess.WaitForExit();
@@ -175,8 +223,8 @@ namespace Baackup
             catch (Exception) // 7-zip has died in some way
             {
                 Tools.Log("7z.exe failed to execute properly! Copying files to save location instead.", "Error");
-                SaveOnly();
-                return;
+                SaveOnly(); // Copy the files instead
+                return; // Abort
             }
 
             Tools.Log("Compression complete!");
@@ -194,21 +242,6 @@ namespace Baackup
             Tools.Log("Backup files copied to backup location!");
         }
 
-        private static void CopyFolderStructure(string source, string dest)
-        {
-            // Create directory structure first
-            foreach (string folder in Directory.GetDirectories(source, "*", SearchOption.AllDirectories))
-            {
-                Directory.CreateDirectory(string.Format("{0}\\{1}", dest, folder));
-            }
-
-            // Now copy the files
-            foreach (string file in Directory.GetFiles(source, "*", SearchOption.AllDirectories))
-            {
-                File.Copy(file, string.Format("{0}\\{1}", dest, file));
-            }
-        }
-
-        #endregion Other Stuff
+        #endregion
     }
 }
