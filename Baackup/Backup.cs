@@ -175,19 +175,7 @@ namespace Baackup
 
         private static void CopyFolder(string folder)
         {
-            string source = string.Format("{0}\\{1}", Program.ServerDirectory, folder); // Format strings into a source folder
-
-            // Create directory structure first
-            foreach (string _folder in Directory.GetDirectories(source, "*", SearchOption.AllDirectories))
-            {
-                Directory.CreateDirectory(string.Format("{0}\\{1}", Program.BackupTMPSave, _folder));
-            }
-
-            // Now copy the files
-            foreach (string file in Directory.GetFiles(source, "*", SearchOption.AllDirectories))
-            {
-                CopyFile(file); // Copy da file
-            }
+            CopyFolderStructure(string.Format("{0}\\{1}", Program.ServerDirectory, folder), Program.BackupTMPSave);
         }
 
         private static void CompressAndSave()
@@ -240,6 +228,21 @@ namespace Baackup
             CopyFolderStructure(Program.BackupTMPSave, savecontainer);
 
             Tools.Log("Backup files copied to backup location!");
+        }
+
+        private static void CopyFolderStructure(string source, string dest)
+        {
+            // Create directory structure first
+            foreach (string folder in Directory.GetDirectories(source, "*", SearchOption.AllDirectories))
+            {
+                Directory.CreateDirectory(string.Format("{0}\\{1}", dest, folder));
+            }
+
+            // Now copy the files
+            foreach (string file in Directory.GetFiles(source, "*", SearchOption.AllDirectories))
+            {
+                CopyFile(file); // Copy da file
+            }
         }
 
         #endregion
