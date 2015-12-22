@@ -77,17 +77,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Third Party Includes\7z.dll">
-      <Link>Lib\7z.dll</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Lib\7z.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Third Party Includes\7z.exe">
-      <Link>Lib\7z.exe</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Lib\7z.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Third Party Includes\mcrcon.exe">
-      <Link>Lib\mcrcon.exe</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Lib\mcrcon.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
