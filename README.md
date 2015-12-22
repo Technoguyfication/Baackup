@@ -1,7 +1,7 @@
 # Baackup
 A backup program for Minecraft servers, sponsored by sheep.
 
-[![Build Status](https://travis-ci.org/Fesarius/Baackup.svg?branch=master)](https://travis-ci.org/Fesarius/Baackup)
+[![Build Status](https://travis-ci.org/Technoguyfication/Baackup.svg?branch=master)](https://travis-ci.org/Technoguyfication/Baackup)
 
 <sub>It's sponsored by sheep because it's called **baa**ckup :wink:</sub>
 
