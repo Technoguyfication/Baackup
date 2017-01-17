@@ -1,4 +1,4 @@
-﻿#region GNU License
+#region GNU License
 
     /*
      *  Baackup - The free and open source Minecraft server backup program.
@@ -37,7 +37,7 @@ namespace Baackup
         public static void StartBackup(BaackupIO IO)
         {
             // Autosave the server if possible
-            if (Configuration.RCON_Enabled) // We don't _really_ need to test for RCON support, but this saves the uselss log entry.
+            if (Configuration.RCON_Enabled) // We don't really need to test for RCON support, but this saves the uselss log entry.
             {
                 RCON.Send("save-off"); // Disable Autosave
                 RCON.Send("save-all"); // Perform Manual Save
